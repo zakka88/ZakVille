@@ -1,0 +1,19 @@
+-- Création de la table `utilisateurs`.
+--
+-- Dans cette table, nous avons ajouté un champs relationnel `ville_id` faisant
+-- référence l'id de la table `villes`.
+--
+-- |-------------|--------------------+
+-- | Relation    | Type d'association |
+-- |-------------|--------------------+
+-- | One to many | Has many           |
+-- | Many to One | belongs to         |
+-- |-------------|--------------------+
+--
+-- Un utilisateur PEUT habiter dans une seule ville. Une ville PEUT être habitée
+-- par plusieurs utilisateurs.
+--
+-- NOTE à prendre en considération: si la ville venait à disparaître de notre
+-- table `villes`, le champs `ville_id` de la table `utilisateurs` DEVRAIT
+-- se mettre automatiquement à NULL, une contrainte à configurer.
+--
