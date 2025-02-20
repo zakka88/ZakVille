@@ -8,8 +8,8 @@ if (isset($_POST["register-user"])) {
 	$useCase = new UserCreateUseCase();
 	$useCase->store($_POST);
 } else {
-	require_once "./app/usecases/UserShowRegistrationUseCase.php";
-	$useCase = new UserShowRegistrationUseCase();
+	require_once "./app/usecases/UserViewRegistrationUseCase.php";
+	$useCase = new UserViewRegistrationUseCase();
 	$data = $useCase->fetchData();
 }
 ?>

@@ -3,7 +3,7 @@
 require_once __DIR__ . "/../usecases/AuthUseCase.php";
 require_once __DIR__ . "/../tables/Cities.php";
 
-class UserShowRegistrationUseCase
+class UserViewRegistrationUseCase
 {
 	private AuthUseCase $authUseCase;
 	private Cities $citiesTable;

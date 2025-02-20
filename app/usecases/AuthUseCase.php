@@ -56,8 +56,10 @@ class AuthUseCase
 	public function adminOnly()
 	{
 		if (
-			!!$this->authentication->check() ||
-			!$this->authorization->isAdmin($this->authentication->userAccess())
+			!(
+				$this->authentication->check() &&
+				$this->authorization->isAdmin($this->authentication->userAccess())
+			)
 		) {
 			header("Location: {$this->redirectTo}");
 			exit();

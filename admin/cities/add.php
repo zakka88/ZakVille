@@ -7,6 +7,10 @@ if (isset($_POST["create-city"])) {
 	require_once "../../app/usecases/CityCreateUseCase.php";
 	$uc = new CityCreateUseCase();
 	$uc->store($_POST);
+} else {
+	require_once "../../app/usecases/CityCreateViewUseCase.php";
+	$uc = new CityCreateViewUseCase();
+	$uc->handle();
 }
 
 ?>

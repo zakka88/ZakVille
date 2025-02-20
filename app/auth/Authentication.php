@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . "/Authorization.php";
+
 class Authentication
 {
 	public function check(): bool
@@ -15,6 +17,6 @@ class Authentication
 
 	public function userAccess(): AuthorizationAccess
 	{
-		return AuthorizationAccess::Admin;
+		return AuthorizationAccess::User;
 	}
 }
