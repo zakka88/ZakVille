@@ -1,0 +1,37 @@
+:root {
+	--alert-padding: var(--spacing-2);
+	--alert-error: var(--danger-lighter);
+	--alert-border-color-error: var(--danger);
+	--alert-text-error: var(--danger);
+	--alert-success: var(--success-lighter);
+	--alert-border-color-success: var(--success);
+	--alert-text-success: var(--success);
+}
+
+.alert {
+	display: flex;
+	align-items: start;
+	justify-content: space-between;
+	margin-bottom: var(--spacing-2);
+	padding: var(--alert-padding);
+	border: 1px solid transparent;
+}
+
+.alert-success {
+	border-color: var(--alert-border-color-success);
+	background: var(--alert-success);
+	color: var(--alert-text-success);
+}
+
+.alert-error {
+	border-color: var(--alert-border-color-error);
+	background: var(--alert-error);
+	color: var(--alert-text-error);
+}
+
+.alert > button[type="button"] {
+	padding: var(--spacing-1);
+	border: none;
+	background: transparent;
+	cursor: pointer;
+}

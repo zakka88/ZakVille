@@ -1,0 +1,48 @@
+:root {
+	--form-border-color: buttonface;
+	--form-button-padding: var(--spacing-2);
+	--form-button-bg: var(--color-black);
+	--form-button-color: var(--color-white);
+}
+
+.form {
+	padding: var(--spacing-1);
+	border: 1px solid var(--form-border-color);
+	border-radius: var(--border-radius-s);
+
+	& > .form-group + .form-group {
+		border-top: 1px solid var(--form-border-color);
+	}
+}
+
+.form > button[type="submit"] {
+	width: var(--size-full);
+	padding: var(--form-button-padding);
+	border: 1px outset var(--form-border-color);
+	border-radius: var(--border-radius-s);
+	background: var(--form-button-bg);
+	color: var(--form-button-color);
+	cursor: pointer;
+
+	&:focus,
+	&:active {
+		border-style: inset;
+	}
+}
+
+.form-group {
+	padding: var(--spacing-1);
+
+	& > label {
+		display: inline-block;
+		width: var(--size-20);
+	}
+
+	& > input,
+	& > select {
+		width: calc(var(--size-80) - 1%);
+		padding: var(--spacing-1);
+		border: 1px solid var(--form-border-color);
+		border-radius: var(--border-radius-s);
+	}
+}

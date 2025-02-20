@@ -1,6 +1,6 @@
 <?php
 
-class VilleUtilisateur
+class UserCity
 {
 	// --------- //
 	// Propriété //
@@ -9,19 +9,19 @@ class VilleUtilisateur
 	/**
 	 * ID de la ville faisant reference au champs `id` de la table `ville`.
 	 */
-	private int $villeId;
+	private int $cityId;
 
 	// --------------- //
 	// Getter | Setter //
 	// --------------- //
 
-	public function getVilleId(): int
+	public function getCityId(): int
 	{
-		return $this->villeId;
+		return $this->cityId;
 	}
 
-	public function setVilleId(int $villeId): void
+	public function setCityId(int $cityId): void
 	{
-		$this->villeId = $villeId;
+		$this->cityId = $cityId;
 	}
 }

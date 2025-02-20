@@ -1,0 +1,12 @@
+:root {
+	--success: var(--color-green-700);
+	--success-lighter: var(--color-green-200);
+	--danger: var(--color-red-400);
+	--danger-lighter: var(--color-red-100);
+	--font-system: system-ui, -apple-system, blinkmacsystemfont, "Segoe UI",
+		roboto, oxygen, ubuntu, cantarell, "Open Sans", "Helvetica Neue",
+		sans-serif;
+
+	/* Radius */
+	--border-radius-s: 4px;
+}

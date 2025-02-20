@@ -1,0 +1,18 @@
+html,
+body {
+	width: var(--size-full);
+	height: var(--size-full);
+}
+
+body {
+	font-family: var(--font-system);
+}
+
+main[role="main"] {
+	max-width: var(--size-text);
+	margin-inline: auto;
+}
+
+label[for] {
+	cursor: pointer;
+}

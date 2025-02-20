@@ -1,6 +1,6 @@
 <?php
 
-class BaseDeDonnees
+class Database
 {
 	// --------- //
 	// Propriété //
