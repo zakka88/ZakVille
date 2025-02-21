@@ -9,9 +9,9 @@ class Database
 	private PDO $pdo;
 
 	/** Configurations de connexion à la base de données */
-	private string $nom = "tp_zakville";
-	private string $utilisateur = "root";
-	private string $motDePasse = "";
+	private string $name = "tp_zakville";
+	private string $user = "root";
+	private string $pass = "";
 
 	// ----------- //
 	// Constructor //
@@ -20,9 +20,9 @@ class Database
 	public function __construct()
 	{
 		$this->pdo = new PDO(
-			"mysql:dbname={$this->nom};host=localhost",
-			$this->utilisateur,
-			$this->motDePasse
+			"mysql:dbname={$this->name};host=localhost",
+			$this->user,
+			$this->pass
 		);
 		$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 		$this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
@@ -37,23 +37,23 @@ class Database
 		return $this->pdo;
 	}
 
-	public function getNom(): string
+	public function getName(): string
 	{
-		return $this->nom;
+		return $this->name;
 	}
 
-	public function setNom(string $nom): void
+	public function setName(string $name): void
 	{
-		$this->nom = $nom;
+		$this->name = $name;
 	}
 
-	public function setUtilisateur(string $utilisateur): void
+	public function setUser(string $user): void
 	{
-		$this->utilisateur = $utilisateur;
+		$this->user = $user;
 	}
 
-	public function setMotDePasse(string $mdp): void
+	public function setPassword(string $pass): void
 	{
-		$this->motDePasse = $mdp;
+		$this->pass = $pass;
 	}
 }
