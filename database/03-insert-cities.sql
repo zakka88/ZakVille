@@ -1,5 +1,5 @@
 -- Insertion de 10 villes
-INSERT INTO villes
+INSERT INTO cities
 	(name, country, capital) VALUES
 	('Bangkok', 'Thaïlande', 'Bangkok'),
 	('New-York', 'États-unis', 'Washington'),
@@ -14,12 +14,12 @@ INSERT INTO villes
 ;
 
 -- Pour les tests
-DROP PROCEDURE GetDemonym;
+DROP PROCEDURE GetCountryDemonym;
 DROP PROCEDURE GetCountryISO;
 
 DELIMITER $$
 
-CREATE PROCEDURE GetDemonym( in i_country varchar(100), out o_demonym varchar(100) )
+CREATE PROCEDURE GetCountryDemonym( in i_country varchar(100), out o_demonym varchar(100) )
 BEGIN
 
 SELECT
@@ -36,7 +36,7 @@ CASE
 	WHEN country = 'Italie' THEN 'Italien, (Mafiosi)'
 	ELSE CONCAT('Habitant de ', country)
 END INTO o_demonym
-FROM villes
+FROM cities
 WHERE country = i_country;
 
 END $$
@@ -58,7 +58,7 @@ CASE
 	WHEN country = 'Italie' THEN 'IT'
 	ELSE ''
 END INTO o_flag
-FROM villes
+FROM cities
 WHERE country = i_country;
 
 END $$

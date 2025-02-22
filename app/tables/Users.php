@@ -17,7 +17,7 @@ class Users extends Database
 	{
 		$cityReq = $this->getPdo()->prepare("
 			SELECT id
-			FROM villes
+			FROM cities
 			WHERE id = :city_id
 		");
 		$cityReq->execute(["city_id" => $user->getCityId()]);
@@ -29,10 +29,10 @@ class Users extends Database
 
 		$req = $this->getPdo()->prepare("
 			INSERT INTO {$this->tableName} (
-				prenom,
-				pseudo,
-				mdp,
-				ville_id
+				firstname,
+				username,
+				password,
+				city_id
 			) VALUES (
 				:firstname,
 				:username,

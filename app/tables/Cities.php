@@ -5,7 +5,7 @@ require_once __DIR__ . "/../entities/City.php";
 
 class Cities extends Database
 {
-	private string $tableName = "villes";
+	private string $tableName = "cities";
 
 	/**
 	 * Construit la classe Villes avec le mot-clé `new` ce qui crée un Objet
@@ -46,7 +46,7 @@ class Cities extends Database
 	 */
 	public function all(): array
 	{
-		$stmt = $this->getPdo()->query("SELECT * FROM villes");
+		$stmt = $this->getPdo()->query("SELECT * FROM {$this->tableName}");
 
 		if ($stmt === false) {
 			return [];
@@ -57,9 +57,9 @@ class Cities extends Database
 			$ville = new City();
 
 			$ville->setId($data->id);
-			$ville->setCity($data->nom);
-			$ville->setCountry($data->pays);
-			$ville->setCapitale($data->capitale);
+			$ville->setCity($data->name);
+			$ville->setCountry($data->country);
+			$ville->setCapitale($data->capital);
 			$ville->setDemonym($this->getDemonym($ville->getCountry()) ?: "");
 			$ville->setFlag($this->getDrapeau($ville->getCountry()) ?: "");
 
@@ -76,7 +76,7 @@ class Cities extends Database
 			return $_SESSION[$this->getName() . ".demonyms"][$country];
 		}
 
-		$req = $this->getPdo()->prepare("CALL GetDemonymeDuPays(:country, @demonym)");
+		$req = $this->getPdo()->prepare("CALL GetCountryDemonym(:country, @demonym)");
 
 		if ($req->execute(["country" => $country])) {
 			$req = $this->getPdo()->query("SELECT @demonym AS demonym");
@@ -114,7 +114,7 @@ class Cities extends Database
 			return $_SESSION[$this->getName() . ".flags"][$country];
 		}
 
-		$req = $this->getPdo()->prepare("CALL GetISOPays(:country, @drapeau)");
+		$req = $this->getPdo()->prepare("CALL GetCountryISO(:country, @drapeau)");
 
 		if ($req->execute(["country" => $country])) {
 			$req = $this->getPdo()->query("SELECT @drapeau AS drapeau");
@@ -147,17 +147,17 @@ class Cities extends Database
 	{
 		try {
 			$stmt = $this->getPdo()->prepare("
-				INSERT INTO {$this->tableName} (nom,pays,capitale) VALUES (
+				INSERT INTO {$this->tableName} (name,country,capital) VALUES (
 					:city_name,
 					:country,
-					:capitale
+					:capital
 				)
 			");
 
 			return $stmt->execute([
 				"city_name" => $city->getCity(),
 				"country" => $city->getCountry(),
-				"capitale" => $city->getCapitale(),
+				"capital" => $city->getCapitale(),
 			]);
 		} catch (PDOException $_) {
 			return false;
