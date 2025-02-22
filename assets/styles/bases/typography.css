@@ -1,0 +1,31 @@
+:root {
+	--font-system: system-ui, -apple-system, blinkmacsystemfont, "Segoe UI",
+		roboto, oxygen, ubuntu, cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+	--font-roboto: "Roboto", var(--font-system);
+	--font-nunito: "Nunito", var(--font-system);
+	--font-inter: "Inter", var(--font-system);
+}
+
+body {
+	font-family: var(--font-roboto);
+	font-optical-sizing: auto;
+	font-style: normal;
+}
+
+input {
+	font-optical-sizing: auto;
+	font-family: var(--font-nunito);
+	font-style: normal;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-inter);
+	font-optical-sizing: auto;
+	font-style: normal;
+	font-weight: 700;
+}

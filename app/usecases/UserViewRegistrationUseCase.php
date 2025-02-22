@@ -19,13 +19,13 @@ class UserViewRegistrationUseCase
 
 	public function fetchData(): UserShowRegistrationData
 	{
-		$villes = $this->citiesTable->all();
-		$data = new UserShowRegistrationData(villes: $villes);
+		$cities = $this->citiesTable->all();
+		$data = new UserShowRegistrationData(cities: $cities);
 		return $data;
 	}
 }
 
 class UserShowRegistrationData
 {
-	public function __construct(public array $villes) {}
+	public function __construct(public array $cities) {}
 }

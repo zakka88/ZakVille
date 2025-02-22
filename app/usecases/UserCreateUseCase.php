@@ -29,6 +29,13 @@ class UserCreateUseCase
 			);
 		}
 
+		if ($form["password"] !== $form["password_confirmation"]) {
+			notifyMessage(
+				"errors",
+				"Les deux mots de passes ne sont pas identiques."
+			);
+		}
+
 		$user = new User(
 			username: $form["username"],
 			password: $form["password"],
