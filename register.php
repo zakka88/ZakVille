@@ -48,15 +48,15 @@ if (isset($_POST["register-user"])) {
 				<strong>NOTE:</strong><br>
 
 
-				Seuls TOI et le centre de formation auquel tu es attaché serez
-				au courant de ces informations, hormis le mot de passe qui
-				utilise un algorithme de hachage fort et irréversible, autrement
-				dit: <b><u>indéchiffrable</u></b>.
+				Seuls TOI et les administrateurs du site serez au courant de
+				ces informations, hormis le mot de passe qui utilise un
+				algorithme de hachage fort et irréversible, autrement dit:
+				quelque chose d'<b><u>indéchiffrable</u></b>.
 			</p>
 
 			<?= displaySessionsMessages() ?>
 
-			<form action="" method="POST" class="auth-form" autocomplete="off">
+			<form action="" method="POST" class="auth-form" autocomplete="off" novalidate>
 				<div class="input-group">
 					<?=
 					input(
@@ -65,23 +65,24 @@ if (isset($_POST["register-user"])) {
 							"minlength" => "3",
 							"placeholder" => "Écris ton prénom",
 							"required" => true,
+							"type" => "text",
 						],
 						[
-							"icon-left" => "user",
+							"icon-left" => "name",
 						]
 					)
 					?>
 
 					<?=
 					input(
-						"email",
+						"username",
 						[
-							"placeholder" => "Écris ton adresse e-mail",
+							"placeholder" => "Écris ton pseudonyme",
 							"required" => true,
-							"type" => "email",
+							"type" => "text",
 						],
 						[
-							"icon-left" => "email",
+							"icon-left" => "user",
 						]
 					)
 					?>
@@ -132,7 +133,7 @@ if (isset($_POST["register-user"])) {
 				</div>
 
 				<div class="auth-form-actions">
-					<button type="submit">Créer le compte</button>
+					<button type="submit" name="register-user">Créer le compte</button>
 					<hr text="ou">
 					<a href="login.php">J'ai déjà en ma possession un compte</a>
 				</div>

@@ -50,7 +50,7 @@ body:has(#page-auth-register > section[role="presentation"][hidden]) {
 	font-size: 24px;
 }
 
-.auth-account p {
+.auth-account > p {
 	color: var(--auth-register-account-on-surface);
 }
 

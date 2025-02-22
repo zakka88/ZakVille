@@ -12,3 +12,5 @@
 /** Components */
 @import "components/alert.css" layer(components);
 @import "components/form.css" layer(components);
+
+@layer bases, components, pages;

@@ -33,5 +33,6 @@
 	padding: var(--spacing-1);
 	border: none;
 	background: transparent;
+	color: currentcolor;
 	cursor: pointer;
 }
