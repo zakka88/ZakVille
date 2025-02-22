@@ -7,7 +7,8 @@ class UserCity
 	// --------- //
 
 	/**
-	 * ID de la ville faisant reference au champs `id` de la table `ville`.
+	 * Champs se trouvant dans la table `users`. Correspond à l'ID de la ville
+	 * faisant reference au champs `id` de la table `villes`.
 	 */
 	private int $cityId;
 

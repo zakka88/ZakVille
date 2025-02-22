@@ -31,9 +31,12 @@ Ses tâches sont de :
    | `string` | pays     |
    | `string` | capitale |
 
-   > Voir [database/02-create-table-villes.sql](database/02-create-table-villes.sql)
+   > Cependant, nous avons opté de nommer tous les noms des tables et tous les
+   > champs en anglais.
    >
-   > Voir [database/03-insert-villes.sql](database/03-insert-villes.sql)
+   > Voir [database/02-create-table-cities.sql](database/02-create-table-cities.sql)
+   >
+   > Voir [database/03-insert-cities.sql](database/03-insert-cities.sql)
 
 3. Créer une page d'index, n'importe quel sujet ou thème.
 
@@ -59,7 +62,10 @@ Ses tâches sont de :
    **Mike** exige que le nom faisant relation à la table `villes` se nomme
    `ville_id`.
 
-   > Voir [database/02-create-table-utilisateurs.sql](database/02-create-table-utilisateurs.sql)
+   > Cependant, nous avons opté de nommer tous les noms des tables et tous les
+   > champs en anglais.
+   >
+   > Voir [database/02-create-table-users.sql](database/02-create-table-users.sql)
 
 2. Créer la page de profil
 
