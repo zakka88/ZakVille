@@ -14,7 +14,7 @@ if (isset($_POST["register-user"])) {
 
 	// Voir https://www.php.net/manual/en/function.array-reduce.php
 	$cities = array_reduce($data->cities, function ($acc, $city) {
-		$acc[$city->getId()] = $city->getFlag() . " " . $city->getCountry();
+		$acc[$city->getId()] = $city->getFlag() . " " . $city->getCity();
 		return $acc;
 	}, []);
 }
@@ -120,13 +120,14 @@ if (isset($_POST["register-user"])) {
 					select(
 						"city",
 						[
+							"title" => "Choisis ta ville",
 							"required" => true,
 						],
 						[
 							"icon-left" => "city",
 							"default-group" => true,
 							"options" => $cities,
-							"placeholder" => "Choisi ta ville",
+							"placeholder" => "Choisis ta ville",
 						]
 					)
 					?>
@@ -142,12 +143,20 @@ if (isset($_POST["register-user"])) {
 
 		<section role="presentation" hidden>
 			<div class="container">
-				:)
+				<!--
+					<img src="./assets/img/jp_1.jpg" >
+					<img src="./assets/img/jp_2.jpg" >
+					<img src="./assets/img/jp_3.jpg" >
+				-->
 			</div>
 		</section>
 
 	</main>
 
+	<script type="module">
+		import { start as startRegister } from "./assets/js/pages/register.js";
+		startRegister();
+	</script>
 </body>
 
 </html>

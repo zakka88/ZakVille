@@ -19,7 +19,7 @@
 		stroke="currentColor" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round" />
 	<path
 		d="M17.4654 12.7137H16.132V15.047H17.4654M16.132 13.8804H17.132M11.4654 15.047L10.4654 12.7137L9.46536 15.047M9.7987 14.4884H11.132M6.46536 15.047V12.7137L8.13203 15.047V12.7137M14.7987 15.047V12.7137L13.7987 14.7137L12.7987 12.7137V15.047"
-		stroke="currentColor" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round" />
+		stroke="black" stroke-width="0.666667" stroke-linecap="round" stroke-linejoin="round" />
 	<path
 		d="M12.9817 3.41235H11.0187C10.7321 3.41235 10.4997 3.64472 10.4997 3.93135V8.11769C10.4997 8.40432 10.7321 8.63669 11.0187 8.63669H12.9817C13.2683 8.63669 13.5007 8.40432 13.5007 8.11769V3.93135C13.5007 3.64472 13.2683 3.41235 12.9817 3.41235Z"
 		stroke="currentColor" stroke-width="0.666667" stroke-miterlimit="10" />

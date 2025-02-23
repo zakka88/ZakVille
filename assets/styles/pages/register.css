@@ -145,11 +145,31 @@ body:has(#page-auth-register > section[role="presentation"][hidden]) {
 	& > select optgroup {
 		background: light-dark(#d8b8f0, #3c4043);
 		color: var(--auth-register-on-surface);
-		text-align: center;
 	}
 
 	& > select option {
 		background: light-dark(#d8b8f0, #3c4043);
 		color: var(--auth-register-on-surface);
+	}
+}
+
+section[role="presentation"]:not([hidden]) {
+	display: grid;
+	place-content: center;
+	place-items: center;
+	position: relative;
+	width: 100%;
+
+	& > .container {
+		position: absolute;
+		top: 15%;
+		right: 0;
+		bottom: 15%;
+		width: 85%;
+		padding: var(--spacing-2);
+		border-top-left-radius: var(--border-radius-xl);
+		border-bottom-left-radius: var(--border-radius-xl);
+		background: #e5e0df;
+		box-shadow: -3px 4px 100px #212121;
 	}
 }
