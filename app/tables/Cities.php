@@ -28,16 +28,12 @@ class Cities extends Database
 			// Un démonyme désigne le nom des habitants d'un lieu, qu'il
 			// s'agisse d'une ville, d'un country, ou d'une région.
 			//
-			$_SESSION[$this->getName() . ".demonyms"] = [
-				"France" => "Français"
-			];
+			$_SESSION[$this->getName() . ".demonyms"] = [];
 		}
 
 		if (!isset($_SESSION[$this->getName() . ".flags"])) {
 			// Initialise la session des drapeaux
-			$_SESSION[$this->getName() . ".flags"] = [
-				"France" => "FR"
-			];
+			$_SESSION[$this->getName() . ".flags"] = [];
 		}
 	}
 
@@ -61,7 +57,7 @@ class Cities extends Database
 			$ville->setCountry($data->country);
 			$ville->setCapitale($data->capital);
 			$ville->setDemonym($this->getDemonym($ville->getCountry()) ?: "");
-			$ville->setFlag($this->getDrapeau($ville->getCountry()) ?: "");
+			$ville->setFlag($this->getFlagEmoji($ville->getCountry()) ?: "");
 
 			return $ville;
 		}, $stmt->fetchAll());
@@ -108,7 +104,7 @@ class Cities extends Database
 	/**
 	 * Récupère un code ISO depuis le nom d'un pays.
 	 */
-	public function getDrapeau(string $country): string|null
+	public function getFlagEmoji(string $country): string|null
 	{
 		if (isset($_SESSION[$this->getName() . ".flags"][$country])) {
 			return $_SESSION[$this->getName() . ".flags"][$country];

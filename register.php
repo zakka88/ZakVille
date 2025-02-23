@@ -14,7 +14,7 @@ if (isset($_POST["register-user"])) {
 
 	// Voir https://www.php.net/manual/en/function.array-reduce.php
 	$cities = array_reduce($data->cities, function ($acc, $city) {
-		$acc[$city->getId()] = $city->getFlag() . " " . $city->getCity();
+		$acc[$city->getId()] = $city->toOptionString();
 		return $acc;
 	}, []);
 }
@@ -47,7 +47,6 @@ if (isset($_POST["register-user"])) {
 			<p class="auth-account-note">
 				<strong>NOTE:</strong><br>
 
-
 				Seuls TOI et les administrateurs du site serez au courant de
 				ces informations, hormis le mot de passe qui utilise un
 				algorithme de hachage fort et irréversible, autrement dit:
@@ -56,7 +55,7 @@ if (isset($_POST["register-user"])) {
 
 			<?= displaySessionsMessages() ?>
 
-			<form action="" method="POST" class="auth-form" autocomplete="off" novalidate>
+			<form action="" method="POST" class="auth-form">
 				<div class="input-group">
 					<?=
 					input(
@@ -77,6 +76,7 @@ if (isset($_POST["register-user"])) {
 					input(
 						"username",
 						[
+							"autocomplete" => "username",
 							"placeholder" => "Écris ton pseudonyme",
 							"required" => true,
 							"type" => "text",
@@ -91,6 +91,7 @@ if (isset($_POST["register-user"])) {
 					input(
 						"password",
 						[
+							"autocomplete" => "new-password",
 							"minlength" => "8",
 							"placeholder" => "Écris ton mot de passe (retiens-le, note-le !!)",
 							"required" => true,
@@ -106,6 +107,7 @@ if (isset($_POST["register-user"])) {
 					input(
 						"password_confirmation",
 						[
+							"autocomplete" => "new-password",
 							"placeholder" => "Confirme ton mot de passe",
 							"required" => true,
 							"type" => "password",
@@ -120,12 +122,12 @@ if (isset($_POST["register-user"])) {
 					select(
 						"city",
 						[
-							"title" => "Choisis ta ville",
 							"required" => true,
+							"title" => "Choisis ta ville",
 						],
 						[
-							"icon-left" => "city",
 							"default-group" => true,
+							"icon-left" => "city",
 							"options" => $cities,
 							"placeholder" => "Choisis ta ville",
 						]
@@ -142,12 +144,24 @@ if (isset($_POST["register-user"])) {
 		</section>
 
 		<section role="presentation" hidden>
-			<div class="container">
-				<!--
-					<img src="./assets/img/jp_1.jpg" >
-					<img src="./assets/img/jp_2.jpg" >
-					<img src="./assets/img/jp_3.jpg" >
-				-->
+			<div class="slider js-pictures">
+				<img id="jp_1" src="./assets/img/jp_1.jpg" loading="lazy">
+				<img id="jp_2" src="./assets/img/jp_2.jpg" loading="lazy">
+				<img id="jp_3" src="./assets/img/jp_3.jpg" loading="lazy">
+
+				<img id="kr_1" src="./assets/img/kr_1.jpg" loading="lazy">
+				<img id="kr_2" src="./assets/img/kr_2.jpg" loading="lazy">
+
+				<img id="th_1" src="./assets/img/th_1.jpg" loading="lazy">
+				<img id="th_2" src="./assets/img/th_2.jpg" loading="lazy">
+				<img id="th_3" src="./assets/img/th_3.jpg" loading="lazy">
+
+				<img id="us_1" src="./assets/img/us_1.jpg" loading="lazy">
+				<img id="us_2" src="./assets/img/us_2.jpg" loading="lazy">
+				<img id="us_3" src="./assets/img/us_3.jpg" loading="lazy">
+			</div>
+
+			<div class="slider-items js-slider-items">
 			</div>
 		</section>
 

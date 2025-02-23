@@ -32,7 +32,7 @@ class City
 	/**
 	 * Drapeau ISO
 	 */
-	private string $drapeau = "";
+	private string $flag = "";
 
 	// ----------- //
 	// Constructor //
@@ -42,11 +42,19 @@ class City
 		string $country = "",
 		string $capital = "",
 		string $city = "",
-	)
-	{
+	) {
 		$this->country = $country;
 		$this->capital = $capital;
 		$this->city = $city;
+	}
+
+	// ------- //
+	// Méthode // -> API Publique
+	// ------- //
+
+	public function toOptionString()
+	{
+		return $this->getFlagEmoji() . ' ' . $this->getCity() .	" (" . $this->getFlag() . ")";
 	}
 
 	// --------------- //
@@ -104,21 +112,26 @@ class City
 	}
 
 	/**
-	 * Retourne l'emoji du pays en fonction du code ISO (drapeau, BE,FR,JP,...)
+	 * Retourne l'emoji du pays en fonction du code ISO (flag, BE,FR,JP,...)
 	 */
-	public function getFlag(): string
+	public function getFlagEmoji(): string
 	{
 		return implode(
 			'',
 			array_map(
 				fn($letter) => mb_chr(ord($letter) % 32 + 0x1F1E5),
-				str_split($this->drapeau)
+				str_split($this->flag)
 			)
 		);
 	}
 
+	public function getFlag(): string
+	{
+		return $this->flag;
+	}
+
 	public function setFlag(string $iso): void
 	{
-		$this->drapeau = $iso;
+		$this->flag = $iso;
 	}
 }

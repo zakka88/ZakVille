@@ -55,7 +55,6 @@ class UserCreateUseCase
 			);
 		} else {
 			notifyMessage(
-
 				"errors",
 				"Vous ne pouvez pas choisir le pseudo " .
 					"<strong>" . htmlspecialchars($form["username"]) . "</strong>" .

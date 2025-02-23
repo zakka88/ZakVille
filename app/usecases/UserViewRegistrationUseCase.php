@@ -17,6 +17,9 @@ class UserViewRegistrationUseCase
 		$this->citiesTable = new Cities();
 	}
 
+	/**
+	 * Récupère tous les enregistrements de la table `cities`.
+	 */
 	public function fetchData(): UserShowRegistrationData
 	{
 		$cities = $this->citiesTable->all();
@@ -25,6 +28,9 @@ class UserViewRegistrationUseCase
 	}
 }
 
+/**
+ * @property array<int,City> $cities
+ */
 class UserShowRegistrationData
 {
 	public function __construct(public array $cities) {}
