@@ -8,7 +8,7 @@ INSERT INTO cities
 	('Toronto', 'Canada', 'Ottawa'),
 	('Séoul', 'Corée du Sud', 'Séoul'),
 	('Marrakesh', 'Maroc', 'Rabat'),
-	('Guadelajara', 'Mexique', 'Mexico'),
+	('Pékin', 'Chine', 'Pékin'),
 	('Rio de Janeiro', 'Brésil', 'Brasília'),
 	('Verona', 'Italie', 'Rome')
 ;
@@ -31,7 +31,7 @@ CASE
 	WHEN country = 'Canada' THEN 'Canadiens'
 	WHEN country = 'Corée du Sud' THEN 'Coréen, 한국인 (Hangugin)'
 	WHEN country = 'Maroc' THEN 'Marocain, راجل (Rajel)'
-	WHEN country = 'Mexique' THEN 'Méxicain, (Narco)'
+	WHEN country = 'Chine' THEN 'Chinois'
 	WHEN country = 'Brésil' THEN 'Brésilien, (Brasileiro)'
 	WHEN country = 'Italie' THEN 'Italien, (Mafiosi)'
 	ELSE CONCAT('Habitant de ', country)
@@ -53,7 +53,7 @@ CASE
 	WHEN country = 'Canada' THEN 'CA'
 	WHEN country = 'Corée du Sud' THEN 'KR'
 	WHEN country = 'Maroc' THEN 'MA'
-	WHEN country = 'Mexique' THEN 'MX'
+	WHEN country = 'Chine' THEN 'CN'
 	WHEN country = 'Brésil' THEN 'BR'
 	WHEN country = 'Italie' THEN 'IT'
 	ELSE ''
