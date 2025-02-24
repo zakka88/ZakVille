@@ -145,44 +145,6 @@ if (isset($_POST["register-user"])) {
 
 		<section role="presentation" hidden>
 			<div class="slider js-pictures">
-				<img id="au_1" src="./assets/img/au_1.jpg" loading="lazy">
-				<img id="au_2" src="./assets/img/au_2.jpg" loading="lazy">
-				<img id="au_3" src="./assets/img/au_3.jpg" loading="lazy">
-
-				<img id="br_1" src="./assets/img/br_1.jpg" loading="lazy">
-				<img id="br_2" src="./assets/img/br_2.jpg" loading="lazy">
-				<img id="br_3" src="./assets/img/br_3.jpg" loading="lazy">
-
-				<img id="ca_1" src="./assets/img/ca_1.jpg" loading="lazy">
-				<img id="ca_2" src="./assets/img/ca_2.jpg" loading="lazy">
-				<img id="ca_3" src="./assets/img/ca_3.jpg" loading="lazy">
-
-				<img id="cn_1" src="./assets/img/cn_1.jpg" loading="lazy">
-				<img id="cn_2" src="./assets/img/cn_2.jpg" loading="lazy">
-				<img id="cn_3" src="./assets/img/cn_3.jpg" loading="lazy">
-
-				<img id="it_1" src="./assets/img/it_1.jpg" loading="lazy">
-				<img id="it_2" src="./assets/img/it_2.jpg" loading="lazy">
-				<img id="it_3" src="./assets/img/it_3.jpg" loading="lazy">
-
-				<img id="jp_1" src="./assets/img/jp_1.jpg" loading="lazy">
-				<img id="jp_2" src="./assets/img/jp_2.jpg" loading="lazy">
-				<img id="jp_3" src="./assets/img/jp_3.jpg" loading="lazy">
-
-				<img id="kr_1" src="./assets/img/kr_1.jpg" loading="lazy">
-				<img id="kr_2" src="./assets/img/kr_2.jpg" loading="lazy">
-
-				<img id="ma_1" src="./assets/img/ma_1.jpg" loading="lazy">
-				<img id="ma_2" src="./assets/img/ma_2.jpg" loading="lazy">
-				<img id="ma_3" src="./assets/img/ma_3.jpg" loading="lazy">
-
-				<img id="th_1" src="./assets/img/th_1.jpg" loading="lazy">
-				<img id="th_2" src="./assets/img/th_2.jpg" loading="lazy">
-				<img id="th_3" src="./assets/img/th_3.jpg" loading="lazy">
-
-				<img id="us_1" src="./assets/img/us_1.jpg" loading="lazy">
-				<img id="us_2" src="./assets/img/us_2.jpg" loading="lazy">
-				<img id="us_3" src="./assets/img/us_3.jpg" loading="lazy">
 			</div>
 
 			<div class="slider-items js-slider-items">
@@ -192,8 +154,12 @@ if (isset($_POST["register-user"])) {
 	</main>
 
 	<script type="module">
-		import { start as startRegister } from "./assets/js/pages/register.js";
-		startRegister();
+		import {
+			RegisterPage,
+		} from "./assets/js/pages/register.js";
+
+		let page = new RegisterPage();
+		page.start();
 	</script>
 </body>
 
