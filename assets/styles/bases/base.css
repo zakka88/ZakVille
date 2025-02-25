@@ -55,3 +55,13 @@ hr[text] {
 		vertical-align: middle;
 	}
 }
+
+.size-full {
+	width: var(--size-full);
+	height: var(--size-full);
+}
+
+.size-full-vp {
+	width: 100dvw;
+	height: 100dvh;
+}

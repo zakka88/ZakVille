@@ -30,7 +30,7 @@ $countries = $citiesTable->findAllCountries();
 	</header>
 
 	<main role="main">
-		<div class="hero js-hero full-vp" style="background-image: url('https://i.ytimg.com/vi/eLPVDaaQybY/maxresdefault.jpg');">
+		<div class="hero js-hero size-full" style="background-image: url('https://i.ytimg.com/vi/eLPVDaaQybY/maxresdefault.jpg');">
 			<h1>Des endroits à visiter</h1>
 
 			<button type="button" class="launch-video-btn js-launch-video-btn">
@@ -40,15 +40,20 @@ $countries = $citiesTable->findAllCountries();
 			</button>
 		</div>
 
-		<iframe
-			src="https://www.youtube.com/embed/eLPVDaaQybY?si=I9h9pEjLCBH9XYUH?rel=0&enablejsapi=1"
-			title="YouTube video player"
-			frameborder="0"
-			allow="autoplay; encrypted-media; picture-in-picture;"
-			referrerpolicy="strict-origin-when-cross-origin"
-			allowfullscreen
-			class="full-vp js-yt-player"
-			hidden></iframe>
+		<div class="size-full mask1">
+			<div class="size-full mask2">
+				<iframe
+					src="https://www.youtube-nocookie.com/embed/eLPVDaaQybY?si=-ESp9qEe0mP1tgFh&amp;controls=0&rel=0&enablejsapi=1"
+					title="YouTube video player"
+					frameborder="0"
+					allow="autoplay; encrypted-media;"
+					referrerpolicy="strict-origin-when-cross-origin"
+					allowfullscreen
+					hidden
+					class="size-full js-yt-player"
+				></iframe>
+			</div>
+		</div>
 
 		<h1 style="text-align: center;">Nous recommandons ces pays...</h1>
 

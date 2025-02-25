@@ -61,7 +61,7 @@ export class RegisterPage {
 				$img.src = `./assets/img/${country}_${i}.jpg`;
 				$img.loading = "lazy";
 				$img.classList.add("hide");
-				this.#$pictures.append($img);
+				this.#$pictures?.append($img);
 			}
 		}
 	}
@@ -70,24 +70,28 @@ export class RegisterPage {
 	// Méthode // -> Privée
 	// ------- //
 
+	/**
+	 * @param {Array<string>} pictureIds
+	 */
 	#startSlider(pictureIds) {
 		this.#resetSlider();
 
 		const changePicture = () => {
 			for (let pictureId of pictureIds) {
-				let $link = this.#$sliderItems.querySelector(
+				let $link = this.#$sliderItems?.querySelector(
 					`a[href="#${pictureId}"]`,
 				);
-				$link.classList.remove("active");
+				$link?.classList.remove("active");
 
-				if (pictureId.indexOf(this.#currentSliderIndex) > 0) {
-					$link.classList.add("active");
-					$link.click();
+				if (pictureId.indexOf(this.#currentSliderIndex.toFixed()) > 0) {
+					$link?.classList.add("active");
+					// @ts-expect-error - cette méthode existe
+					$link?.click();
 				}
 			}
 
 			if (
-				this.#$sliderItems.childElementCount ===
+				this.#$sliderItems?.childElementCount ===
 				this.#currentSliderIndex
 			) {
 				this.#currentSliderIndex = 1;
@@ -113,42 +117,47 @@ export class RegisterPage {
 	// ----- //
 
 	#onCityChangeHandler = () => {
-		let cityId = this.#$selectCity.value;
+		let cityId = Number.parseInt(this.#$selectCity?.value || "", 10);
 
-		let $selectedOption = this.#$selectCity.options.item(cityId);
-		let cityFlag = $selectedOption.textContent
-			.split(/\(([a-z]{2})\)/i)[1]
-			.toLowerCase();
+		if (!cityId) {
+			return;
+		}
 
-		this.#$sliderItems.innerHTML = "";
+		let $selectedOption = this.#$selectCity?.options.item(cityId);
+		let cityFlag = $selectedOption
+			?.textContent
+			?.split(/\(([a-z]{2})\)/i)[1]
+			?.toLowerCase();
+
+
+		if (this.#$sliderItems) {
+			this.#$sliderItems.innerHTML = "";
+		}
+
 		this.#$presentation?.removeAttribute("hidden");
 		if (this.#$pictures) {
 			this.#$pictures.scrollLeft = 0;
 		}
 
 		let pictureIds = [];
-		for (let $picture of Array.from(this.#$pictures.children)) {
+		for (let $picture of Array.from(this.#$pictures?.children || [])) {
 			$picture.classList.add("hide");
 
-			if (
-				$picture
-					.getAttribute("src")
-					.startsWith(`./assets/img/${cityFlag}_`)
-			) {
+			if ($picture.getAttribute("src")?.startsWith(`./assets/img/${cityFlag}_`)) {
 				$picture.classList.remove("hide");
 				pictureIds.push($picture.id);
 			}
 		}
 
 		if (pictureIds.length === 0) {
-			this.#$presentation.setAttribute("hidden", "hidden");
+			this.#$presentation?.setAttribute("hidden", "hidden");
 		}
 
 		for (let pictureId of pictureIds) {
 			let $sliderItem = document.createElement("a");
 			$sliderItem.classList.add("slider-item");
 			$sliderItem.href = `#${pictureId}`;
-			this.#$sliderItems.append($sliderItem);
+			this.#$sliderItems?.append($sliderItem);
 		}
 
 		this.#resetSlider();
