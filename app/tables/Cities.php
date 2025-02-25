@@ -51,16 +51,17 @@ class Cities extends Database
 
 		// NOTE: `array_map` est comme le `Array.map` de JavaScript.
 		return array_map(function ($data) {
-			$ville = new City();
+			$city = new City(
+				city: $data->name,
+				country: $data->country,
+				capital: $data->capital
+			);
 
-			$ville->setId($data->id);
-			$ville->setCity($data->name);
-			$ville->setCountry($data->country);
-			$ville->setCapitale($data->capital);
-			$ville->setDemonym($this->getDemonym($ville->getCountry()) ?: "");
-			$ville->setFlag($this->getFlagEmoji($ville->getCountry()) ?: "");
+			$city->setId($data->id);
+			$city->getCountry()->setDemonym($this->getDemonym($data->country) ?: "");
+			$city->getCountry()->setIsoCode($this->getCountryISO($data->country) ?: "");
 
-			return $ville;
+			return $city;
 		}, $stmt->fetchAll());
 	}
 
@@ -70,15 +71,17 @@ class Cities extends Database
 	public function findAllCountries(): array
 	{
 		try {
-			$stmt = $this->getPdo()->query("SELECT DISTINCT country,capital FROM {$this->tableName}");
+			$stmt = $this->getPdo()->query("
+				SELECT DISTINCT country,capital FROM {$this->tableName}
+			");
 
 			if ($stmt === false) {
 				return [];
 			}
 
-			return array_map(function($data) {
+			return array_map(function ($data) {
 				$country = new Country($data->country, $data->capital);
-				$country->setIsoCode($this->getFlagEmoji($data->country));
+				$country->setIsoCode($this->getCountryISO($data->country));
 				return $country;
 			}, $stmt->fetchAll());
 		} catch (PDOException $e) {
@@ -127,26 +130,26 @@ class Cities extends Database
 	/**
 	 * Récupère un code ISO depuis le nom d'un pays.
 	 */
-	public function getFlagEmoji(string $country): string|null
+	public function getCountryISO(string $country): string|null
 	{
 		if (isset($_SESSION[$this->getName() . ".flags"][$country])) {
 			return $_SESSION[$this->getName() . ".flags"][$country];
 		}
 
-		$req = $this->getPdo()->prepare("CALL GetCountryISO(:country, @drapeau)");
+		$req = $this->getPdo()->prepare("CALL GetCountryISO(:country, @output)");
 
 		if ($req->execute(["country" => $country])) {
-			$req = $this->getPdo()->query("SELECT @drapeau AS drapeau");
+			$req = $this->getPdo()->query("SELECT @output AS iso");
 			if (!$req) {
 				return null;
 			}
 
-			$drapeau = $req->fetch();
-			if (!$drapeau || $drapeau->drapeau === null) {
+			$output = $req->fetch();
+			if (!$output || $output->iso === null) {
 				return null;
 			}
 
-			$this->addDrapeau($country, $drapeau->drapeau);
+			$this->addDrapeau($country, $output->iso);
 
 			return $_SESSION[$this->getName() . ".flags"][$country];
 		}
@@ -175,8 +178,8 @@ class Cities extends Database
 
 			return $stmt->execute([
 				"city_name" => $city->getCity(),
-				"country" => $city->getCountry(),
-				"capital" => $city->getCapitale(),
+				"country" => $city->getCountry()->getName(),
+				"capital" => $city->getCountry()->getCapital(),
 			]);
 		} catch (PDOException $_) {
 			return false;

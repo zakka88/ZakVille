@@ -2,8 +2,25 @@
 
 class Country
 {
+	/**
+	 * Nom du pays.
+	 */
 	private string $name;
+
+	/**
+	 * Nom de la capitale du pays.
+	 */
 	private string $capital;
+
+	/**
+	 * Le démonyme désigne le nom des habitants d'un lieu, qu'il s'agisse d'une
+	 * ville, d'un pays, ou d'une région.
+	 */
+	private string $demonym = "";
+
+	/**
+	 * Code ISO du pays.
+	 */
 	private string $isoCode;
 
 	// ----------- //
@@ -46,6 +63,16 @@ class Country
 	public function setCapital(string $capital): void
 	{
 		$this->capital = $capital;
+	}
+
+	public function getDemonym(): string
+	{
+		return $this->demonym;
+	}
+
+	public function setDemonym(string $demonym): void
+	{
+		$this->demonym = $demonym;
 	}
 
 	public function getIsoCode(): string
