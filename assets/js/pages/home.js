@@ -29,7 +29,6 @@ export class HomePage {
 		 */
 		let $iframe = document.querySelector(".js-yt-player");
 		if ($iframe) {
-			$iframe.hidden = false;
 			$iframe.contentWindow?.postMessage(
 				JSON.stringify({
 					event: "command",
@@ -42,6 +41,7 @@ export class HomePage {
 			this.#videoPlayState = true;
 
 			let $iframeWrapper = $iframe.parentElement?.parentElement;
+			$iframeWrapper.hidden = false;
 
 			$iframeWrapper?.addEventListener("click", () => {
 				this.#videoPlayState = !this.#videoPlayState;

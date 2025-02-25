@@ -78,6 +78,7 @@ header[role="banner"] {
 	height: 60px;
 	border-radius: var(--border-radius-full);
 	background-color: #000000;
+	color: #ffffff;
 	font-family: var(--font-roboto);
 }
 
@@ -92,7 +93,7 @@ header[role="banner"] {
 	min-width: 800px;
 	padding: 1rem 0 2rem;
     border-radius: var(--border-radius-m);
-	background: #000000;
+	background: light-dark(#e8f4e2, #000000);
 }
 
 .table .country-flag {
@@ -129,7 +130,7 @@ header[role="banner"] {
 .table .table-row {
 	display: flex;
 	padding: 1rem 0;
-	border-top: 1px solid #0f1508;
+	border-top: 1px solid light-dark(#d0e6b8, #0f1508);
 }
 
 .table .table-row .country-flag,
@@ -139,3 +140,5 @@ header[role="banner"] {
 	display: flex;
 	align-items: center;
 }
+
+::-webkit-scrollbar { display: none; }

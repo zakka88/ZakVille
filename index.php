@@ -22,9 +22,15 @@ $countries = $citiesTable->findAllCountries();
 				<a href="./">ZakVille</a>
 			</div>
 
-			<ul class="navbar-nav">
-				<li><a href="./">Accueil</a></li>
-				<li><a href="login.php">Se connecter</a></li>
+			<ul>
+				<li><a href="./" aria-current="page">Accueil</a></li>
+
+				<?php if (true): ?>
+					<li><a href="login.php">Se connecter</a></li>
+				<?php else: ?>
+					<li><a href="profile.php">Accéder à mon profil</a></li>
+					<li><a href="logout.php">Se déconnecter</a></li>
+				<?php endif ?>
 			</ul>
 		</nav>
 	</header>
@@ -40,7 +46,7 @@ $countries = $citiesTable->findAllCountries();
 			</button>
 		</div>
 
-		<div class="size-full mask1">
+		<div class="size-full mask1" hidden>
 			<div class="size-full mask2">
 				<iframe
 					src="https://www.youtube-nocookie.com/embed/eLPVDaaQybY?si=-ESp9qEe0mP1tgFh&amp;controls=0&rel=0&enablejsapi=1"
@@ -49,7 +55,6 @@ $countries = $citiesTable->findAllCountries();
 					allow="autoplay; encrypted-media;"
 					referrerpolicy="strict-origin-when-cross-origin"
 					allowfullscreen
-					hidden
 					class="size-full js-yt-player"
 				></iframe>
 			</div>
