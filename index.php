@@ -1,3 +1,9 @@
+<?php
+require_once "./app/tables/Cities.php";
+
+$citiesTable = new Cities();
+$countries = $citiesTable->findAllCountries();
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
@@ -6,22 +12,83 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Accueil</title>
 	<link rel="stylesheet" href="./assets/styles/main.css">
-	<link rel="stylesheet" href="./assets/styles/home.css">
+	<link rel="stylesheet" href="./assets/styles/pages/home.css">
 </head>
 
 <body>
+	<header role="banner">
+		<nav role="navigation">
+			<div>
+				<a href="./">ZakVille</a>
+			</div>
+
+			<ul class="navbar-nav">
+				<li><a href="./">Accueil</a></li>
+				<li><a href="login.php">Se connecter</a></li>
+			</ul>
+		</nav>
+	</header>
 
 	<main role="main">
-		<!-- <iframe
-			src="https://www.youtube.com/embed/eLPVDaaQybY?si=I9h9pEjLCBH9XYUH?controls=1&autoplay=1"
+		<div class="hero js-hero full-vp" style="background-image: url('https://i.ytimg.com/vi/eLPVDaaQybY/maxresdefault.jpg');">
+			<h1>Des endroits à visiter</h1>
+
+			<button type="button" class="launch-video-btn js-launch-video-btn">
+				<svg width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M40 30L90 60L40 90V30Z" fill="currentColor" fill-opacity="0.3" stroke="black" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</button>
+		</div>
+
+		<iframe
+			src="https://www.youtube.com/embed/eLPVDaaQybY?si=I9h9pEjLCBH9XYUH?rel=0&enablejsapi=1"
 			title="YouTube video player"
 			frameborder="0"
-			allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+			allow="autoplay; encrypted-media; picture-in-picture;"
 			referrerpolicy="strict-origin-when-cross-origin"
 			allowfullscreen
-		></iframe> -->
+			class="full-vp js-yt-player"
+			hidden></iframe>
+
+		<h1 style="text-align: center;">Nous recommandons ces pays...</h1>
+
+		<div class="table-wrap">
+			<div class="table">
+				<div class="table-head">
+					<div class="country-flag">Drapeau</div>
+					<div class="country-name">Pays</div>
+					<div class="country-capital">Capitale</div>
+					<div class="visits">Visites</div>
+				</div>
+
+				<?php foreach ($countries as $country): ?>
+					<div class="table-row">
+						<div class="country-flag">
+							<?= $country->getFlag() ?>
+						</div>
+						<div class="country-name">
+							<?= $country->getName() ?>
+						</div>
+						<div class="country-capital">
+							<?= $country->getCapital() ?>
+						</div>
+						<div class="visits">
+							<?= rand(5e5, 1e8) ?>
+						</div>
+					</div>
+				<?php endforeach ?>
+			</div>
+		</div>
 	</main>
 
+	<script type="module">
+		import {
+			HomePage,
+		} from "./assets/js/pages/home.js";
+
+		let page = new HomePage();
+		page.start();
+	</script>
 </body>
 
 </html>

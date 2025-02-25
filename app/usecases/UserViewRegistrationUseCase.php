@@ -22,7 +22,7 @@ class UserViewRegistrationUseCase
 	 */
 	public function fetchData(): UserShowRegistrationData
 	{
-		$cities = $this->citiesTable->all();
+		$cities = $this->citiesTable->findAll();
 		$data = new UserShowRegistrationData(cities: $cities);
 		return $data;
 	}

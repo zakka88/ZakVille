@@ -2,6 +2,7 @@
 
 require_once __DIR__ . "/../database/Database.php";
 require_once __DIR__ . "/../entities/City.php";
+require_once __DIR__ . "/../entities/Country.php";
 
 class Cities extends Database
 {
@@ -40,7 +41,7 @@ class Cities extends Database
 	/**
 	 * Récupère toutes les villes (ainsi que leur démonyme)
 	 */
-	public function all(): array
+	public function findAll(): array
 	{
 		$stmt = $this->getPdo()->query("SELECT * FROM {$this->tableName}");
 
@@ -61,6 +62,28 @@ class Cities extends Database
 
 			return $ville;
 		}, $stmt->fetchAll());
+	}
+
+	/**
+	 * Récupère tous les pays de la base de données.
+	 */
+	public function findAllCountries(): array
+	{
+		try {
+			$stmt = $this->getPdo()->query("SELECT DISTINCT country,capital FROM {$this->tableName}");
+
+			if ($stmt === false) {
+				return [];
+			}
+
+			return array_map(function($data) {
+				$country = new Country($data->country, $data->capital);
+				$country->setIsoCode($this->getFlagEmoji($data->country));
+				return $country;
+			}, $stmt->fetchAll());
+		} catch (PDOException $e) {
+			return [];
+		}
 	}
 
 	/**

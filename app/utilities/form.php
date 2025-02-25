@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * Vérifie si les valeurs des champs de formulaires vides ou non. Dès qu'un
+ * champ est vide, un retour true est renvoyé. Dans le cas où toutes les valeurs
+ * ne sont pas vide, un retour false est renvoyé.
+ */
 function isEmptyForm(array $fields, array $ignoreFields = []): bool
 {
 	foreach ($fields as $field) {
@@ -7,7 +12,7 @@ function isEmptyForm(array $fields, array $ignoreFields = []): bool
 			continue;
 		}
 
-		if (empty($_POST[$field])) {
+		if (empty(trim($_POST[$field]))) {
 			return true;
 		}
 	}
