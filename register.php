@@ -119,6 +119,20 @@ if (isset($_POST["register-user"])) {
 					?>
 
 					<?=
+					input(
+						"date_of_birth",
+						[
+							"placeholder" => "Jour de naissance",
+							"required" => true,
+							"type" => "date"
+						],
+						[
+							"icon-left" => "birth"
+						]
+					)
+					?>
+
+					<?=
 					select(
 						"city",
 						[

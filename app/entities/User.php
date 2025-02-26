@@ -10,6 +10,7 @@ class User
 
 	private int $id;
 	private int $cityId;
+	private DateTime $date_of_birth;
 	private City $city;
 	private string $firstname;
 	private string $username;
@@ -23,11 +24,13 @@ class User
 		string $username,
 		string $password,
 		string $firstname,
+		DateTime $date_of_birth,
 		string $cityId,
 	) {
 		$this->username = $username;
 		$this->password = $password;
 		$this->firstname = $firstname;
+		$this->date_of_birth = $date_of_birth;
 		$this->cityId = $cityId;
 	}
 
@@ -59,6 +62,17 @@ class User
 	{
 		$this->city = $city;
 	}
+
+	public function getDateOfBirth(): DateTime
+	{
+		return $this->date_of_birth;
+	}
+
+	public function setDateOfBirth(DateTime $dateOfBirth): void
+	{
+		$this->date_of_birth = $dateOfBirth;
+	}
+
 
 	public function getFirstname(): string
 	{

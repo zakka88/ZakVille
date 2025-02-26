@@ -40,6 +40,7 @@ class UserCreateUseCase
 			username: $form["username"],
 			password: $form["password"],
 			firstname: $form["firstname"],
+			date_of_birth: new DateTime($form["date_of_birth"]),
 			cityId: (int) $form["city"],
 		);
 

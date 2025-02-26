@@ -1,4 +1,4 @@
--- Table générée par JMerise et modifié avec soin.
+-- Table générée par JMerise et modifiée avec soin.
 -- Création de la table `cities`.
 CREATE TABLE cities (
 	id INT NOT NULL AUTO_INCREMENT,

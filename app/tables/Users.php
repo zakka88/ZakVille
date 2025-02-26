@@ -32,11 +32,13 @@ class Users extends Database
 				firstname,
 				username,
 				password,
+				date_of_birth,
 				city_id
 			) VALUES (
 				:firstname,
 				:username,
 				:password,
+				:date_of_birth,
 				:city_id
 			)
 		");
@@ -46,6 +48,7 @@ class Users extends Database
 				"firstname" => $user->getFirstname(),
 				"username" => $user->getUsername(),
 				"password" => password_hash($user->getPassword(), PASSWORD_DEFAULT),
+				"date_of_birth" => $user->getDateOfBirth()->format("Y-m-d"),
 				"city_id" => $city->id,
 			]);
 		} catch (PDOException $_) {
