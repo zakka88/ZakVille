@@ -22,18 +22,7 @@ export class RegisterPage {
 	#currentSliderIndex = 1;
 	#currentSliderTimer = 0;
 
-	#pictures = {
-		au: 3,
-		br: 3,
-		ca: 3,
-		cn: 3,
-		it: 3,
-		jp: 3,
-		kr: 2,
-		ma: 3,
-		th: 3,
-		us: 3,
-	};
+	#pictures = {};
 
 	constructor() {
 		this.#$selectCity = document.querySelector('select[name="city"]');
@@ -64,6 +53,14 @@ export class RegisterPage {
 				this.#$pictures?.append($img);
 			}
 		}
+	}
+
+	/**
+	 * @param {Record<string,number>} pictures
+	 */
+	withPictures(pictures) {
+		this.#pictures = pictures;
+		return this;
 	}
 
 	// ------- //

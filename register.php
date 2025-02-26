@@ -158,7 +158,28 @@ if (isset($_POST["register-user"])) {
 			RegisterPage,
 		} from "./assets/js/pages/register.js";
 
-		let page = new RegisterPage();
+		/**
+		 * Cela va générer un code similaire avec les données réelles de la base
+		 * de donnes.
+		 *
+		 * @example
+		 *
+		 *```js
+		 *{
+		 * be: 3,
+		 * it: 3,
+		 * us: 3,
+		 * // etc...
+		 *}
+		 *```
+		 */
+		let pictures = {
+			<?php foreach ($data->cities as $city): ?>
+				<?= strtolower($city->getCountry()->getIsoCode()) ?>: 3,
+			<?php endforeach ?>
+		};
+
+		let page = new RegisterPage().withPictures(pictures);
 		page.start();
 	</script>
 </body>
