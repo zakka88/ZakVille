@@ -1,13 +1,13 @@
 <?php
 
-require_once "./app/pages/RegisterPage.php";
+require_once "./app/pages/RegisterUserPage.php";
 
-$page = new RegisterPage();
+$page = new RegisterUserPage();
 
 if (isset($_POST["register-user"])) {
 	$page->save($_POST);
 } else {
-	$data = $page->handle();
+	$view = $page->handle();
 }
 ?>
 <!DOCTYPE html>
@@ -119,7 +119,7 @@ if (isset($_POST["register-user"])) {
 							"required" => true,
 							"type" => "date",
 							"title" => "Minimum 16 ans",
-							"max" => $data->maxBdayDate,
+							"max" => $view->maxBdayDate,
 						],
 						[
 							"icon-left" => "birth"
@@ -140,7 +140,7 @@ if (isset($_POST["register-user"])) {
 							"icon-left" => "city",
 							/** Le champ en base de données peut être NULL */
 							"icon-right" => "cancel-left",
-							"options" => $data->cities,
+							"options" => $view->cities,
 							"placeholder" => "Choisis ta ville (optionnel)",
 						]
 					)
@@ -186,7 +186,7 @@ if (isset($_POST["register-user"])) {
 		 *```
 		 */
 		let pictures = {
-			<?php foreach ($data->isoCodes as $isoCode): ?>
+			<?php foreach ($view->isoCodes as $isoCode): ?>
 				<?= $isoCode ?>: 3,
 			<?php endforeach ?>
 		};

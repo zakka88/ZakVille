@@ -11,7 +11,7 @@ class AuthUseCase
 
 	private Authentication $authentication;
 	private Authorization $authorization;
-	private string $redirectTo;
+	private string $redirectTo = "login.php";
 
 	// ----------- //
 	// Constructor //

@@ -1,11 +1,8 @@
 <?php
-require_once "./app/usecases/AuthUseCase.php";
-require_once "./app/tables/Cities.php";
+require_once "./app/pages/HomePage.php";
 
-$usecase = new AuthUseCase();
-
-$citiesTable = new Cities();
-$countries = $citiesTable->findAllCountries();
+$page = new HomePage();
+$view = $page->handle();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -28,7 +25,7 @@ $countries = $citiesTable->findAllCountries();
 			<ul>
 				<li><a href="./" aria-current="page">Accueil</a></li>
 
-				<?php if (!$usecase->isConnected()): ?>
+				<?php if (!$view->isConnected): ?>
 					<li><a href="login.php">Se connecter</a></li>
 				<?php else: ?>
 					<li><a href="profile.php">Accéder à mon profil</a></li>
@@ -76,7 +73,7 @@ $countries = $citiesTable->findAllCountries();
 					<div class="visits">Visites</div>
 				</div>
 
-				<?php foreach ($countries as $country): ?>
+				<?php foreach ($view->countries as $country): ?>
 					<div class="table-row">
 						<div class="country-flag">
 							<?= $country->getFlag() ?>

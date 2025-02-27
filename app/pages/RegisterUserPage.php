@@ -6,7 +6,7 @@ require_once __DIR__ . "/../usecases/AuthUseCase.php";
 require_once __DIR__ . "/../usecases/UserCreateUseCase.php";
 require_once __DIR__ . "/../tables/Cities.php";
 
-class RegisterPage
+class RegisterUserPage
 {
 	// --------- //
 	// Propriété //
