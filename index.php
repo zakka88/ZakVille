@@ -31,6 +31,8 @@ $countries = $citiesTable->findAllCountries();
 					<li><a href="profile.php">Accéder à mon profil</a></li>
 					<li><a href="logout.php">Se déconnecter</a></li>
 				<?php endif ?>
+
+				<li><a href="session.php">Sessions</a></li>
 			</ul>
 		</nav>
 	</header>

@@ -65,3 +65,11 @@ hr[text] {
 	width: 100dvw;
 	height: 100dvh;
 }
+
+.size-article {
+	width: var(--size-text);
+}
+
+.inline-center {
+	margin-inline: auto;
+}

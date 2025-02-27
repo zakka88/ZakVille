@@ -11,6 +11,13 @@ créer un site avec 4 pages.
 Il nous faut réaliser cet exercice en utilisant du code PHP, avec un maximum de
 **P**rogrammation **O**rienté **O**bjet (**POO**).
 
+Pour éviter tout conflit avec les sessions des autres projets PHP, nous avons
+décidé de préfixer chaque clé de session avec `tp_zakville.`, ex:
+
+```php
+$_SESSION["tp_zakville.user"] = ...
+```
+
 ## Mike
 
 Ses tâches sont de :
