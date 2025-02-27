@@ -79,7 +79,9 @@ Ses tâches sont de :
    >
    > Voir [database/02-create-table-users.sql](database/02-create-table-users.sql)
 
-2. Créer la page de profil
+2. Créer la page de connexion d'un utilisateur
+
+3. Créer la page de profil
 
    - La page DOIT être accessible uniquement lorsqu'un utilisateur est connecté.
 
