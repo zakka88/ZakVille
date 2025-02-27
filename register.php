@@ -1,40 +1,13 @@
 <?php
 
-require_once "./app/utilities/form.php";
-require_once "./app/utilities/session.php";
+require_once "./app/pages/RegisterPage.php";
+
+$page = new RegisterPage();
 
 if (isset($_POST["register-user"])) {
-	require_once "./app/usecases/UserCreateUseCase.php";
-	$useCase = new UserCreateUseCase();
-
-	$useCase->store($_POST);
+	$page->save($_POST);
 } else {
-	require_once "./app/usecases/UserViewRegistrationUseCase.php";
-	$useCase = new UserViewRegistrationUseCase();
-
-	$data = $useCase->fetchData();
-
-	// Voir https://www.php.net/manual/en/function.array-reduce.php
-	//
-	// Le résultat final serait d'avoir un tableau du style :
-	//
-	// [
-	//    ID => "EMOJI Pays (Code ISO)",
-	// ];
-	$cities = array_reduce(
-		$data->cities,
-		function ($acc, $city) {
-			$acc[$city->getId()] = $city->toOptionText();
-			return $acc;
-		},
-		[]
-	);
-
-	// Je veux que chaque utilisateur qui s'inscrit sur le site ait au moins
-	// 16 ans.
-	$minAge = "16 years";
-	$dateInterval = DateInterval::createFromDateString($minAge);
-	$maximalBdayDate = (new DateTime())->sub($dateInterval)->format("Y-m-d");
+	$data = $page->handle();
 }
 ?>
 <!DOCTYPE html>
@@ -146,7 +119,7 @@ if (isset($_POST["register-user"])) {
 							"required" => true,
 							"type" => "date",
 							"title" => "Minimum 16 ans",
-							"max" => $maximalBdayDate,
+							"max" => $data->maxBdayDate,
 						],
 						[
 							"icon-left" => "birth"
@@ -167,7 +140,7 @@ if (isset($_POST["register-user"])) {
 							"icon-left" => "city",
 							/** Le champ en base de données peut être NULL */
 							"icon-right" => "cancel-left",
-							"options" => $cities,
+							"options" => $data->cities,
 							"placeholder" => "Choisis ta ville (optionnel)",
 						]
 					)
@@ -213,8 +186,8 @@ if (isset($_POST["register-user"])) {
 		 *```
 		 */
 		let pictures = {
-			<?php foreach ($data->cities as $city): ?>
-				<?= strtolower($city->getCountry()->getIsoCode()) ?>: 3,
+			<?php foreach ($data->isoCodes as $isoCode): ?>
+				<?= $isoCode ?>: 3,
 			<?php endforeach ?>
 		};
 

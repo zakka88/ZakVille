@@ -41,7 +41,7 @@ export class HomePage {
 			this.#videoPlayState = true;
 
 			let $iframeWrapper = $iframe.parentElement?.parentElement;
-			$iframeWrapper.hidden = false;
+			$iframeWrapper?.removeAttribute("hidden");
 
 			$iframeWrapper?.addEventListener("click", () => {
 				this.#videoPlayState = !this.#videoPlayState;

@@ -1,5 +1,3 @@
-// @ts-check
-
 export class RegisterPage {
 	/**
 	 * @type {HTMLDivElement|null}
@@ -54,8 +52,8 @@ export class RegisterPage {
 		for (let [country, count_pictures] of Object.entries(this.#pictures)) {
 			for (let i = 1; i < count_pictures + 1; i++) {
 				let $img = document.createElement("img");
-				$img.id = `${country}_${i}`;
-				$img.src = `./assets/img/${country}_${i}.jpg`;
+				$img.id = `${country.toLowerCase()}_${i}`;
+				$img.src = `./assets/img/${country.toLowerCase()}_${i}.jpg`;
 				$img.loading = "lazy";
 				$img.classList.add("hide");
 				this.#$pictures?.append($img);
