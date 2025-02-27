@@ -46,9 +46,13 @@ class City
 	 */
 	public function toOptionText(): string
 	{
-		return $this->getCountry()->getFlag() .
-			' ' . $this->getCity() .
-			" (" . $this->getCountry()->getIsoCode() . ")";
+		$str = $this->getCountry()->getFlag() . ' ' . $this->getCity();
+
+		if ($this->getCountry()->getIsoCode()) {
+			$str .= " (" . $this->getCountry()->getIsoCode() . ")";
+		}
+
+		return $str;
 	}
 
 	// --------------- //

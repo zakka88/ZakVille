@@ -1,9 +1,8 @@
 <?php
 
-require_once __DIR__ . "/../../usecases/CityCreateUseCase.php";
 require_once __DIR__ . "/../../tables/Users.php";
-require_once __DIR__ . "/../../utilities/form.php";
-require_once __DIR__ . "/../../utilities/session.php";
+require_once __DIR__ . "/../../usecases/AuthUseCase.php";
+require_once __DIR__ . "/../../usecases/CityCreateUseCase.php";
 
 class AddCityAdminPage
 {
@@ -12,6 +11,7 @@ class AddCityAdminPage
 	// --------- //
 
 	private AuthUseCase $authUseCase;
+	private CityCreateUseCase $cityCreateUseCase;
 	private Users $usersTable;
 
 	// ----------- //
@@ -44,6 +44,7 @@ class AddCityAdminPage
 
 		$this->authUseCase->adminOnly();
 
+		$this->cityCreateUseCase = new CityCreateUseCase();
 		$this->usersTable = new Users();
 	}
 
@@ -53,8 +54,7 @@ class AddCityAdminPage
 
 	public function save(): void
 	{
-		$useCase = new CityCreateUseCase();
-		$useCase->store($_POST);
+		$this->cityCreateUseCase->store($_POST);
 	}
 
 	public function handle(): AddCityAdminView

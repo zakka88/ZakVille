@@ -13,6 +13,7 @@ class RegisterUserPage
 	// --------- //
 
 	private AuthUseCase $authUseCase;
+	private UserCreateUseCase $userCreateUseCase;
 	private Cities $citiesTable;
 
 	// ----------- //
@@ -25,6 +26,8 @@ class RegisterUserPage
 		$this->authUseCase->setRedirectTo("profile.php");
 		$this->authUseCase->anonymousOnly();
 
+		$this->userCreateUseCase = new UserCreateUseCase();
+
 		$this->citiesTable = new Cities();
 	}
 
@@ -34,8 +37,7 @@ class RegisterUserPage
 
 	public function save(): void
 	{
-		$useCase = new UserCreateUseCase();
-		$useCase->store($_POST);
+		$this->userCreateUseCase->store($_POST);
 	}
 
 	public function handle(): RegisterView

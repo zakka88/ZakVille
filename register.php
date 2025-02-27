@@ -1,5 +1,6 @@
 <?php
 
+require_once "./app/utilities/form.php";
 require_once "./app/pages/RegisterUserPage.php";
 
 $page = new RegisterUserPage();
@@ -27,6 +28,18 @@ if (isset($_POST["register-user"])) {
 </head>
 
 <body>
+
+	<header role="banner">
+		<nav role="navigation">
+			<div>
+				<a href="./">ZakVille</a>
+			</div>
+
+			<ul>
+				<li><a href="session.php">Sessions</a></li>
+			</ul>
+		</nav>
+	</header>
 
 	<main role="main" id="page-auth-register">
 
@@ -187,7 +200,9 @@ if (isset($_POST["register-user"])) {
 		 */
 		let pictures = {
 			<?php foreach ($view->isoCodes as $isoCode): ?>
-				<?= $isoCode ?>: 3,
+				<?php if ($isoCode): ?>
+					<?= $isoCode ?>: 3,
+				<?php endif ?>
 			<?php endforeach ?>
 		};
 

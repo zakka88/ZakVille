@@ -1,6 +1,5 @@
 <?php
 
-require_once __DIR__ . "/../utilities/form.php";
 require_once __DIR__ . "/../utilities/session.php";
 require_once __DIR__ . "/../usecases/AuthUseCase.php";
 require_once __DIR__ . "/../tables/Users.php";
@@ -8,8 +7,16 @@ require_once __DIR__ . "/../entities/User.php";
 
 class UserCreateUseCase
 {
+	// --------- //
+	// Propriété //
+	// --------- //
+
 	private AuthUseCase $authUseCase;
 	private Users $usersTable;
+
+	// ----------- //
+	// Constructor //
+	// ----------- //
 
 	public function __construct()
 	{
@@ -19,6 +26,10 @@ class UserCreateUseCase
 
 		$this->usersTable = new Users();
 	}
+
+	// ------- //
+	// Méthode // -> API Publique
+	// ------- //
 
 	public function store(array $form): bool
 	{

@@ -8,9 +8,17 @@ require_once __DIR__ . "/AuthUseCase.php";
 
 class CityCreateUseCase
 {
+	// --------- //
+	// Propriété //
+	// --------- //
+
 	private AuthUseCase $authUseCase;
 	private Cities $citiesTable;
 	private Users $usersTable;
+
+	// ----------- //
+	// Constructor //
+	// ----------- //
 
 	public function __construct()
 	{
@@ -22,7 +30,11 @@ class CityCreateUseCase
 		$this->usersTable = new Users();
 	}
 
-	public function store(array $form)
+	// ------- //
+	// Méthode // -> API Publique
+	// ------- //
+
+	public function store(array $form): void
 	{
 		if (isEmptyForm(array_keys($form), ["create-city"])) {
 			notifyMessage(

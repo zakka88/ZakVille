@@ -44,7 +44,7 @@ function notifyMessage(string $type, string $message, $redirectTo = ""): void
 		session_start();
 	}
 
-	$sessionName = "tp_zakville." . $type;
+	$sessionName = "tp_zakville.$type";
 
 	if (!isset($_SESSION[$sessionName])) {
 		$_SESSION[$sessionName] = [];

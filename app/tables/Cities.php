@@ -171,6 +171,9 @@ class Cities extends Database
 		$_SESSION[$this->sessionNameFlags][$country] = $drapeau;
 	}
 
+	/**
+	 * Insère une nouvelle ville
+	 */
 	public function create(City $city): bool
 	{
 		try {

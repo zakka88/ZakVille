@@ -1,3 +1,5 @@
+@import "../components/header.css";
+
 :root {
 	--auth-register-surface: light-dark(var(--color-white), var(--color-black));
 	--auth-register-on-surface: light-dark(

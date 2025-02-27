@@ -26,6 +26,11 @@ class AuthUseCase
 	// --------------- //
 	// Getter | Setter //
 	// --------------- //
+	
+	public function isConnected(): bool
+	{
+		return $this->authentication->check();
+	}
 
 	public function setRedirectTo(string $redirectTo): void
 	{
@@ -36,12 +41,7 @@ class AuthUseCase
 	// Méthode // -> API Publique
 	// ------- //
 
-	public function isConnected(): bool
-	{
-		return $this->authentication->check();
-	}
-
-	public function anonymousOnly()
+	public function anonymousOnly(): void
 	{
 		if ($this->authentication->check()) {
 			header("Location: {$this->redirectTo}");
@@ -49,7 +49,7 @@ class AuthUseCase
 		}
 	}
 
-	public function connectedOnly()
+	public function connectedOnly(): void
 	{
 		if (!$this->authentication->check()) {
 			header("Location: {$this->redirectTo}");
@@ -57,7 +57,7 @@ class AuthUseCase
 		}
 	}
 
-	public function adminOnly()
+	public function adminOnly(): void
 	{
 		if (
 			!(
