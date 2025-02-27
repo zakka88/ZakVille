@@ -15,11 +15,23 @@ if (isset($_POST["register-user"])) {
 	$data = $useCase->fetchData();
 
 	// Voir https://www.php.net/manual/en/function.array-reduce.php
-	$cities = array_reduce($data->cities, function ($acc, $city) {
-		$acc[$city->getId()] = $city->toOptionString();
-		return $acc;
-	}, []);
+	//
+	// Le résultat final serait d'avoir un tableau du style :
+	//
+	// [
+	//    ID => "EMOJI Pays (Code ISO)",
+	// ];
+	$cities = array_reduce(
+		$data->cities,
+		function ($acc, $city) {
+			$acc[$city->getId()] = $city->toOptionText();
+			return $acc;
+		},
+		[]
+	);
 
+	// Je veux que chaque utilisateur qui s'inscrit sur le site ait au moins
+	// 16 ans.
 	$minAge = "16 years";
 	$dateInterval = DateInterval::createFromDateString($minAge);
 	$maximalBdayDate = (new DateTime())->sub($dateInterval)->format("Y-m-d");

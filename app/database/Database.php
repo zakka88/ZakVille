@@ -6,6 +6,9 @@ class Database
 	// Propriété //
 	// --------- //
 
+	/**
+	 * Connexion à la base de données avec PDO.
+	 */
 	private PDO $pdo;
 
 	/** Configurations de connexion à la base de données */
@@ -17,6 +20,10 @@ class Database
 	// Constructor //
 	// ----------- //
 
+	/**
+	 * Construit la classe Database avec le mot-clé `new` ce qui crée un Objet
+	 * ou autrement dit une instance de Database.
+	 */
 	public function __construct()
 	{
 		$this->pdo = new PDO(

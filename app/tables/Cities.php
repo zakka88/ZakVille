@@ -8,9 +8,12 @@ class Cities extends Database
 {
 	private string $tableName = "cities";
 
+	private string $sessionNameDemonyms = "tp_zakville.demonyms";
+	private string $sessionNameFlags    = "tp_zakville.flags";
+
 	/**
-	 * Construit la classe Villes avec le mot-clé `new` ce qui crée un Objet
-	 * ou autrement dit une instance de Villes.
+	 * Construit la classe Cities avec le mot-clé `new` ce qui crée un Objet
+	 * ou autrement dit une instance de Cities.
 	 *
 	 * Initialise les sessions si elles ne sont pas déjà initialisées.
 	 */
@@ -23,18 +26,14 @@ class Cities extends Database
 			session_start();
 		}
 
-		if (!isset($_SESSION[$this->getName() . ".demonyms"])) {
+		if (!isset($_SESSION[$this->sessionNameDemonyms])) {
 			// Initialise la session des démonymes.
-			//
-			// Un démonyme désigne le nom des habitants d'un lieu, qu'il
-			// s'agisse d'une ville, d'un country, ou d'une région.
-			//
-			$_SESSION[$this->getName() . ".demonyms"] = [];
+			$_SESSION[$this->sessionNameDemonyms] = [];
 		}
 
-		if (!isset($_SESSION[$this->getName() . ".flags"])) {
+		if (!isset($_SESSION[$this->sessionNameFlags])) {
 			// Initialise la session des drapeaux
-			$_SESSION[$this->getName() . ".flags"] = [];
+			$_SESSION[$this->sessionNameFlags] = [];
 		}
 	}
 
@@ -101,8 +100,8 @@ class Cities extends Database
 	 */
 	public function getDemonym(string $country): string|null
 	{
-		if (isset($_SESSION[$this->getName() . ".demonyms"][$country])) {
-			return $_SESSION[$this->getName() . ".demonyms"][$country];
+		if (isset($_SESSION[$this->sessionNameDemonyms][$country])) {
+			return $_SESSION[$this->sessionNameDemonyms][$country];
 		}
 
 		$req = $this->getPdo()->prepare("CALL GetCountryDemonym(:country, @demonym)");
@@ -120,7 +119,7 @@ class Cities extends Database
 
 			$this->addDemonym($country, $res->demonym);
 
-			return $_SESSION[$this->getName() . ".demonyms"][$country];
+			return $_SESSION[$this->sessionNameDemonyms][$country];
 		}
 
 		return null;
@@ -131,7 +130,7 @@ class Cities extends Database
 	 */
 	public function addDemonym(string $country, string $demonym): void
 	{
-		$_SESSION[$this->getName() . ".demonyms"][$country] = $demonym;
+		$_SESSION[$this->sessionNameDemonyms][$country] = $demonym;
 	}
 
 	/**
@@ -139,8 +138,8 @@ class Cities extends Database
 	 */
 	public function getCountryISO(string $country): string|null
 	{
-		if (isset($_SESSION[$this->getName() . ".flags"][$country])) {
-			return $_SESSION[$this->getName() . ".flags"][$country];
+		if (isset($_SESSION[$this->sessionNameFlags][$country])) {
+			return $_SESSION[$this->sessionNameFlags][$country];
 		}
 
 		$req = $this->getPdo()->prepare("CALL GetCountryISO(:country, @output)");
@@ -158,7 +157,7 @@ class Cities extends Database
 
 			$this->addDrapeau($country, $output->iso);
 
-			return $_SESSION[$this->getName() . ".flags"][$country];
+			return $_SESSION[$this->sessionNameFlags][$country];
 		}
 
 		return null;
@@ -169,7 +168,7 @@ class Cities extends Database
 	 */
 	public function addDrapeau(string $country, string $drapeau): void
 	{
-		$_SESSION[$this->getName() . ".flags"][$country] = $drapeau;
+		$_SESSION[$this->sessionNameFlags][$country] = $drapeau;
 	}
 
 	public function create(City $city): bool

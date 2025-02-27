@@ -8,19 +8,53 @@ class User
 	// Propriété //
 	// --------- //
 
+	/**
+	 * ID de l'utilisateur.
+	 */
 	private int $id;
+
+	/**
+	 * ID de la ville de l'utilisateur. Cette information peut être NULL.
+	 */
 	private ?int $cityId;
-	private DateTime $date_of_birth;
+	/**
+	 * Ville de l'utilisateur. Cette informtion peut être NULL.
+	 */
 	private ?City $city;
+
+	/**
+	 * Date de naissance de l'utilisateur.
+	 */
+	private DateTime $date_of_birth;
+
+	/**
+	 * Prénom de l'utilisateur.
+	 */
 	private string $firstname;
+
+	/**
+	 * Pseudo de l'utilisateur.
+	 */
 	private string $username;
+
+	/**
+	 * Mot de passe de l'utilisateur.
+	 */
 	private string $password;
+
+	/**
+	 * Rôle de l'utilisateur.
+	 */
 	private string $role;
 
 	// ----------- //
 	// Constructor //
 	// ----------- //
 
+	/**
+	 * Construit la classe User avec le mot-clé `new` ce qui crée un Objet
+	 * ou autrement dit une instance de User.
+	 */
 	public function __construct(
 		string $username,
 		string $password,

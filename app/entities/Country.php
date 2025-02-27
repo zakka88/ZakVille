@@ -27,9 +27,13 @@ class Country
 	// Constructor //
 	// ----------- //
 
-	public function __construct(string $name, string $capital)
+	/**
+	 * Construit la classe Country avec le mot-clé `new` ce qui crée un Objet
+	 * ou autrement dit une instance de Country.
+	 */
+	public function __construct(string $country, string $capital)
 	{
-		$this->name = $name;
+		$this->name = $country;
 		$this->capital = $capital;
 	}
 

@@ -24,6 +24,10 @@ class City
 	// Constructor //
 	// ----------- //
 
+	/**
+	 * Construit la classe City avec le mot-clé `new` ce qui crée un Objet
+	 * ou autrement dit une instance de City.
+	 */
 	public function __construct(
 		string $country = "",
 		string $capital = "",
@@ -37,7 +41,10 @@ class City
 	// Méthode // -> API Publique
 	// ------- //
 
-	public function toOptionString()
+	/**
+	 * Retourne le texte qu'on doit mettre dans la balise <option>{text}</option>.
+	 */
+	public function toOptionText(): string
 	{
 		return $this->getCountry()->getFlag() .
 			' ' . $this->getCity() .
