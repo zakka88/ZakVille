@@ -12,11 +12,11 @@ function isEmptyForm(array $fields, array $ignoreFields = []): bool
 			continue;
 		}
 
-		if (is_array($_POST[$field]) && empty($_POST[$field])) {
-			return true;
-		}
-
-		if (empty(trim($_POST[$field]))) {
+		if (is_array($_POST[$field])) {
+			if (empty($_POST[$field])) {
+				return true;
+			}
+		} else if (empty(trim($_POST[$field]))) {
 			return true;
 		}
 	}

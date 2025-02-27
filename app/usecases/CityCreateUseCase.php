@@ -51,12 +51,10 @@ class CityCreateUseCase
 			notifyMessage("success", "La ville a bien été ajouté.");
 		}
 
-		foreach ($form["users"] as $userId) {
-			$this->usersTable->updateCity(
-				user_id: (int) $userId,
-				cityName: $form["city"],
-			);
-		}
+		$this->usersTable->updateCityFor(
+			users_id: array_map(fn ($userId) => (int) $userId, $form["users"]),
+			cityName: $form["city"],
+		);
 
 		notifyMessage(
 			"success",

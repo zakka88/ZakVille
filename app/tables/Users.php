@@ -81,23 +81,37 @@ class Users extends Database
 
 	/**
 	 * Met à jour le champ cit_id de la table villes
+	 * @param array<int,int> $users_id
 	 */
-	public function updateCity(int $user_id, string $cityName): bool
+	public function updateCityFor(array $users_id, string $cityName): bool
 	{
-		$req = $this->getPdo()->prepare("SELECT id FROM cities WHERE name = :city LIMIT 1");
+		$req = $this->getPdo()->prepare("
+			SELECT id FROM cities WHERE name = :city LIMIT 1
+		");
+
 		$req->execute(["city" => $cityName]);
 		$city = $req->fetch();
+
+		// Ajoute un placeholder (il s'agit du caractère `?`) pour chaque élément
+		// du tableau $users_id 
+		$usersSqlPlaceholders = join(
+			',',
+			array_map(fn ($_) => '?', $users_id)
+		);
 
 		$req = $this->getPdo()->prepare("
 			UPDATE {$this->tableName} 
 			SET city_id = {$city->id}
-			WHERE id = :user_id
+			WHERE id IN ($usersSqlPlaceholders)
 		");
 
 		try {
-			return $req->execute([
-				"user_id" => $user_id,
-			]);
+			return $req->execute(
+				// Les placeholders `?` seront remplacés par les valeurs des 
+				// éléments du tableau $users_id. Il est important de faire ces
+				// étapes pour éviter les failles SQL.
+				$users_id
+			);
 		} catch (PDOException $_) {
 			return false;
 		}
