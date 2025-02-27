@@ -36,6 +36,7 @@
 	& > label {
 		display: inline-block;
 		width: var(--size-20);
+		vertical-align: top;
 	}
 
 	& > input,

@@ -128,7 +128,8 @@ export class RegisterPage {
 			return;
 		}
 
-		let $selectedOption = this.#$selectCity?.options.item(cityId);
+		let $selectedOption = Array.from(this.#$selectCity?.options)
+			.find((opt) => opt.value == cityId);
 		let cityFlag = $selectedOption?.textContent
 			?.split(/\(([a-z]{2})\)/i)[1]
 			?.toLowerCase();

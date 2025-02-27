@@ -1,34 +1,14 @@
 <?php
 
-require_once "../../app/utilities/form.php";
-require_once "../../app/utilities/session.php";
+require_once "../../app/pages/admin/AddCityAdminPage.php";
+
+$page = new AddCityAdminPage();
 
 if (isset($_POST["create-city"])) {
-	require_once "../../app/usecases/CityCreateUseCase.php";
-	$usecase = new CityCreateUseCase();
-	$usecase->store($_POST);
+	$page->save();
 } else {
-	/*
-	session_start();
-
-	require_once "../../app/entities/User.php";
-
-	$user = new User(
-		username: "Mike",
-		password: password_hash("12345678", PASSWORD_DEFAULT),
-		firstname: "Mike",
-		date_of_birth: new DateTime(),
-		role: "User",
-		cityId: 10,
-	);
-
-	$_SESSION["tp_zakville.user"] = $user;
-	*/
-	require_once "../../app/usecases/CityCreateViewUseCase.php";
-	$usecase = new CityCreateViewUseCase();
-	$usecase->handle();
+	$view = $page->handle();
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -43,7 +23,7 @@ if (isset($_POST["create-city"])) {
 
 <body>
 
-	<main role="main">
+	<main role="main" class="inline-center size-article">
 		<h1>Ajouter une ville</h1>
 
 		<?= displaySessionsMessages() ?>
@@ -63,6 +43,21 @@ if (isset($_POST["create-city"])) {
 				<label for="city">Nom de la ville</label>
 				<input type="text" name="city" id="city" placeholder="Istanbul" value="<?= inputValue('city') ?>">
 			</div>
+
+			<?php if (!empty($view->users)): ?>
+			<div class="form-group">
+				<label for="users">Associer cette ville aux utilisateurs :</label>
+				<select name="users[]" id="users" multiple>
+					<optgroup label="Utilisateurs sans ville associée">
+						<?php foreach ($view->users as $user): ?>
+							<option value="<?= $user->getId() ?>">
+								<?= $user->getUsername(); ?>
+							</option>
+						<?php endforeach ?>
+					</optgroup>
+				</select>
+			</div>
+			<?php endif; ?>
 
 			<button type="submit" name="create-city">Créer la ville</button>
 		</form>

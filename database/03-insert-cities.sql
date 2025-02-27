@@ -37,7 +37,8 @@ CASE
 	ELSE CONCAT('Habitant de ', country)
 END INTO o_demonym
 FROM cities
-WHERE country = i_country;
+WHERE country = i_country
+LIMIT 1;
 
 END $$
 
@@ -59,7 +60,8 @@ CASE
 	ELSE ''
 END INTO o_flag
 FROM cities
-WHERE country = i_country;
+WHERE country = i_country
+LIMIT 1;
 
 END $$
 
