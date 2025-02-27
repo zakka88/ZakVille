@@ -41,7 +41,7 @@ class Cities extends Database
 	/**
 	 * Récupère toutes les villes (ainsi que leur démonyme)
 	 */
-	public function findAll(): array
+	public function all(): array
 	{
 		$stmt = $this->getPdo()->query("SELECT * FROM {$this->tableName}");
 
@@ -49,20 +49,27 @@ class Cities extends Database
 			return [];
 		}
 
-		// NOTE: `array_map` est comme le `Array.map` de JavaScript.
-		return array_map(function ($data) {
-			$city = new City(
-				city: $data->name,
-				country: $data->country,
-				capital: $data->capital
-			);
+		// NOTE: `array_map` fonctionne de la même façon que le `Array.map` de
+		//       JavaScript.
+		return array_map(
+			/** Fonction anonyme */
+			function (object $item): City {
+				// var_dump($item);
 
-			$city->setId($data->id);
-			$city->getCountry()->setDemonym($this->getDemonym($data->country) ?: "");
-			$city->getCountry()->setIsoCode($this->getCountryISO($data->country) ?: "");
+				$city = new City(
+					city: $item->name,
+					country: $item->country,
+					capital: $item->capital
+				);
 
-			return $city;
-		}, $stmt->fetchAll());
+				$city->setId($item->id);
+				$city->getCountry()->setDemonym($this->getDemonym($item->country) ?: "");
+				$city->getCountry()->setIsoCode($this->getCountryISO($item->country) ?: "");
+
+				return $city;
+			},
+			$stmt->fetchAll()
+		);
 	}
 
 	/**

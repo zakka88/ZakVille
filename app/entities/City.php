@@ -20,11 +20,6 @@ class City
 	 */
 	private Country $country;
 
-	/**
-	 * Drapeau ISO
-	 */
-	private string $flag = "";
-
 	// ----------- //
 	// Constructor //
 	// ----------- //

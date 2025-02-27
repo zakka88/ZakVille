@@ -22,16 +22,27 @@ class UserViewRegistrationUseCase
 	 */
 	public function fetchData(): UserShowRegistrationData
 	{
-		$cities = $this->citiesTable->findAll();
+		$cities = $this->citiesTable->all();
 		$data = new UserShowRegistrationData(cities: $cities);
 		return $data;
 	}
 }
 
 /**
- * @property array<int,City> $cities
+ * @property array<int,City> $cities Les villes de la table `cities`.
  */
 class UserShowRegistrationData
 {
+	/**
+	 * Syntaxe alternative et plus rapide de
+	 *
+	 * ```php
+	 * public array $cities;
+	 *
+	 * public function __construct(array $cities) {
+	 * 		$this->cities = $cities;
+	 * }
+	 * ```
+	 */
 	public function __construct(public array $cities) {}
 }
