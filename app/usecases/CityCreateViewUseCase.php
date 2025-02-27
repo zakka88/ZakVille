@@ -9,7 +9,6 @@ class CityCreateViewUseCase
 {
 	private AuthUseCase $authUseCase;
 
-
 	public function __construct()
 	{
 		$this->authUseCase = new AuthUseCase();

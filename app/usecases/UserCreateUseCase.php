@@ -43,6 +43,7 @@ class UserCreateUseCase
 			password: $form["password"],
 			firstname: $form["firstname"],
 			date_of_birth: new DateTime($form["date_of_birth"]),
+			role: "User",
 			cityId: $cityId,
 		);
 

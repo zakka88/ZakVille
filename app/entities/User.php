@@ -15,6 +15,7 @@ class User
 	private string $firstname;
 	private string $username;
 	private string $password;
+	private string $role;
 
 	// ----------- //
 	// Constructor //
@@ -25,12 +26,14 @@ class User
 		string $password,
 		string $firstname,
 		DateTime $date_of_birth,
+		string $role,
 		?string $cityId,
 	) {
 		$this->username = $username;
 		$this->password = $password;
 		$this->firstname = $firstname;
 		$this->date_of_birth = $date_of_birth;
+		$this->role = $role;
 		$this->cityId = $cityId;
 	}
 
@@ -101,5 +104,15 @@ class User
 	public function setPassword(string $password): void
 	{
 		$this->password = $password;
+	}
+
+	public function getRole(): string
+	{
+		return $this->role;
+	}
+
+	public function setRole(string $role): void
+	{
+		$this->role = $role;
 	}
 }

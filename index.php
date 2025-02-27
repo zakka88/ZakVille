@@ -1,5 +1,8 @@
 <?php
+require_once "./app/usecases/AuthUseCase.php";
 require_once "./app/tables/Cities.php";
+
+$usecase = new AuthUseCase();
 
 $citiesTable = new Cities();
 $countries = $citiesTable->findAllCountries();
@@ -25,7 +28,7 @@ $countries = $citiesTable->findAllCountries();
 			<ul>
 				<li><a href="./" aria-current="page">Accueil</a></li>
 
-				<?php if (true): ?>
+				<?php if (!$usecase->isConnected()): ?>
 					<li><a href="login.php">Se connecter</a></li>
 				<?php else: ?>
 					<li><a href="profile.php">Accéder à mon profil</a></li>

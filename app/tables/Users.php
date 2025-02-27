@@ -48,8 +48,6 @@ class Users extends Database
 				"city_id" => $city?->id ?: null,
 			]);
 		} catch (PDOException $_) {
-			var_dump($_);
-			die();
 			return false;
 		}
 	}

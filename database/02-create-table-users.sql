@@ -20,6 +20,7 @@ CREATE TABLE users (
 	username VARCHAR(50) NOT NULL,
 	password VARCHAR(255) NOT NULL,
 	date_of_birth date NOT NULL,
+	role ENUM ('Admin', 'User') NOT NULL DEFAULT 'User',
 	city_id INT,
 	CONSTRAINT user_username_AK UNIQUE (username),
 	CONSTRAINT user_id_PK PRIMARY KEY (id),

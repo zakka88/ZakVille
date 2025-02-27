@@ -5,12 +5,28 @@ require_once "../../app/utilities/session.php";
 
 if (isset($_POST["create-city"])) {
 	require_once "../../app/usecases/CityCreateUseCase.php";
-	$uc = new CityCreateUseCase();
-	$uc->store($_POST);
+	$usecase = new CityCreateUseCase();
+	$usecase->store($_POST);
 } else {
+	/*
+	session_start();
+
+	require_once "../../app/entities/User.php";
+
+	$user = new User(
+		username: "Mike",
+		password: password_hash("12345678", PASSWORD_DEFAULT),
+		firstname: "Mike",
+		date_of_birth: new DateTime(),
+		role: "User",
+		cityId: 10,
+	);
+
+	$_SESSION["tp_zakville.user"] = $user;
+	*/
 	require_once "../../app/usecases/CityCreateViewUseCase.php";
-	$uc = new CityCreateViewUseCase();
-	$uc->handle();
+	$usecase = new CityCreateViewUseCase();
+	$usecase->handle();
 }
 
 ?>

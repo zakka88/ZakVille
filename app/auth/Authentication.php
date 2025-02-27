@@ -1,13 +1,17 @@
 <?php
 
+require_once __DIR__ . "/../entities/User.php";
 require_once __DIR__ . "/Authorization.php";
 
 class Authentication
 {
+	private string $sessionName = "tp_zakville.user";
 	public function check(): bool
 	{
-		$sessionAuthName = "tp_zakville.users";
-		return isset($_SESSION[$sessionAuthName]);
+		if (session_status() === PHP_SESSION_NONE) {
+			session_start();
+		}
+		return isset($_SESSION[$this->sessionName]);
 	}
 
 	public function attempt(): bool
@@ -17,6 +21,15 @@ class Authentication
 
 	public function userAccess(): AuthorizationAccess
 	{
-		return AuthorizationAccess::User;
+		if ($this->check()) {
+			switch ($_SESSION[$this->sessionName]->getRole()) {
+				case "Admin":
+					return AuthorizationAccess::Admin;
+				case "User":
+					return AuthorizationAccess::User;
+			}
+		}
+
+		return AuthorizationAccess::Anonymous;
 	}
 }

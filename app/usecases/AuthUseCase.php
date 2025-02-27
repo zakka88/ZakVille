@@ -13,7 +13,6 @@ class AuthUseCase
 	private Authorization $authorization;
 	private string $redirectTo;
 
-
 	// ----------- //
 	// Constructor //
 	// ----------- //
@@ -36,6 +35,11 @@ class AuthUseCase
 	// ------- //
 	// Méthode // -> API Publique
 	// ------- //
+
+	public function isConnected(): bool
+	{
+		return $this->authentication->check();
+	}
 
 	public function anonymousOnly()
 	{
