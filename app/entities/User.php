@@ -9,9 +9,9 @@ class User
 	// --------- //
 
 	private int $id;
-	private int $cityId;
+	private ?int $cityId;
 	private DateTime $date_of_birth;
-	private City $city;
+	private ?City $city;
 	private string $firstname;
 	private string $username;
 	private string $password;
@@ -25,7 +25,7 @@ class User
 		string $password,
 		string $firstname,
 		DateTime $date_of_birth,
-		string $cityId,
+		?string $cityId,
 	) {
 		$this->username = $username;
 		$this->password = $password;
@@ -43,7 +43,7 @@ class User
 		return $this->id;
 	}
 
-	public function getCityId(): int
+	public function getCityId(): ?int
 	{
 		return $this->cityId;
 	}
@@ -53,7 +53,7 @@ class User
 		$this->cityId = $cityId;
 	}
 
-	public function getCity(): City
+	public function getCity(): ?City
 	{
 		return $this->city;
 	}
@@ -72,7 +72,6 @@ class User
 	{
 		$this->date_of_birth = $dateOfBirth;
 	}
-
 
 	public function getFirstname(): string
 	{

@@ -1,3 +1,5 @@
+// @ts-check
+
 export class RegisterPage {
 	/**
 	 * @type {HTMLDivElement|null}
@@ -42,6 +44,12 @@ export class RegisterPage {
 			"change",
 			this.#onCityChangeHandler,
 		);
+
+		this.#$selectCity?.nextElementSibling?.addEventListener(
+			"click",
+			this.#resetSelectCity,
+		);
+		this.#$selectCity?.nextElementSibling?.setAttribute("hidden", "");
 
 		for (let [country, count_pictures] of Object.entries(this.#pictures)) {
 			for (let i = 1; i < count_pictures + 1; i++) {
@@ -114,6 +122,8 @@ export class RegisterPage {
 	// ----- //
 
 	#onCityChangeHandler = () => {
+		this.#$selectCity?.nextElementSibling?.removeAttribute("hidden");
+
 		let cityId = Number.parseInt(this.#$selectCity?.value || "", 10);
 
 		if (!cityId) {
@@ -121,11 +131,9 @@ export class RegisterPage {
 		}
 
 		let $selectedOption = this.#$selectCity?.options.item(cityId);
-		let cityFlag = $selectedOption
-			?.textContent
+		let cityFlag = $selectedOption?.textContent
 			?.split(/\(([a-z]{2})\)/i)[1]
 			?.toLowerCase();
-
 
 		if (this.#$sliderItems) {
 			this.#$sliderItems.innerHTML = "";
@@ -140,7 +148,11 @@ export class RegisterPage {
 		for (let $picture of Array.from(this.#$pictures?.children || [])) {
 			$picture.classList.add("hide");
 
-			if ($picture.getAttribute("src")?.startsWith(`./assets/img/${cityFlag}_`)) {
+			if (
+				$picture
+					.getAttribute("src")
+					?.startsWith(`./assets/img/${cityFlag}_`)
+			) {
 				$picture.classList.remove("hide");
 				pictureIds.push($picture.id);
 			}
@@ -160,5 +172,18 @@ export class RegisterPage {
 
 		this.#resetSlider();
 		this.#startSlider(pictureIds);
+	};
+
+	#resetSelectCity = () => {
+		if (this.#$selectCity) {
+			this.#$selectCity.value = "";
+			this.#$selectCity.nextElementSibling?.setAttribute("hidden", "");
+			let firstOption = this.#$selectCity.options.item(0);
+			if (firstOption) {
+				firstOption.selected = true;
+			}
+			this.#resetSlider();
+			this.#$presentation?.setAttribute("hidden", "");
+		}
 	};
 }

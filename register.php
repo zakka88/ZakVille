@@ -146,14 +146,17 @@ if (isset($_POST["register-user"])) {
 					select(
 						"city",
 						[
-							"required" => true,
+							/** Le champ en base de données peut être NULL */
+							"required" => false,
 							"title" => "Choisis ta ville",
 						],
 						[
 							"default-group" => true,
 							"icon-left" => "city",
+							/** Le champ en base de données peut être NULL */
+							"icon-right" => "cancel-left",
 							"options" => $cities,
-							"placeholder" => "Choisis ta ville",
+							"placeholder" => "Choisis ta ville (optionnel)",
 						]
 					)
 					?>

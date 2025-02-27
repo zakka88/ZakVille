@@ -23,10 +23,6 @@ class Users extends Database
 		$cityReq->execute(["city_id" => $user->getCityId()]);
 		$city = $cityReq->fetch();
 
-		if ($city === false) {
-			return false;
-		}
-
 		$req = $this->getPdo()->prepare("
 			INSERT INTO {$this->tableName} (
 				firstname,
@@ -49,9 +45,11 @@ class Users extends Database
 				"username" => $user->getUsername(),
 				"password" => password_hash($user->getPassword(), PASSWORD_DEFAULT),
 				"date_of_birth" => $user->getDateOfBirth()->format("Y-m-d"),
-				"city_id" => $city->id,
+				"city_id" => $city?->id ?: null,
 			]);
 		} catch (PDOException $_) {
+			var_dump($_);
+			die();
 			return false;
 		}
 	}

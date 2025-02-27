@@ -122,6 +122,17 @@ function select(
 
 	$render .= '</select>';
 
+	if (isset($props["icon-right"])):
+		$iconName = $props["icon-right"];
+
+		$render .= '<span>';
+		ob_start();
+		include "./assets/svg/$iconName.svg";
+		$svg = ob_get_clean();
+		$render .= $svg;
+		$render .= '</span>';
+	endif;
+
 	$render .= '</div>';
 	return $render;
 }
