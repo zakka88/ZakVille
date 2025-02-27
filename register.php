@@ -6,10 +6,12 @@ require_once "./app/utilities/session.php";
 if (isset($_POST["register-user"])) {
 	require_once "./app/usecases/UserCreateUseCase.php";
 	$useCase = new UserCreateUseCase();
+
 	$useCase->store($_POST);
 } else {
 	require_once "./app/usecases/UserViewRegistrationUseCase.php";
 	$useCase = new UserViewRegistrationUseCase();
+
 	$data = $useCase->fetchData();
 
 	// Voir https://www.php.net/manual/en/function.array-reduce.php
@@ -17,6 +19,10 @@ if (isset($_POST["register-user"])) {
 		$acc[$city->getId()] = $city->toOptionString();
 		return $acc;
 	}, []);
+
+	$minAge = "16 years";
+	$dateInterval = DateInterval::createFromDateString($minAge);
+	$maximalBdayDate = (new DateTime())->sub($dateInterval)->format("Y-m-d");
 }
 ?>
 <!DOCTYPE html>
@@ -61,6 +67,7 @@ if (isset($_POST["register-user"])) {
 					input(
 						"firstname",
 						[
+							"autocomplete" => "given-name",
 							"minlength" => "3",
 							"placeholder" => "Écris ton prénom",
 							"required" => true,
@@ -122,9 +129,12 @@ if (isset($_POST["register-user"])) {
 					input(
 						"date_of_birth",
 						[
+							"autocomplete" => "bday",
 							"placeholder" => "Jour de naissance",
 							"required" => true,
-							"type" => "date"
+							"type" => "date",
+							"title" => "Minimum 16 ans",
+							"max" => $maximalBdayDate,
 						],
 						[
 							"icon-left" => "birth"

@@ -154,6 +154,7 @@ export class RegisterPage {
 			let $sliderItem = document.createElement("a");
 			$sliderItem.classList.add("slider-item");
 			$sliderItem.href = `#${pictureId}`;
+			$sliderItem.ariaLabel = `Cliquez pour visualiser la photo de ${pictureId}`;
 			this.#$sliderItems?.append($sliderItem);
 		}
 
