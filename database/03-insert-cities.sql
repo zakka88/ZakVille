@@ -14,8 +14,8 @@ INSERT INTO cities
 ;
 
 -- Pour les tests
-DROP PROCEDURE GetCountryDemonym;
-DROP PROCEDURE GetCountryISO;
+DROP PROCEDURE IF EXISTS GetCountryDemonym;
+DROP PROCEDURE IF EXISTS GetCountryISO;
 
 DELIMITER $$
 
@@ -24,16 +24,16 @@ BEGIN
 
 SELECT
 CASE
-	WHEN country = 'Thaïlande' THEN 'Thaïlandais, Namba One'
-	WHEN country = 'États-unis' THEN 'Américain'
-	WHEN country = 'Australie' THEN 'Australien, (Kangourou)'
-	WHEN country = 'Japon' THEN 'Japonais, 日本人 (Nihonjin)'
-	WHEN country = 'Canada' THEN 'Canadiens'
+	WHEN country = 'Thaïlande'    THEN 'Thaïlandais, Namba One'
+	WHEN country = 'États-unis'   THEN 'Américain'
+	WHEN country = 'Australie'    THEN 'Australien, (Kangourou)'
+	WHEN country = 'Japon'        THEN 'Japonais, 日本人 (Nihonjin)'
+	WHEN country = 'Canada'       THEN 'Canadien'
 	WHEN country = 'Corée du Sud' THEN 'Coréen, 한국인 (Hangugin)'
-	WHEN country = 'Maroc' THEN 'Marocain, راجل (Rajel)'
-	WHEN country = 'Chine' THEN 'Chinois'
-	WHEN country = 'Brésil' THEN 'Brésilien, (Brasileiro)'
-	WHEN country = 'Italie' THEN 'Italien, (Mafiosi)'
+	WHEN country = 'Maroc'        THEN 'Marocain, راجل (Rajel)'
+	WHEN country = 'Chine'        THEN 'Chinois'
+	WHEN country = 'Brésil'       THEN 'Brésilien, (Brasileiro)'
+	WHEN country = 'Italie'       THEN 'Italien, (Mafiosi)'
 	ELSE CONCAT('Habitant de ', country)
 END INTO o_demonym
 FROM cities
@@ -47,16 +47,16 @@ BEGIN
 
 SELECT
 CASE
-	WHEN country = 'Thaïlande' THEN 'TH'
-	WHEN country = 'États-unis' THEN 'US'
-	WHEN country = 'Australie' THEN 'AU'
-	WHEN country = 'Japon' THEN 'JP'
-	WHEN country = 'Canada' THEN 'CA'
+	WHEN country = 'Thaïlande'    THEN 'TH'
+	WHEN country = 'États-unis'   THEN 'US'
+	WHEN country = 'Australie'    THEN 'AU'
+	WHEN country = 'Japon'        THEN 'JP'
+	WHEN country = 'Canada'       THEN 'CA'
 	WHEN country = 'Corée du Sud' THEN 'KR'
-	WHEN country = 'Maroc' THEN 'MA'
-	WHEN country = 'Chine' THEN 'CN'
-	WHEN country = 'Brésil' THEN 'BR'
-	WHEN country = 'Italie' THEN 'IT'
+	WHEN country = 'Maroc'        THEN 'MA'
+	WHEN country = 'Chine'        THEN 'CN'
+	WHEN country = 'Brésil'       THEN 'BR'
+	WHEN country = 'Italie'       THEN 'IT'
 	ELSE ''
 END INTO o_flag
 FROM cities

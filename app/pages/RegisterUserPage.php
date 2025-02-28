@@ -40,7 +40,7 @@ class RegisterUserPage
 		$this->userCreateUseCase->store($_POST);
 	}
 
-	public function handle(): RegisterView
+	public function handle(): RegisterUserView
 	{
 		$cities = $this->citiesTable->all();
 
@@ -75,7 +75,7 @@ class RegisterUserPage
 		$dateInterval = DateInterval::createFromDateString($minAge);
 		$maxBdayDate = (new DateTime())->sub($dateInterval)->format("Y-m-d");
 
-		return new RegisterView(
+		return new RegisterUserView(
 			cities: $citiesOptions,
 			isoCodes: $isoCodes,
 			maxBdayDate: $maxBdayDate,
@@ -87,7 +87,7 @@ class RegisterUserPage
  * @property array<int,City> $cities Les villes de la table `cities`.
  * @property array<int,string> $isoCodes les codes ISO des différents pays
  */
-class RegisterView
+class RegisterUserView
 {
 	/**
 	 * Syntaxe alternative et plus rapide de

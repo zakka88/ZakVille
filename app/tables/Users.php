@@ -5,10 +5,18 @@ require_once __DIR__ . "/../entities/User.php";
 
 class Users extends Database
 {
+	// --------- //
+	// Propriété //
+	// --------- //
+
 	/**
 	 * Nom de la table
 	 */
 	private string $tableName = "users";
+
+	// ------- //
+	// Méthode // -> API Publique
+	// ------- //
 
 	/**
 	 * Insère un nouvel utilisateur
@@ -93,21 +101,21 @@ class Users extends Database
 		$city = $req->fetch();
 
 		// Ajoute un placeholder (il s'agit du caractère `?`) pour chaque élément
-		// du tableau $users_id 
+		// du tableau $users_id
 		$usersSqlPlaceholders = join(
 			',',
 			array_map(fn ($_) => '?', $users_id)
 		);
 
 		$req = $this->getPdo()->prepare("
-			UPDATE {$this->tableName} 
+			UPDATE {$this->tableName}
 			SET city_id = {$city->id}
 			WHERE id IN ($usersSqlPlaceholders)
 		");
 
 		try {
 			return $req->execute(
-				// Les placeholders `?` seront remplacés par les valeurs des 
+				// Les placeholders `?` seront remplacés par les valeurs des
 				// éléments du tableau $users_id. Il est important de faire ces
 				// étapes pour éviter les failles SQL.
 				$users_id

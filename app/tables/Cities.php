@@ -6,10 +6,18 @@ require_once __DIR__ . "/../entities/Country.php";
 
 class Cities extends Database
 {
+	// --------- //
+	// Propriété //
+	// --------- //
+
 	private string $tableName = "cities";
 
 	private string $sessionNameDemonyms = "tp_zakville.demonyms";
 	private string $sessionNameFlags    = "tp_zakville.flags";
+
+	// ----------- //
+	// Constructor //
+	// ----------- //
 
 	/**
 	 * Construit la classe Cities avec le mot-clé `new` ce qui crée un Objet
@@ -36,6 +44,10 @@ class Cities extends Database
 			$_SESSION[$this->sessionNameFlags] = [];
 		}
 	}
+
+	// ------- //
+	// Méthode // -> API Publique
+	// ------- //
 
 	/**
 	 * Récupère toutes les villes (ainsi que leur démonyme)
@@ -72,6 +84,30 @@ class Cities extends Database
 	}
 
 	/**
+	 * Insère une nouvelle ville
+	 */
+	public function create(City $city): bool
+	{
+		try {
+			$stmt = $this->getPdo()->prepare("
+				INSERT INTO {$this->tableName} (name,country,capital) VALUES (
+					:city_name,
+					:country,
+					:capital
+				)
+			");
+
+			return $stmt->execute([
+				"city_name" => $city->getCity(),
+				"country" => $city->getCountry()->getName(),
+				"capital" => $city->getCountry()->getCapital(),
+			]);
+		} catch (PDOException $_) {
+			return false;
+		}
+	}
+
+	/**
 	 * Récupère tous les pays de la base de données.
 	 */
 	public function findAllCountries(): array
@@ -95,10 +131,14 @@ class Cities extends Database
 		}
 	}
 
+	// ------- //
+	// Méthode // -> Privée
+	// ------- //
+
 	/**
 	 * Récupère un démonyme depuis un nom de country.
 	 */
-	public function getDemonym(string $country): string|null
+	private function getDemonym(string $country): string|null
 	{
 		if (isset($_SESSION[$this->sessionNameDemonyms][$country])) {
 			return $_SESSION[$this->sessionNameDemonyms][$country];
@@ -128,7 +168,7 @@ class Cities extends Database
 	/**
 	 * Ajoute un démonyme dans la liste des démonymes.
 	 */
-	public function addDemonym(string $country, string $demonym): void
+	private function addDemonym(string $country, string $demonym): void
 	{
 		$_SESSION[$this->sessionNameDemonyms][$country] = $demonym;
 	}
@@ -136,7 +176,7 @@ class Cities extends Database
 	/**
 	 * Récupère un code ISO depuis le nom d'un pays.
 	 */
-	public function getCountryISO(string $country): string|null
+	private function getCountryISO(string $country): string|null
 	{
 		if (isset($_SESSION[$this->sessionNameFlags][$country])) {
 			return $_SESSION[$this->sessionNameFlags][$country];
@@ -155,7 +195,7 @@ class Cities extends Database
 				return null;
 			}
 
-			$this->addDrapeau($country, $output->iso);
+			$this->addFlag($country, $output->iso);
 
 			return $_SESSION[$this->sessionNameFlags][$country];
 		}
@@ -166,32 +206,8 @@ class Cities extends Database
 	/**
 	 * Ajoute un drapeau dans la liste des flags.
 	 */
-	public function addDrapeau(string $country, string $drapeau): void
+	private function addFlag(string $country, string $flag): void
 	{
-		$_SESSION[$this->sessionNameFlags][$country] = $drapeau;
-	}
-
-	/**
-	 * Insère une nouvelle ville
-	 */
-	public function create(City $city): bool
-	{
-		try {
-			$stmt = $this->getPdo()->prepare("
-				INSERT INTO {$this->tableName} (name,country,capital) VALUES (
-					:city_name,
-					:country,
-					:capital
-				)
-			");
-
-			return $stmt->execute([
-				"city_name" => $city->getCity(),
-				"country" => $city->getCountry()->getName(),
-				"capital" => $city->getCountry()->getCapital(),
-			]);
-		} catch (PDOException $_) {
-			return false;
-		}
+		$_SESSION[$this->sessionNameFlags][$country] = $flag;
 	}
 }
