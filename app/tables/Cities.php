@@ -10,7 +10,12 @@ class Cities extends Database
 	// Propriété //
 	// --------- //
 
+	/**
+	 * Nom de la table
+	 */
 	private string $tableName = "cities";
+
+	/** Nom des sessions */
 
 	private string $sessionNameDemonyms = "tp_zakville.demonyms";
 	private string $sessionNameFlags    = "tp_zakville.flags";
@@ -56,14 +61,11 @@ class Cities extends Database
 	{
 		$stmt = $this->getPdo()->query("SELECT * FROM {$this->tableName}");
 
-		if ($stmt === false) {
-			return [];
-		}
-
 		// NOTE: `array_map` fonctionne de la même façon que le `Array.map` de
 		//       JavaScript.
+		//       https://php.net/manual/en/function.array-map.php
 		return array_map(
-			/** Fonction anonyme */
+			// Fonction anonyme
 			function (object $item): City {
 				// var_dump($item);
 
@@ -103,6 +105,10 @@ class Cities extends Database
 				"capital" => $city->getCountry()->getCapital(),
 			]);
 		} catch (PDOException $_) {
+			// L'ajout d'une ville dans la base de données peut échouer dans le
+			// cas où le nom d'une ville existe déjà.
+			//
+			// name = unique
 			return false;
 		}
 	}
@@ -112,23 +118,25 @@ class Cities extends Database
 	 */
 	public function findAllCountries(): array
 	{
-		try {
-			$stmt = $this->getPdo()->query("
-				SELECT DISTINCT country,capital FROM {$this->tableName}
-			");
+		$stmt = $this->getPdo()->query("
+			SELECT DISTINCT country,capital FROM {$this->tableName}
+		");
 
-			if ($stmt === false) {
-				return [];
-			}
-
-			return array_map(function ($data) {
-				$country = new Country($data->country, $data->capital);
-				$country->setIsoCode($this->getCountryISO($data->country));
+		// NOTE: `array_map` fonctionne de la même façon que le `Array.map` de
+		//       JavaScript.
+		//       https://php.net/manual/en/function.array-map.php
+		return array_map(
+			// Fonction anonyme
+			function ($item) {
+				$country = new Country(
+					country: $item->country,
+					capital: $item->capital
+				);
+				$country->setIsoCode($this->getCountryISO($item->country));
 				return $country;
-			}, $stmt->fetchAll());
-		} catch (PDOException $e) {
-			return [];
-		}
+			},
+			$stmt->fetchAll()
+		);
 	}
 
 	// ------- //
@@ -146,23 +154,23 @@ class Cities extends Database
 
 		$req = $this->getPdo()->prepare("CALL GetCountryDemonym(:country, @demonym)");
 
-		if ($req->execute(["country" => $country])) {
-			$req = $this->getPdo()->query("SELECT @demonym AS demonym");
-			if ($req === false) {
-				return null;
-			}
-
-			$res = $req->fetch();
-			if ($res === false || $res->demonym === null) {
-				return null;
-			}
-
-			$this->addDemonym($country, $res->demonym);
-
-			return $_SESSION[$this->sessionNameDemonyms][$country];
+		if (!$req->execute(["country" => $country])) {
+			return null;
 		}
 
-		return null;
+		$req = $this->getPdo()->query("SELECT @demonym AS demonym");
+		if ($req === false) {
+			return null;
+		}
+
+		$res = $req->fetch();
+		if ($res === false || $res->demonym === null) {
+			return null;
+		}
+
+		$this->addDemonym($country, $res->demonym);
+
+		return $_SESSION[$this->sessionNameDemonyms][$country];
 	}
 
 	/**
@@ -184,23 +192,23 @@ class Cities extends Database
 
 		$req = $this->getPdo()->prepare("CALL GetCountryISO(:country, @output)");
 
-		if ($req->execute(["country" => $country])) {
-			$req = $this->getPdo()->query("SELECT @output AS iso");
-			if (!$req) {
-				return null;
-			}
-
-			$output = $req->fetch();
-			if (!$output || $output->iso === null) {
-				return null;
-			}
-
-			$this->addFlag($country, $output->iso);
-
-			return $_SESSION[$this->sessionNameFlags][$country];
+		if (!$req->execute(["country" => $country])) {
+			return null;
 		}
 
-		return null;
+		$req = $this->getPdo()->query("SELECT @output AS iso");
+		if (!$req) {
+			return null;
+		}
+
+		$output = $req->fetch();
+		if (!$output || $output->iso === null) {
+			return null;
+		}
+
+		$this->addFlag($country, $output->iso);
+
+		return $_SESSION[$this->sessionNameFlags][$country];
 	}
 
 	/**

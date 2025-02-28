@@ -70,5 +70,16 @@ class AddCityAdminPage
  */
 class AddCityAdminView
 {
+	/**
+	 * La syntaxe qui suit est une syntaxe alternative et plus rapide de
+	 *
+	 * ```php
+	 * public type $prop;
+	 *
+	 * public function __construct(type $prop) {
+	 * 		$this->prop = $prop;
+	 * }
+	 * ```
+	 */
 	public function __construct(public array $users) {}
 }

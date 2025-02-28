@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Affiche les messages d'erreurs et de succès de la session puis les supprimes.
+ */
 function displaySessionsMessages(): string
 {
 	if (session_status() === PHP_SESSION_NONE) {
@@ -38,6 +41,9 @@ function displaySessionsMessages(): string
 	return $output;
 }
 
+/**
+ * Enregistre un message d'erreur ou de succès dans la session.
+ */
 function notifyMessage(string $type, string $message, $redirectTo = ""): void
 {
 	if (session_status() === PHP_SESSION_NONE) {

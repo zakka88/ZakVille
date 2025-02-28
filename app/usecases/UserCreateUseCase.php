@@ -63,7 +63,7 @@ class UserCreateUseCase
 		if ($success) {
 			notifyMessage(
 				"success",
-				"Un mail de confirmation vous a été envoyé à votre adresse e-mail. " .
+					"Un mail de confirmation vous a été envoyé à votre adresse e-mail. " .
 					"Mais comme on fait semblant et qu'il n'existe pas d'adresse mail, " .
 					"bah vous pouvez directement vous connecter.",
 				"login.php"
@@ -71,7 +71,7 @@ class UserCreateUseCase
 		} else {
 			notifyMessage(
 				"errors",
-				"Vous ne pouvez pas choisir le pseudo " .
+					"Vous ne pouvez pas choisir le pseudo " .
 					"<strong>" . htmlspecialchars($form["username"]) . "</strong>" .
 					" car il a été banni de nos services pour une durée déterminée"
 			);

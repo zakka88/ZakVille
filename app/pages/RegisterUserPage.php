@@ -90,13 +90,13 @@ class RegisterUserPage
 class RegisterUserView
 {
 	/**
-	 * Syntaxe alternative et plus rapide de
+	 * La syntaxe qui suit est une syntaxe alternative et plus rapide de
 	 *
 	 * ```php
-	 * public array $cities;
+	 * public type $prop;
 	 *
-	 * public function __construct(array $cities) {
-	 * 		$this->cities = $cities;
+	 * public function __construct(type $prop) {
+	 * 		$this->prop = $prop;
 	 * }
 	 * ```
 	 */

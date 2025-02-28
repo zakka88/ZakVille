@@ -26,7 +26,7 @@ class AuthUseCase
 	// --------------- //
 	// Getter | Setter //
 	// --------------- //
-	
+
 	public function isConnected(): bool
 	{
 		return $this->authentication->check();
@@ -41,6 +41,9 @@ class AuthUseCase
 	// Méthode // -> API Publique
 	// ------- //
 
+	/**
+	 * Page accessible uniquement pour les utilisateurs anonymes. (non connectés)
+	 */
 	public function anonymousOnly(): void
 	{
 		if ($this->authentication->check()) {
@@ -49,6 +52,9 @@ class AuthUseCase
 		}
 	}
 
+	/**
+	 * Page accessible uniquement pour les utilisateurs connectés.
+	 */
 	public function connectedOnly(): void
 	{
 		if (!$this->authentication->check()) {
@@ -57,6 +63,9 @@ class AuthUseCase
 		}
 	}
 
+	/**
+	 * Page accessible uniquement pour les administrateurs.
+	 */
 	public function adminOnly(): void
 	{
 		if (

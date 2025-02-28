@@ -2,6 +2,10 @@
 
 class Country
 {
+	// --------- //
+	// Propriété //
+	// --------- //
+
 	/**
 	 * Nom du pays.
 	 */

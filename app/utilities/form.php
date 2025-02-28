@@ -28,6 +28,15 @@ function inputValue(string $field): string
 	return isset($_POST[$field]) ? htmlspecialchars($_POST[$field]) : "";
 }
 
+/**
+ * Construit un élément ```
+ *   <div class="input-container">
+ *      <label for="..."> <svg ... /> </label>
+ *      <input name"..." ... />
+ *      <span> <svg ... /> </span>
+ *   </div>
+ * ``` en fonction des arguments passés.
+ */
 function input(
 	string $name,
 	array $attrs = [],
@@ -64,6 +73,11 @@ function input(
 	return $render;
 }
 
+/**
+ * Construit un élément ```
+ *   <label for="..."> ... </label>
+ * ``` en fonction des arguments passés.
+ */
 function label(string $htmlFor, string $slot, array $attrs = []): string {
 	$attrs["for"] = $htmlFor;
 	$render = '<label ' . attributes($attrs) . '>';
@@ -84,6 +98,17 @@ function labelIcon(
 	return label($htmlFor, $svg, $attrs);
 }
 
+/**
+ * Construit un élément ```
+ *   <div class="input-container">
+ *      <label for="..."> <svg ... /> </label>
+ *      <select name"..." ...>
+ * 	       ...
+ *      </select>
+ *      <span> <svg ... /> </span>
+ *   </div>
+ * ``` en fonction des arguments passés.
+ */
 function select(
 	string $name,
 	array $attrs = [],
@@ -102,7 +127,6 @@ function select(
 	$options = $props["options"] ?: [];
 
 	$render .= '<select ' . attributes($attrs) . '>';
-
 
 	if (isset($props["default-group"])) {
 		$render .= '<option hidden selected>';
@@ -145,6 +169,9 @@ function select(
 	return $render;
 }
 
+/**
+ * Construit les attributs d'un élément HTML.
+ */
 function attributes(array $attrs): string
 {
 	$str = "";
@@ -161,9 +188,7 @@ function attributes(array $attrs): string
 			$str .= "$attrName=";
 		}
 
-		$str .= '"';
-		$str .= htmlspecialchars($attrValue);
-		$str .= '"';
+		$str .= '"' . htmlspecialchars($attrValue) . '"';
 		$str .= " ";
 	}
 
