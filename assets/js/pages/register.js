@@ -95,7 +95,6 @@ export class RegisterPage {
 
 		const changePicture = () => {
 			for (let pictureId of pictureIds) {
-				console.log(pictureId);
 				let $link = this.#$carouselControls?.querySelector(
 					`a[href="#${pictureId}"]`,
 				);
@@ -149,7 +148,7 @@ export class RegisterPage {
 		}
 
 		let $selectedOption = Array.from(this.#$selectCity?.options).find(
-			(opt) => opt.value == cityId,
+			(opt) => Number.parseInt(opt.value, 10) === cityId,
 		);
 		let cityFlag = $selectedOption?.textContent
 			?.split(/\(([a-z]{2})\)/i)[1]
@@ -161,8 +160,11 @@ export class RegisterPage {
 			let $toggleRun = document.createElement("button");
 			$toggleRun.classList.add("toggle-controls")
 			$toggleRun.type = "button";
-			$toggleRun.innerHTML = `<img src="./assets/svg/pause.svg" alt="">`;
+
+			// Remet l'interval de temps à 5s à chaque changement de ville
+			this.#currentInterval = 5_000;
 			$toggleRun.ariaLabel = "Arrêter le diaporama automatique";
+			$toggleRun.innerHTML = `<img src="./assets/svg/pause.svg" alt="">`;
 
 			$toggleRun.addEventListener("click", () => {
 				let currentIdx = this.#currentCarouselControlIndex;
