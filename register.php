@@ -61,9 +61,11 @@ if (isset($_POST["register-user"])) {
 
 			<form action="" method="POST" class="auth-form">
 				<div class="input-group">
+					<?=
 					input(
 						"firstname",
 						[
+							"aria-label" => "Prénom",
 							"autocomplete" => "given-name",
 							"minlength" => "3",
 							"placeholder" => "Écris ton prénom",
@@ -80,6 +82,7 @@ if (isset($_POST["register-user"])) {
 					input(
 						"username",
 						[
+							"aria-label" => "Pseudonyme",
 							"autocomplete" => "username",
 							"placeholder" => "Écris ton pseudonyme",
 							"required" => true,
@@ -95,6 +98,7 @@ if (isset($_POST["register-user"])) {
 					input(
 						"password",
 						[
+							"aria-label" => "Mot de passe",
 							"autocomplete" => "new-password",
 							"minlength" => "8",
 							"placeholder" => "Écris ton mot de passe (retiens-le, note-le !!)",
@@ -111,6 +115,7 @@ if (isset($_POST["register-user"])) {
 					input(
 						"password_confirmation",
 						[
+							"aria-label" => "Confirmation de mot de passe",
 							"autocomplete" => "new-password",
 							"placeholder" => "Confirme ton mot de passe",
 							"required" => true,
@@ -126,11 +131,11 @@ if (isset($_POST["register-user"])) {
 					input(
 						"date_of_birth",
 						[
+							"aria-label" => "Jour de naissance, minimum 16 ans",
 							"autocomplete" => "bday",
 							"placeholder" => "Jour de naissance",
 							"required" => true,
 							"type" => "date",
-							"title" => "Minimum 16 ans",
 							"max" => $view->maxBdayDate,
 						],
 						[
@@ -144,6 +149,7 @@ if (isset($_POST["register-user"])) {
 						"city",
 						[
 							/** Le champ en base de données peut être NULL */
+							"placeholder" => "Choisir sa ville (optionnel)",
 							"required" => false,
 							"title" => "Choisis ta ville",
 						],
@@ -167,11 +173,16 @@ if (isset($_POST["register-user"])) {
 			</form>
 		</section>
 
-		<section role="presentation" hidden>
-			<div class="slider js-pictures" tabindex="0">
+		<section
+			aria-label="Prévisualisation des images du pays séléctionné"
+			aria-roledescription="carousel"
+			aria-orientation="horizontal"
+			hidden
+		>
+			<div class="carousel js-pictures" tabindex="0">
 			</div>
 
-			<div class="slider-items js-slider-items">
+			<div class="carousel-controls js-carousel-controls" role="tablist" aria-label="Slides">
 			</div>
 		</section>
 

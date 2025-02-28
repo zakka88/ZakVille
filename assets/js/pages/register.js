@@ -7,7 +7,7 @@ export class RegisterPage {
 	/**
 	 * @type {HTMLDivElement|null}
 	 */
-	#$presentation;
+	#$carousel;
 
 	/**
 	 * @type {HTMLSelectElement|null}
@@ -17,20 +17,32 @@ export class RegisterPage {
 	/**
 	 * @type {HTMLDivElement|null}
 	 */
-	#$sliderItems;
+	#$carouselControls;
 
-	#currentSliderIndex = 1;
-	#currentSliderTimer = 0;
+	#currentCarouselControlIndex = 1;
+	#currentCarouselControlTimer = 0;
 
 	#pictures = {};
+	#currentPictures = [];
+	#currentInterval = 5_000;
 
 	constructor() {
 		this.#$selectCity = document.querySelector('select[name="city"]');
-		this.#$presentation = document.querySelector(
-			'section[role="presentation"]',
+		this.#$carousel = document.querySelector(
+			'section[aria-roledescription="carousel"]',
 		);
 		this.#$pictures = document.querySelector(".js-pictures");
-		this.#$sliderItems = document.querySelector(".js-slider-items");
+		this.#$carouselControls = document.querySelector(
+			".js-carousel-controls",
+		);
+	}
+
+	// --------------- //
+	// Getter | Setter //
+	// --------------- //
+
+	get carouselActive() {
+		return this.#currentCarouselControlTimer > 0;
 	}
 
 	// ------- //
@@ -74,46 +86,53 @@ export class RegisterPage {
 	// Méthode // -> Privée
 	// ------- //
 
-	/**
-	 * @param {Array<string>} pictureIds
-	 */
-	#startSlider(pictureIds) {
-		this.#resetSlider();
+	#startCarousel(reset = true) {
+		let pictureIds = this.#currentPictures;
+
+		if (reset) {
+			this.#resetCarouselControls();
+		}
 
 		const changePicture = () => {
 			for (let pictureId of pictureIds) {
-				let $link = this.#$sliderItems?.querySelector(
+				console.log(pictureId);
+				let $link = this.#$carouselControls?.querySelector(
 					`a[href="#${pictureId}"]`,
 				);
-				$link?.classList.remove("active");
+				$link.ariaSelected = false;
 
-				if (pictureId.indexOf(this.#currentSliderIndex.toFixed()) > 0) {
-					$link?.classList.add("active");
+				if (
+					pictureId.indexOf(
+						this.#currentCarouselControlIndex.toFixed(),
+					) > 0
+				) {
+					$link.ariaSelected = true;
 					// @ts-expect-error - cette méthode existe
 					$link?.click();
 				}
 			}
 
 			if (
-				this.#$sliderItems?.childElementCount ===
-				this.#currentSliderIndex
+				this.#$carouselControls?.childElementCount - 1 ===
+				this.#currentCarouselControlIndex
 			) {
-				this.#currentSliderIndex = 1;
+				this.#currentCarouselControlIndex = 1;
 			} else {
-				this.#currentSliderIndex += 1;
+				this.#currentCarouselControlIndex += 1;
 			}
 		};
 
 		changePicture();
 
-		this.#currentSliderTimer = window.setInterval(() => {
+		this.#currentCarouselControlTimer = window.setInterval(() => {
 			changePicture();
-		}, 5_000);
+		}, this.#currentInterval);
 	}
 
-	#resetSlider() {
-		clearInterval(this.#currentSliderTimer);
-		this.#currentSliderIndex = 1;
+	#resetCarouselControls() {
+		clearInterval(this.#currentCarouselControlTimer);
+		this.#currentCarouselControlIndex = 1;
+		this.#currentCarouselControlTimer = 0;
 	}
 
 	// ----- //
@@ -129,17 +148,45 @@ export class RegisterPage {
 			return;
 		}
 
-		let $selectedOption = Array.from(this.#$selectCity?.options)
-			.find((opt) => opt.value == cityId);
+		let $selectedOption = Array.from(this.#$selectCity?.options).find(
+			(opt) => opt.value == cityId,
+		);
 		let cityFlag = $selectedOption?.textContent
 			?.split(/\(([a-z]{2})\)/i)[1]
 			?.toLowerCase();
 
-		if (this.#$sliderItems) {
-			this.#$sliderItems.innerHTML = "";
+		if (this.#$carouselControls) {
+			this.#$carouselControls.innerHTML = "";
+
+			let $toggleRun = document.createElement("button");
+			$toggleRun.classList.add("toggle-controls")
+			$toggleRun.type = "button";
+			$toggleRun.innerHTML = `<img src="./assets/svg/pause.svg" alt="">`;
+			$toggleRun.ariaLabel = "Arrêter le diaporama automatique";
+
+			$toggleRun.addEventListener("click", () => {
+				let currentIdx = this.#currentCarouselControlIndex;
+				if (this.carouselActive) {
+					this.#resetCarouselControls();
+					this.#currentCarouselControlIndex = currentIdx;
+					this.#currentInterval = 9e20;
+
+					$toggleRun.ariaLabel = "Démarrer le diaporama automatique";
+					$toggleRun.innerHTML = `<img src="./assets/svg/play.svg" alt="">`;
+				} else {
+					this.#currentInterval = 5_000;
+					this.#currentCarouselControlIndex = currentIdx;
+					this.#startCarousel(false);
+
+					$toggleRun.ariaLabel = "Arrêter le diaporama automatique";
+					$toggleRun.innerHTML = `<img src="./assets/svg/pause.svg" alt="">`;
+				}
+			});
+
+			this.#$carouselControls.append($toggleRun);
 		}
 
-		this.#$presentation?.removeAttribute("hidden");
+		this.#$carousel?.removeAttribute("hidden");
 		if (this.#$pictures) {
 			this.#$pictures.scrollLeft = 0;
 		}
@@ -159,19 +206,25 @@ export class RegisterPage {
 		}
 
 		if (pictureIds.length === 0) {
-			this.#$presentation?.setAttribute("hidden", "hidden");
+			this.#$carousel?.setAttribute("hidden", "hidden");
 		}
 
 		for (let pictureId of pictureIds) {
-			let $sliderItem = document.createElement("a");
-			$sliderItem.classList.add("slider-item");
-			$sliderItem.href = `#${pictureId}`;
-			$sliderItem.ariaLabel = `Cliquez pour visualiser la photo de ${pictureId}`;
-			this.#$sliderItems?.append($sliderItem);
+			let $controlItem = document.createElement("a");
+			$controlItem.classList.add("carousel-item");
+			$controlItem.href = `#${pictureId}`;
+			$controlItem.setAttribute(
+				"aria-label",
+				`Cliquez pour visualiser la photo de ${pictureId}`,
+			);
+			$controlItem.setAttribute("aria-controls", pictureId);
+			this.#$carouselControls?.append($controlItem);
 		}
 
-		this.#resetSlider();
-		this.#startSlider(pictureIds);
+		this.#currentPictures = pictureIds;
+
+		this.#resetCarouselControls();
+		this.#startCarousel();
 	};
 
 	#resetSelectCity = () => {
@@ -182,8 +235,8 @@ export class RegisterPage {
 			if (firstOption) {
 				firstOption.selected = true;
 			}
-			this.#resetSlider();
-			this.#$presentation?.setAttribute("hidden", "");
+			this.#resetCarouselControls();
+			this.#$carousel?.setAttribute("hidden", "");
 		}
 	};
 }

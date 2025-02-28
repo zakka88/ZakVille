@@ -17,7 +17,7 @@ body:has(#page-auth-register) {
 	font-size: 14px;
 }
 
-body:has(#page-auth-register > section[role="presentation"][hidden]) {
+body:has(#page-auth-register > section[aria-roledescription="carousel"][hidden]) {
 	background: var(--auth-register-surface);
 	color: var(--auth-register-on-surface);
 
@@ -158,14 +158,14 @@ body:has(#page-auth-register > section[role="presentation"][hidden]) {
 	}
 }
 
-section[role="presentation"]:not([hidden]) {
+section[aria-roledescription="carousel"]:not([hidden]) {
 	display: grid;
 	place-content: center;
 	place-items: center;
 	position: relative;
 	width: 100%;
 
-	& > .slider {
+	& > .carousel {
 		display: flex;
 		gap: var(--spacing-2);
 
@@ -186,7 +186,7 @@ section[role="presentation"]:not([hidden]) {
 		scroll-behavior: smooth;
 	}
 
-	& > .slider > img {
+	& > .carousel > img {
 		display: inline-block;
 		flex-shrink: 0;
 		width: var(--size-full);
@@ -196,16 +196,30 @@ section[role="presentation"]:not([hidden]) {
 		box-shadow: 0 0 var(--spacing-1) var(--color-black);
 	}
 
-	& > .slider > .hide {
+	& > .carousel > .hide {
 		display: none;
 	}
 
-	& > .slider-items {
+	& > .carousel-controls {
 		position: absolute;
+		right: var(--spacing-2);
 		bottom: var(--spacing-5);
+		left: var(--spacing-2);
+		text-align: center;
 	}
 
-	& > .slider-items > .slider-item {
+	& > .carousel-controls > .toggle-controls {
+		position: absolute;
+		top: -.5rem;
+		left: .5rem;
+		border: none;
+		background: var(--color-white);
+		border-radius: var(--border-radius-m);
+		cursor: pointer;
+		box-shadow: 2px 2px 2px var(--color-black);
+	}
+
+	& > .carousel-controls > .carousel-item {
 		display: inline-block;
 		width: var(--spacing-8);
 		height: var(--spacing-1);
@@ -222,7 +236,7 @@ section[role="presentation"]:not([hidden]) {
 		}
 	}
 
-	& > .slider-items > .slider-item.active {
+	& > .carousel-controls > .carousel-item[aria-selected="true"] {
 		padding: var(--spacing-1);
 		background: var(--color-white);
 	}

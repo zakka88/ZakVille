@@ -42,7 +42,7 @@ function input(
 	$attrs["id"] = $name;
 	$attrs["name"] = $name;
 
-	if (isset($attrs["placeholder"])) {
+	if (!isset($attrs["aria-label"]) && isset($attrs["placeholder"])) {
 		$attrs["aria-label"] = $attrs["placeholder"];
 	}
 

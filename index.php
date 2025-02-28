@@ -42,7 +42,7 @@ $view = $page->handle();
 			<h1>Des endroits à visiter</h1>
 
 			<button type="button" class="launch-video-btn js-launch-video-btn" aria-label="Lancer la vidéo">
-				<?= include "./assets/svg/play.svg" ?>
+				<?= include "./assets/svg/play-big.svg" ?>
 			</button>
 		</div>
 
