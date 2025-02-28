@@ -8,7 +8,7 @@
 	);
 	--auth-register-account-on-surface: light-dark(#888888, #d4d4d4);
 	--auth-register-account-note-on-surface: light-dark(#5b64b6, #999fd1);
-	--auth-register-link: #e53357;
+	--auth-register-link: #e25e5e;
 }
 
 body:has(#page-auth-register) {

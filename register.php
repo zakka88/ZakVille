@@ -61,7 +61,6 @@ if (isset($_POST["register-user"])) {
 
 			<form action="" method="POST" class="auth-form">
 				<div class="input-group">
-					<?=
 					input(
 						"firstname",
 						[
@@ -169,7 +168,7 @@ if (isset($_POST["register-user"])) {
 		</section>
 
 		<section role="presentation" hidden>
-			<div class="slider js-pictures">
+			<div class="slider js-pictures" tabindex="0">
 			</div>
 
 			<div class="slider-items js-slider-items">

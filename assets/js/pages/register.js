@@ -53,6 +53,7 @@ export class RegisterPage {
 			for (let i = 1; i < count_pictures + 1; i++) {
 				let $img = document.createElement("img");
 				$img.id = `${country.toLowerCase()}_${i}`;
+				$img.alt = `Image numéro ${i} du pays ${country}.`;
 				$img.src = `./assets/img/${country.toLowerCase()}_${i}.jpg`;
 				$img.loading = "lazy";
 				$img.classList.add("hide");

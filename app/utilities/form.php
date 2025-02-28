@@ -42,6 +42,10 @@ function input(
 	$attrs["id"] = $name;
 	$attrs["name"] = $name;
 
+	if (isset($attrs["placeholder"])) {
+		$attrs["aria-label"] = $attrs["placeholder"];
+	}
+
 	$render .= '<input ' . attributes($attrs) . '>';
 
 	if (isset($props["icon-right"])):
