@@ -38,7 +38,7 @@ $sessions = array_filter(
 			</li>
 
 			<li>
-				<a href="/cfoulatech/php/practices/ZakVille/">Aller à la page d'accueil</a>
+				<a href="./">Aller à la page d'accueil</a>
 			</li>
 
 			<li>
