@@ -47,10 +47,12 @@ class Country
 
 	/**
 	 * Retourne l'emoji du pays en fonction du code ISO (flag, BE,FR,JP,...)
+	 *
+	 * J'ai trouvé ça sur internet.
 	 */
 	public function getFlag(): string
 	{
-		return implode(
+		return join(
 			'',
 			array_map(
 				fn($letter) => mb_chr(ord($letter) % 32 + 0x1F1E5),

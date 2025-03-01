@@ -8,7 +8,7 @@ $page = new RegisterUserPage();
 if (isset($_POST["register-user"])) {
 	$page->save($_POST);
 } else {
-	$view = $page->handle();
+	$view = $page->data();
 }
 ?>
 <!DOCTYPE html>
@@ -200,12 +200,12 @@ if (isset($_POST["register-user"])) {
 		 * @example
 		 *
 		 *```js
-		 *{
-		 * be: 3,
-		 * it: 3,
-		 * us: 3,
-		 * // etc...
-		 *}
+		 * {
+		 *     be: 3,
+		 *     it: 3,
+		 *     us: 3,
+		 *     // etc...
+		 * }
 		 *```
 		 */
 		let pictures = {

@@ -39,12 +39,12 @@ class Cities extends Database
 			session_start();
 		}
 
-		if (!isset($_SESSION[$this->sessionNameDemonyms])) {
+		if ( ! isset($_SESSION[$this->sessionNameDemonyms])) {
 			// Initialise la session des démonymes.
 			$_SESSION[$this->sessionNameDemonyms] = [];
 		}
 
-		if (!isset($_SESSION[$this->sessionNameFlags])) {
+		if ( ! isset($_SESSION[$this->sessionNameFlags])) {
 			// Initialise la session des drapeaux
 			$_SESSION[$this->sessionNameFlags] = [];
 		}
@@ -70,14 +70,18 @@ class Cities extends Database
 				// var_dump($item);
 
 				$city = new City(
-					city: $item->name,
+					city:    $item->name,
 					country: $item->country,
 					capital: $item->capital
 				);
 
 				$city->setId($item->id);
-				$city->getCountry()->setDemonym($this->getDemonym($item->country) ?: "");
-				$city->getCountry()->setIsoCode($this->getCountryISO($item->country) ?: "");
+				$city->getCountry()->setDemonym(
+					$this->getDemonym($item->country) ?: ""
+				);
+				$city->getCountry()->setIsoCode(
+					$this->getCountryISO($item->country) ?: ""
+				);
 
 				return $city;
 			},
@@ -101,8 +105,8 @@ class Cities extends Database
 
 			return $stmt->execute([
 				"city_name" => $city->getCity(),
-				"country" => $city->getCountry()->getName(),
-				"capital" => $city->getCountry()->getCapital(),
+				"country"   => $city->getCountry()->getName(),
+				"capital"   => $city->getCountry()->getCapital(),
 			]);
 		} catch (PDOException $_) {
 			// L'ajout d'une ville dans la base de données peut échouer dans le

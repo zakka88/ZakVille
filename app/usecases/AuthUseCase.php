@@ -10,7 +10,8 @@ class AuthUseCase
 	// --------- //
 
 	private Authentication $authentication;
-	private Authorization $authorization;
+	private Authorization  $authorization;
+
 	private string $redirectTo = "login.php";
 
 	// ----------- //
@@ -20,7 +21,7 @@ class AuthUseCase
 	public function __construct()
 	{
 		$this->authentication = new Authentication();
-		$this->authorization = new Authorization();
+		$this->authorization  = new Authorization();
 	}
 
 	// --------------- //

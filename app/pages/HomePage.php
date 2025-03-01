@@ -10,6 +10,7 @@ class HomePage
 	// --------- //
 
 	private Authentication $authentication;
+
 	private Cities $citiesTable;
 
 	// ----------- //
@@ -19,6 +20,7 @@ class HomePage
 	public function __construct()
 	{
 		$this->authentication = new Authentication();
+
 		$this->citiesTable = new Cities();
 	}
 
@@ -26,11 +28,15 @@ class HomePage
 	// Méthode // -> API Publique
 	// ------- //
 
-	public function handle(): HomeView
+	public function data(): HomeView
 	{
+		$youtubeVideoIDs = ["4piwwTCgpPA", "eLPVDaaQybY", "bHDmvm5nunk", "2vqvBzb0xJY", "mtCK_tHQ6U4"];
+		$youtubeVideoID = $youtubeVideoIDs[array_rand($youtubeVideoIDs)];
+
 		return new HomeView(
-			countries: $this->citiesTable->findAllCountries(),
-			isConnected: $this->authentication->check(),
+			youtubeVideoID: $youtubeVideoID,
+			countries:      $this->citiesTable->findAllCountries(),
+			isConnected:    $this->authentication->check(),
 		);
 	}
 }
@@ -55,5 +61,6 @@ class HomeView
 	public function __construct(
 		public array $countries,
 		public bool $isConnected,
+		public string $youtubeVideoID,
 	) {}
 }

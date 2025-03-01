@@ -12,6 +12,7 @@ class UserCreateUseCase
 	// --------- //
 
 	private AuthUseCase $authUseCase;
+
 	private Users $usersTable;
 
 	// ----------- //
@@ -50,12 +51,12 @@ class UserCreateUseCase
 		$cityId = is_numeric($form["city"]) ? (int) $form["city"] : null;
 
 		$user = new User(
-			username: $form["username"],
-			password: $form["password"],
-			firstname: $form["firstname"],
+			username:      $form["username"],
+			password:      password_hash($form["password"], PASSWORD_DEFAULT),
+			firstname:     $form["firstname"],
 			date_of_birth: new DateTime($form["date_of_birth"]),
-			role: "User",
-			cityId: $cityId,
+			role:          "User",
+			cityId:        $cityId,
 		);
 
 		$success = $this->usersTable->create($user);
@@ -63,16 +64,16 @@ class UserCreateUseCase
 		if ($success) {
 			notifyMessage(
 				"success",
-					"Un mail de confirmation vous a été envoyé à votre adresse e-mail. " .
-					"Mais comme on fait semblant et qu'il n'existe pas d'adresse mail, " .
-					"bah vous pouvez directement vous connecter.",
+					"Un mail de confirmation vous a été envoyé à votre adresse e-mail." .
+					" Mais comme on fait semblant et qu'il n'existe pas d'adresse mail," .
+					" bah vous pouvez directement vous connecter.",
 				"login.php"
 			);
 		} else {
 			notifyMessage(
 				"errors",
-					"Vous ne pouvez pas choisir le pseudo " .
-					"<strong>" . htmlspecialchars($form["username"]) . "</strong>" .
+					"Vous ne pouvez pas choisir le pseudo" .
+					" <strong>" . htmlspecialchars($form["username"]) . "</strong>" .
 					" car il a été banni de nos services pour une durée déterminée"
 			);
 		}

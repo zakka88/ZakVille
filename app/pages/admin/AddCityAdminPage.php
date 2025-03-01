@@ -10,8 +10,9 @@ class AddCityAdminPage
 	// Propriété //
 	// --------- //
 
-	private AuthUseCase $authUseCase;
+	private AuthUseCase       $authUseCase;
 	private CityCreateUseCase $cityCreateUseCase;
+
 	private Users $usersTable;
 
 	// ----------- //
@@ -21,30 +22,11 @@ class AddCityAdminPage
 	public function __construct()
 	{
 		$this->authUseCase = new AuthUseCase();
-
 		$this->authUseCase->setRedirectTo("../../error404.php");
-
-		/* Exemple */
-		/*
-		session_start();
-
-		require_once __DIR__ . "/../../entities/User.php";
-
-		$user = new User(
-			username: "Mike",
-			password: password_hash("12345678", PASSWORD_DEFAULT),
-			firstname: "Mike",
-			date_of_birth: new DateTime(),
-			role: "Admin",
-			cityId: 10,
-		);
-
-		$_SESSION["tp_zakville.user"] = $user;
-		*/
-
 		$this->authUseCase->adminOnly();
 
 		$this->cityCreateUseCase = new CityCreateUseCase();
+
 		$this->usersTable = new Users();
 	}
 
@@ -63,7 +45,6 @@ class AddCityAdminPage
 		return new AddCityAdminView(users: $users);
 	}
 }
-
 
 /**
  * @property array<int,User> $users Utilisateurs

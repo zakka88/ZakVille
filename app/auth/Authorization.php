@@ -11,7 +11,7 @@ class Authorization
 	public function isAnonymous(AuthorizationAccess $access): bool
 	{
 		return $access->value >= AuthorizationAccess::Anonymous->value &&
-			   $access->value < AuthorizationAccess::User->value;
+			   $access->value <  AuthorizationAccess::User->value;
 	}
 
 	/**
@@ -21,7 +21,7 @@ class Authorization
 	public function isUser(AuthorizationAccess $access): bool
 	{
 		return $access->value >= AuthorizationAccess::User->value &&
-			   $access->value < AuthorizationAccess::Admin->value;
+			   $access->value <  AuthorizationAccess::Admin->value;
 	}
 
 	/**

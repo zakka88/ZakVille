@@ -13,8 +13,8 @@ class CityCreateUseCase
 	// --------- //
 
 	private AuthUseCase $authUseCase;
-	private Cities $citiesTable;
-	private Users $usersTable;
+	private Cities      $citiesTable;
+	private Users       $usersTable;
 
 	// ----------- //
 	// Constructor //
@@ -27,7 +27,7 @@ class CityCreateUseCase
 		$this->authUseCase->adminOnly();
 
 		$this->citiesTable = new Cities();
-		$this->usersTable = new Users();
+		$this->usersTable  = new Users();
 	}
 
 	// ------- //
@@ -43,13 +43,11 @@ class CityCreateUseCase
 			);
 		}
 
-		$city = new City(
+		$success = $this->citiesTable->create(new City(
 			country: $form["country"],
 			capital: $form["capital"],
-			city: $form["city"],
-		);
-
-		$success = $this->citiesTable->create($city);
+			city:    $form["city"],
+		));
 
 		if (!$success) {
 			notifyMessage(
@@ -70,7 +68,9 @@ class CityCreateUseCase
 
 		notifyMessage(
 			"success",
-			"La ville a bien été ajouté et les utilisateurs ont bien eu la ville associée"
+			"La ville « " . htmlspecialchars($form["city"]) .
+			" » a bien été ajouté et les utilisateurs sélectionnés se sont bien" .
+			" vu recevoir cette ville"
 		);
 	}
 }

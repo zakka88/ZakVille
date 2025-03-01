@@ -29,12 +29,14 @@ class City
 	 * ou autrement dit une instance de City.
 	 */
 	public function __construct(
-		string $country = "",
-		string $capital = "",
-		string $city = "",
+		string $country,
+		string $capital,
+		string $city,
+		?int $id = null
 	) {
 		$this->country = new Country($country, $capital);
 		$this->city = $city;
+		$this->id = $id;
 	}
 
 	// ------- //

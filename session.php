@@ -10,6 +10,9 @@ if (isset($_GET["destroy"])) {
 	exit();
 }
 
+// NOTE: `array_filter` fonctionne de la même façon que le `Array.filter` de
+//       JavaScript.
+//       https://php.net/manual/en/function.array-filter.php
 $sessions = array_filter(
 	$_SESSION,
 	fn($key) => str_starts_with($key, "tp_zakville."),
@@ -28,7 +31,7 @@ $sessions = array_filter(
 
 <body>
 	<main role="main" class="inline-center size-article">
-		<h1>Toutes les sessions <code>tp_zakville</code> du projets</h1>
+		<h1>Toutes les sessions du projet <code>tp_zakville</code></h1>
 
 		<?php var_dump($sessions) ?>
 

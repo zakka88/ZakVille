@@ -12,8 +12,9 @@ class RegisterUserPage
 	// Propriété //
 	// --------- //
 
-	private AuthUseCase $authUseCase;
+	private AuthUseCase       $authUseCase;
 	private UserCreateUseCase $userCreateUseCase;
+
 	private Cities $citiesTable;
 
 	// ----------- //
@@ -40,7 +41,7 @@ class RegisterUserPage
 		$this->userCreateUseCase->store($_POST);
 	}
 
-	public function handle(): RegisterUserView
+	public function data(): RegisterUserView
 	{
 		$cities = $this->citiesTable->all();
 
@@ -71,13 +72,13 @@ class RegisterUserPage
 
 		// Je veux que chaque utilisateur qui s'inscrit sur le site ait au moins
 		// 16 ans.
-		$minAge = "16 years";
+		$minAge       = "16 years";
 		$dateInterval = DateInterval::createFromDateString($minAge);
-		$maxBdayDate = (new DateTime())->sub($dateInterval)->format("Y-m-d");
+		$maxBdayDate  = (new DateTime())->sub($dateInterval)->format("Y-m-d");
 
 		return new RegisterUserView(
-			cities: $citiesOptions,
-			isoCodes: $isoCodes,
+			cities:      $citiesOptions,
+			isoCodes:    $isoCodes,
 			maxBdayDate: $maxBdayDate,
 		);
 	}

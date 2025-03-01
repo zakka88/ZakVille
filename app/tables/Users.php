@@ -30,7 +30,9 @@ class Users extends Database
 			FROM cities
 			WHERE id = :city_id
 		");
-		$req->execute(["city_id" => $user->getCityId()]);
+		$req->execute([
+			"city_id" => $user->getCityId()
+		]);
 		$city = $req->fetch();
 
 		// Insertion de l'utilisateur
@@ -52,11 +54,11 @@ class Users extends Database
 
 		try {
 			return $req->execute([
-				"firstname" => $user->getFirstname(),
-				"username" => $user->getUsername(),
-				"password" => password_hash($user->getPassword(), PASSWORD_DEFAULT),
+				"firstname"     => $user->getFirstname(),
+				"username"      => $user->getUsername(),
+				"password"      => $user->getPassword(),
 				"date_of_birth" => $user->getDateOfBirth()->format("Y-m-d"),
-				"city_id" => $city?->id ?: null,
+				"city_id"       => $city?->id ?: null,
 			]);
 		} catch (PDOException $_) {
 			// L'insertion peut échouer dans la cas où le nom d'utilisateur
@@ -75,25 +77,22 @@ class Users extends Database
 			FROM {$this->tableName}
 			WHERE city_id IS NULL
 		");
+		$rawUsers = $req->fetchAll();
 
 		// NOTE: `array_map` fonctionne de la même façon que le `Array.map` de
 		//       JavaScript.
 		//       https://php.net/manual/en/function.array-map.php
 		return array_map(
-			// Fonction anonyme
-			function ($item): User {
-				$user = new User(
-					username: $item->username,
-					password: $item->password,
-					firstname: $item->firstname,
-					date_of_birth: new DateTime($item->date_of_birth),
-					role: $item->role,
-					cityId: $item->city_id,
-				);
-				$user->setId($item->id);
-				return $user;
-			},
-			$req->fetchAll()
+			// Fonction anonyme fléchée
+			fn ($item) => new User(
+				id:            $item->id,
+				username:      $item->username,
+				password:      $item->password,
+				firstname:     $item->firstname,
+				date_of_birth: new DateTime($item->date_of_birth),
+				role:          $item->role,
+			),
+			$rawUsers
 		);
 	}
 
@@ -120,7 +119,9 @@ class Users extends Database
 				LEFT JOIN cities c ON u.city_id = c.id
 				WHERE u.username = :username
 			");
-			$req->execute(["username" => $username]);
+			$req->execute([
+				"username" => $username
+			]);
 
 			$res = $req->fetch();
 
@@ -129,21 +130,20 @@ class Users extends Database
 			}
 
 			$user = new User(
-				username: $res->username,
-				password: $res->password,
-				firstname: $res->firstname,
+				id:            $res->id_user,
+				username:      $res->username,
+				password:      $res->password,
+				firstname:     $res->firstname,
 				date_of_birth: new DateTime($res->date_of_birth),
-				role: $res->role,
-				cityId: $res->city_id,
+				role:          $res->role,
 			);
-			$user->setId($res->id_user);
-			$city = new City(
+
+			$user->setCity(new City(
+				id:      $res->id_city,
 				country: $res->country,
 				capital: $res->capital,
-				city: $res->city
-			);
-			$city->setId($res->id_city);
-			$user->setCity($city);
+				city:    $res->city
+			));
 
 			return $user;
 		} catch (PDOException $e) {
@@ -161,7 +161,9 @@ class Users extends Database
 			SELECT id FROM cities WHERE name = :city_name LIMIT 1
 		");
 
-		$req->execute(["city_name" => $cityName]);
+		$req->execute([
+			"city_name" => $cityName
+		]);
 		$city = $req->fetch();
 
 		// Remplace chaque élément du tableau $users_id par un placeholder (il

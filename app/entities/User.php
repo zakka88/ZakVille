@@ -61,8 +61,10 @@ class User
 		string $firstname,
 		DateTime $date_of_birth,
 		string $role,
-		?string $cityId,
+		?string $cityId = null,
+		?int $id = null,
 	) {
+		$this->id = $id;
 		$this->username = $username;
 		$this->password = $password;
 		$this->firstname = $firstname;
@@ -102,6 +104,7 @@ class User
 
 	public function setCity(City $city): void
 	{
+		$this->cityId = $city->getId();
 		$this->city = $city;
 	}
 

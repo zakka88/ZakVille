@@ -34,6 +34,7 @@ function displaySessionsMessages(): string
 				<button type='button' onclick='this.parentElement.remove()'>&times;</button>
 			</div>
 			";
+
 			unset($_SESSION[$sessionSuccessName][$key]);
 		}
 	}

@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../entities/User.php";
+require_once __DIR__ . "/../tables/Users.php";
 require_once __DIR__ . "/AuthorizationAccess.php";
 
 class Authentication
@@ -26,7 +27,6 @@ class Authentication
 	 */
 	public function attempt(string $username, string $password): User|bool
 	{
-		require_once __DIR__ . "/../tables/Users.php";
 		$usersTable = new Users();
 		$user = $usersTable->findByUsername($username);
 		if ($user && password_verify($password, $user->getPassword())) {
@@ -43,10 +43,8 @@ class Authentication
 	{
 		if ($this->check()) {
 			switch ($_SESSION[$this->sessionName]->getRole()) {
-				case "Admin":
-					return AuthorizationAccess::Admin;
-				case "User":
-					return AuthorizationAccess::User;
+				case "Admin": return AuthorizationAccess::Admin;
+				case "User":  return AuthorizationAccess::User;
 			}
 		}
 

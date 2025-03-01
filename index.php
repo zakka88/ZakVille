@@ -2,7 +2,7 @@
 require_once "./app/pages/HomePage.php";
 
 $page = new HomePage();
-$view = $page->handle();
+$view = $page->data();
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -38,8 +38,8 @@ $view = $page->handle();
 	</header>
 
 	<main role="main">
-		<div class="hero js-hero size-full" style="background-image: url('https://i.ytimg.com/vi/eLPVDaaQybY/maxresdefault.jpg');">
-			<h1>Des endroits à visiter</h1>
+		<div class="hero js-hero size-full" style="background-image: url('https://i.ytimg.com/vi/<?= $view->youtubeVideoID ?>/maxresdefault.jpg');">
+			<h1>Meilleurs endroits à visiter</h1>
 
 			<button type="button" class="launch-video-btn js-launch-video-btn" aria-label="Lancer la vidéo">
 				<?php include "./assets/svg/play-big.svg"; ?>
@@ -49,7 +49,7 @@ $view = $page->handle();
 		<div class="size-full mask1" hidden>
 			<div class="size-full mask2">
 				<iframe
-					src="https://www.youtube-nocookie.com/embed/eLPVDaaQybY?si=-ESp9qEe0mP1tgFh&amp;controls=0&rel=0&enablejsapi=1"
+					src="https://www.youtube-nocookie.com/embed/<?= $view->youtubeVideoID ?>?amp;controls=0&rel=0&enablejsapi=1"
 					title="YouTube video player"
 					frameborder="0"
 					allow="autoplay; encrypted-media;"
