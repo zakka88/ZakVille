@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . "/../database/Database.php";
+require_once __DIR__ . "/../entities/City.php";
 require_once __DIR__ . "/../entities/User.php";
 
 class Users extends Database
@@ -94,6 +95,60 @@ class Users extends Database
 			},
 			$req->fetchAll()
 		);
+	}
+
+	/**
+	 * Cherche un utilisateur dans la table des utilisateurs.
+	 */
+	public function findByUsername(string $username): ?User
+	{
+		try {
+			$req = $this->getPdo()->prepare("
+				SELECT
+					u.id AS id_user,
+					u.firstname,
+					u.username,
+					u.password,
+					u.date_of_birth,
+					u.role,
+					u.city_id,
+					c.id AS id_city,
+					c.name AS city,
+					c.country,
+					c.capital
+				FROM {$this->tableName} u
+				LEFT JOIN cities c ON u.city_id = c.id
+				WHERE u.username = :username
+			");
+			$req->execute(["username" => $username]);
+
+			$res = $req->fetch();
+
+			if ($res === false) {
+				return null;
+			}
+
+			$user = new User(
+				username: $res->username,
+				password: $res->password,
+				firstname: $res->firstname,
+				date_of_birth: new DateTime($res->date_of_birth),
+				role: $res->role,
+				cityId: $res->city_id,
+			);
+			$user->setId($res->id_user);
+			$city = new City(
+				country: $res->country,
+				capital: $res->capital,
+				city: $res->city
+			);
+			$city->setId($res->id_city);
+			$user->setCity($city);
+
+			return $user;
+		} catch (PDOException $e) {
+			return null;
+		}
 	}
 
 	/**

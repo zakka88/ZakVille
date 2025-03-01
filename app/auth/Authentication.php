@@ -24,8 +24,14 @@ class Authentication
 	/**
 	 * Tentative de connexion à partir du pseudo et du mot de passe.
 	 */
-	public function attempt(string $username, string $password): bool
+	public function attempt(string $username, string $password): User|bool
 	{
+		require_once __DIR__ . "/../tables/Users.php";
+		$usersTable = new Users();
+		$user = $usersTable->findByUsername($username);
+		if ($user && password_verify($password, $user->getPassword())) {
+			return $user;
+		}
 		return false;
 	}
 
