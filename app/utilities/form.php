@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . "/element.php";
+
 /**
  * Vérifie si les valeurs des champs de formulaires vides ou non. Dès qu'un
  * champ est vide, un retour true est renvoyé. Dans le cas où toutes les valeurs
@@ -50,65 +52,35 @@ function inputValue(string $field): string
  *   </div>
  * ``` en fonction des arguments passés.
  */
-function input(
-	string $name,
-	array $attrs = [],
-	array $props = [],
-): string {
-	$render = '<div class="input-container">';
+function input(string $name, array $attrs = [], array $props = []): string
+{
+	$render = elementStart("div", ["class" => "input-container"]);
 
-	if (isset($props["icon-left"])):
-		$render .= labelIcon($name, $props["icon-left"]);
-	endif;
-
-	$attrs["id"] = $name;
-	$attrs["name"] = $name;
-
-	if (!isset($attrs["aria-label"]) && isset($attrs["placeholder"])) {
-		$attrs["aria-label"] = $attrs["placeholder"];
+	if (isset($props["icon-left"])) {
+		$render .= icon("label", $props["icon-left"], ["for" => $name]);
 	}
 
-	$render .= '<input ' . attributes($attrs) . '>';
+	$attrs["id"]   = $name;
+	$attrs["name"] = $name;
 
-	if (isset($props["icon-right"])):
-		$iconName = $props["icon-right"];
+	if (!isset($attrs["value"])) {
+		if (isset($_POST[$name])) {
+			$attrs["value"] = $_POST[$name];
+		} else if (isset($_SESSION["form.inputs.$name"])) {
+			$attrs["value"] = $_SESSION["form.inputs.$name"];
+			unset($_SESSION["form.inputs.$name"]);
+		}
+	}
 
-		$render .= '<span>';
-		ob_start();
-		include "./assets/svg/$iconName.svg";
-		$svg = ob_get_clean();
-		$render .= $svg;
-		$render .= '</span>';
-	endif;
+	$render .= voidElement("input", $attrs);
 
-	$render .= '</div>';
+	if (isset($props["icon-right"])) {
+		$render .= icon("span", $props["icon-right"]);
+	}
+
+	$render .= elementEnd("div");
 
 	return $render;
-}
-
-/**
- * Construit un élément ```
- *   <label for="..."> ... </label>
- * ``` en fonction des arguments passés.
- */
-function label(string $htmlFor, string $slot, array $attrs = []): string {
-	$attrs["for"] = $htmlFor;
-	$render = '<label ' . attributes($attrs) . '>';
-	$render .= $slot;
-	$render .= '</label>';
-	return $render;
-}
-
-function labelIcon(
-	string $htmlFor,
-	string $iconName,
-	array $attrs = [],
-	array $props = [],
-): string {
-	ob_start();
-	include "./assets/svg/$iconName.svg";
-	$svg = ob_get_clean();
-	return label($htmlFor, $svg, $attrs);
 }
 
 /**
@@ -122,88 +94,58 @@ function labelIcon(
  *   </div>
  * ``` en fonction des arguments passés.
  */
-function select(
-	string $name,
-	array $attrs = [],
-	array $props = [],
-): string {
-	$render = '<div class="input-container">';
+function select(string $name, array $attrs = [], array $props = []): string
+{
+	$render = elementStart("div", ["class" => "input-container"]);
 
-	if (isset($props["icon-left"])):
-		$render .= labelIcon($name, $props["icon-left"]);
-	endif;
+	if (isset($props["icon-left"])) {
+		$render .= icon("label", $props["icon-left"], ["for" => $name]);
+	}
 
-	$attrs["id"] = $name;
+	$attrs["id"]   = $name;
 	$attrs["name"] = $name;
 
 	$placeholder = isset($props["placeholder"]) ? $props["placeholder"] : "";
-	$options = $props["options"] ?: [];
+	$options     = $props["options"] ?: [];
 
-	$render .= '<select ' . attributes($attrs) . '>';
+	$render .= elementStart("select", $attrs);
 
 	if (isset($props["default-group"])) {
-		$render .= '<option hidden selected>';
-		$render .= htmlspecialchars($placeholder);
-		$render .= '</option>';
+		$render .= element("option", ["hidden" => true, "placeholder" => true, "selected" => true],
+			htmlspecialchars($placeholder),
+		);
 
-		$render .= '<optgroup label="';
-		$render .= htmlspecialchars($placeholder);
-		$render .= '">';
+		$render .= elementStart("optgroup", ["label" => $placeholder]);
 	}
+
+	$selectedValue = isset($_SESSION["form.inputs.$name"])
+		? $_SESSION["form.inputs.$name"]
+		: false;
 
 	foreach ($options as $value => $text) {
-		$render .= '<option value="';
-		$render .= htmlspecialchars($value);
-		$render .= '"';
-		$render .= '>';
+		$selected = false;
 
-		$render .= htmlspecialchars($text);
-		$render .= '</option>';
+		if (!isset($attrs["value"])) {
+			$selected = $selectedValue == $value;
+			unset($_SESSION["form.inputs.$name"]);
+		}
+
+		$render .= element("option", ["value" => $value, "selected" => $selected],
+			htmlspecialchars($text)
+		);
 	}
 
 	if (isset($props["default-group"])) {
-		$render .= "</optgroup>";
+		$render .= elementEnd("optgroup");
 	}
 
-	$render .= '</select>';
+	$render .= elementEnd("select");
 
-	if (isset($props["icon-right"])):
-		$iconName = $props["icon-right"];
+	if (isset($props["icon-right"])) {
+		$render .= icon("span", $props["icon-right"], ["hidden" => !(bool) $selectedValue]);
+	}
 
-		$render .= '<span>';
-		ob_start();
-		include "./assets/svg/$iconName.svg";
-		$svg = ob_get_clean();
-		$render .= $svg;
-		$render .= '</span>';
-	endif;
+	$render .= elementEnd("div");
 
-	$render .= '</div>';
 	return $render;
-}
-
-/**
- * Construit les attributs d'un élément HTML.
- */
-function attributes(array $attrs): string
-{
-	$str = "";
-
-	foreach ($attrs as $attrName => $attrValue) {
-		if (is_bool($attrValue)) {
-			if ($attrValue) {
-				$str .= $attrName;
-				$str .= " ";
-			}
-
-			continue;
-		} else {
-			$str .= "$attrName=";
-		}
-
-		$str .= '"' . htmlspecialchars($attrValue) . '"';
-		$str .= " ";
-	}
-
-	return trim($str);
 }

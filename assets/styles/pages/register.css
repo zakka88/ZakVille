@@ -1,18 +1,15 @@
 @import "../components/header.css";
 
 :root {
-	--auth-register-surface: light-dark(var(--color-white), var(--color-black));
-	--auth-register-on-surface: light-dark(
-		var(--color-black),
-		var(--color-white)
-	);
-	--auth-register-account-on-surface: light-dark(#888888, #d4d4d4);
-	--auth-register-account-note-on-surface: light-dark(#5b64b6, #999fd1);
+	--auth-register-surface: var(--color-black);
+	--auth-register-on-surface:	var(--color-white);
+	--auth-register-account-on-surface: #d4d4d4;
+	--auth-register-account-note-on-surface: #999fd1;
 	--auth-register-link: #e25e5e;
 }
 
 body:has(#page-auth-register) {
-	color-scheme: light dark;
+	color-scheme: dark;
 	background: linear-gradient(to right, rgb(6 18 249 / 80%), rgb(6 18 249));
 	font-size: 14px;
 }
@@ -78,15 +75,8 @@ body:has(#page-auth-register > section[aria-roledescription="carousel"][hidden])
 	padding-inline: var(--spacing-5);
 	border: none;
 	border-radius: var(--border-radius-m);
+	background: linear-gradient(to right, #27317b, #3747b6);
 	color: var(--color-white);
-
-	@media (prefers-color-scheme: light) {
-		background: #212121;
-	}
-
-	@media (prefers-color-scheme: dark) {
-		background: linear-gradient(to right, #27317b, #3747b6);
-	}
 }
 
 .auth-form-actions hr {
@@ -106,36 +96,24 @@ body:has(#page-auth-register > section[aria-roledescription="carousel"][hidden])
 	gap: 1px;
 	overflow: clip;
 	border-radius: var(--border-radius-m);
-
-	@media (prefers-color-scheme: light) {
-		background-color: #efebf1;
-		background-image: radial-gradient(
-				at 40% 20%,
-				#f0cfff 0,
-				transparent 50%
-			), radial-gradient(at 80% 0%, #c892e2 0, transparent 50%),
-			radial-gradient(at 0% 50%, #f3d8ff 0, transparent 50%),
-			radial-gradient(at 80% 50%, #b88ecc 0, transparent 50%),
-			radial-gradient(at 0% 100%, #f0d0ff 0, transparent 50%),
-			radial-gradient(at 80% 100%, #cea2df 0, transparent 50%);
-	}
 }
 
 .input-container {
 	display: flex;
 	gap: var(--spacing-1);
 	padding: var(--spacing-1);
-
-	@media (prefers-color-scheme: dark) {
-		background: #3c4043;
-	}
+	background: #3c4043;
 
 	& > input {
 		flex-grow: 1;
 		border: none;
 		outline: none;
 		background: transparent;
-		color: light-dark(var(--color-black), var(--color-white));
+		color: var(--color-white);
+	}
+
+	& > input[type="date"]:invalid {
+		opacity: 50%;
 	}
 
 	& > select {
@@ -143,18 +121,22 @@ body:has(#page-auth-register > section[aria-roledescription="carousel"][hidden])
 		border: 0;
 		outline: none;
 		appearance: none;
-		background: light-dark(transparent, #3c4043);
+		background: transparent;
 		color: var(--auth-register-on-surface);
 	}
 
 	& > select optgroup {
-		background: light-dark(#d8b8f0, #3c4043);
+		background: #3c4043;
 		color: var(--auth-register-on-surface);
 	}
 
 	& > select option {
-		background: light-dark(#d8b8f0, #3c4043);
+		background: #3c4043;
 		color: var(--auth-register-on-surface);
+	}
+
+	& > select option[placeholder] {
+		opacity: 50%;
 	}
 }
 
@@ -213,10 +195,10 @@ section[aria-roledescription="carousel"]:not([hidden]) {
 		top: -.5rem;
 		left: .5rem;
 		border: none;
-		background: var(--color-white);
 		border-radius: var(--border-radius-m);
-		cursor: pointer;
+		background: var(--color-white);
 		box-shadow: 2px 2px 2px var(--color-black);
+		cursor: pointer;
 	}
 
 	& > .carousel-controls > .carousel-item {

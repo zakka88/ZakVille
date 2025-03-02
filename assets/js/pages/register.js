@@ -59,7 +59,6 @@ export class RegisterPage {
 			"click",
 			this.#resetSelectCity,
 		);
-		this.#$selectCity?.nextElementSibling?.setAttribute("hidden", "");
 
 		for (let [country, count_pictures] of Object.entries(this.#pictures)) {
 			for (let i = 1; i < count_pictures + 1; i++) {
