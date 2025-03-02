@@ -14,6 +14,7 @@
 --
 --
 -- Table générée par JMerise et modifiée avec soin.
+-- Création de la table `users`.
 CREATE TABLE users (
 	id INT NOT NULL AUTO_INCREMENT,
 	firstname VARCHAR(50) NOT NULL,

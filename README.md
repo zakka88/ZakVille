@@ -47,8 +47,6 @@ Ses tâches sont de :
    > champs en anglais.
    >
    > Voir [database/02-create-table-cities.sql](database/02-create-table-cities.sql)
-   >
-   > Voir [database/03-insert-cities.sql](database/03-insert-cities.sql)
 
 3. Créer une page d'index, n'importe quel sujet ou thème.
 
