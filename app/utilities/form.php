@@ -7,6 +7,14 @@
  */
 function isEmptyForm(array $fields, array $ignoreFields = []): bool
 {
+	if (session_status() === PHP_SESSION_NONE) {
+		session_start();
+	}
+
+	foreach ($fields as $field) {
+		$_SESSION["form.inputs.$field"] = $_POST[$field];
+	}
+
 	foreach ($fields as $field) {
 		if (in_array($field, $ignoreFields)) {
 			continue;
@@ -25,7 +33,12 @@ function isEmptyForm(array $fields, array $ignoreFields = []): bool
 
 function inputValue(string $field): string
 {
-	return isset($_POST[$field]) ? htmlspecialchars($_POST[$field]) : "";
+	if (isset($_SESSION["form.inputs.$field"])) {
+		$value = $_SESSION["form.inputs.$field"];
+		unset($_SESSION["form.inputs.$field"]);
+		return attributes(["value" => $value]);
+	}
+	return "";
 }
 
 /**

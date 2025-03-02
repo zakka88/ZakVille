@@ -7,7 +7,7 @@ $page = new AddCityAdminPage();
 if (isset($_POST["create-city"])) {
 	$page->save();
 } else {
-	$view = $page->handle();
+	$view = $page->data();
 }
 ?>
 <!DOCTYPE html>
@@ -31,17 +31,17 @@ if (isset($_POST["create-city"])) {
 		<form action="" method="POST" class="form">
 			<div class="form-group">
 				<label for="country">Nom du pays</label>
-				<input type="text" name="country" id="country" placeholder="Turquie" value="<?= inputValue('country') ?>">
+				<input type="text" name="country" id="country" placeholder="Turquie" <?= inputValue('country') ?> >
 			</div>
 
 			<div class="form-group">
 				<label for="capital">Capital</label>
-				<input type="text" name="capital" id="capital" placeholder="Ankara" value="<?= inputValue('capital') ?>">
+				<input type="text" name="capital" id="capital" placeholder="Ankara" <?= inputValue('capital') ?> >
 			</div>
 
 			<div class="form-group">
 				<label for="city">Nom de la ville</label>
-				<input type="text" name="city" id="city" placeholder="Istanbul" value="<?= inputValue('city') ?>">
+				<input type="text" name="city" id="city" placeholder="Istanbul" <?= inputValue('city') ?> >
 			</div>
 
 			<?php if (!empty($view->users)): ?>

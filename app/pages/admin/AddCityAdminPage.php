@@ -39,7 +39,7 @@ class AddCityAdminPage
 		$this->cityCreateUseCase->store($_POST);
 	}
 
-	public function handle(): AddCityAdminView
+	public function data(): AddCityAdminView
 	{
 		$users = $this->usersTable->findAllWithoutCities();
 		return new AddCityAdminView(users: $users);
