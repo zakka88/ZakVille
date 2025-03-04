@@ -36,6 +36,13 @@ function isEmptyForm(array $fields, array $ignoreFields = []): bool
 			return true;
 		}
 	}
+
+	// Pas besoin de garder les données en session si tous les champs ont une
+	// valeur.
+	foreach ($fields as $field) {
+		unset($_SESSION["form.inputs.$field"]);
+	}
+
 	return false;
 }
 
