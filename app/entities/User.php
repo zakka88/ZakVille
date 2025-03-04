@@ -18,7 +18,7 @@ class User
 	 */
 	private ?int $cityId;
 	/**
-	 * Ville de l'utilisateur. Cette informtion peut être NULL.
+	 * Ville de l'utilisateur. Cette information peut être NULL.
 	 */
 	private ?City $city;
 

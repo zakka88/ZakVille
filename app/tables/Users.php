@@ -69,6 +69,11 @@ class Users extends Database
 
 	/**
 	 * Récupère tous les utilisateurs sans villes
+	 *
+	 * Cette fonction inclue des choses que l'on n'a pas vu :
+	 *
+	 * - https://www.php.net/manual/en/functions.arrow.php
+	 * - https://www.php.net/manual/en/function.array-map.php
 	 */
 	public function findAllWithoutCities(): array
 	{
@@ -79,9 +84,6 @@ class Users extends Database
 		");
 		$rawUsers = $req->fetchAll();
 
-		// NOTE: `array_map` fonctionne de la même façon que le `Array.map` de
-		//       JavaScript.
-		//       https://php.net/manual/en/function.array-map.php
 		return array_map(
 			// Fonction anonyme fléchée
 			fn ($item) => new User(

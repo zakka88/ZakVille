@@ -34,6 +34,14 @@ class CityCreateUseCase
 	// Méthode // -> API Publique
 	// ------- //
 
+	/**
+	 * Cette fonction inclue des choses que l'on n'a pas vu :
+	 *
+	 * - https://www.php.net/manual/en/functions.arrow.php
+	 * - https://www.php.net/manual/en/function.array-keys.php
+	 * - https://www.php.net/manual/en/function.array-map.php
+	 * - https://www.php.net/manual/en/function.htmlspecialchars.php
+	 */
 	public function store(array $form): void
 	{
 		if (isEmptyForm(array_keys($form), ["create-city"])) {

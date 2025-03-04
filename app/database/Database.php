@@ -25,6 +25,11 @@ class Database
 	/**
 	 * Construit la classe Database avec le mot-clé `new` ce qui crée un Objet
 	 * ou autrement dit une instance de Database.
+	 *
+	 * Cette fonction inclue des choses que l'on n'a pas vu :
+	 *
+	 * - https://www.php.net/manual/en/function.str-contains.php
+	 * - https://www.php.net/manual/en/function.http-build-query.php
 	 */
 	public function __construct()
 	{
@@ -60,6 +65,11 @@ class Database
 				$dbinfo["type"] = "unknown_table";
 			}
 
+			// Transforme notre tableau $dbinfo en chaîne de caractères sous le
+			// format des paramètres d'URL, exemple :
+			//
+			// @in :  ["nom" => "Doe", "prenom" => "John"]
+			// @out:  "nom=Doe&prenom=John"
 			$qs = http_build_query($dbinfo);
 			header("Location: error503.php?$qs");
 			exit();

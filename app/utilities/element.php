@@ -13,6 +13,10 @@ function element(string $tagName, array $attrs = [], string $children = ""): str
 
 /**
  * Construit le début d'un élément HTML, ex: `<div ...>`
+ *
+ * Cette fonction inclue des choses que l'on n'a pas vu :
+ *
+ * - https://www.php.net/manual/en/function.htmlspecialchars.php
  */
 function elementStart(string $tagName, array $attrs = []): string
 {
@@ -21,6 +25,10 @@ function elementStart(string $tagName, array $attrs = []): string
 
 /**
  * Construit la fin d'un élément HTML, ex: `</div>`
+ *
+ * Cette fonction inclue des choses que l'on n'a pas vu :
+ *
+ * - https://www.php.net/manual/en/function.htmlspecialchars.php
  */
 function elementEnd(string $tagName): string
 {
@@ -37,6 +45,11 @@ function voidElement(string $tagName, array $attrs = []): string
 
 /**
  * Construit les attributs d'un élément HTML, ex: `name="x" placeholder="y"`.
+ *
+ * Cette fonction inclue des choses que l'on n'a pas vu :
+ *
+ * - https://www.php.net/manual/en/function.is-bool.php
+ * - https://www.php.net/manual/en/function.htmlspecialchars.php
  */
 function attributes(array $attrs): string
 {
@@ -68,6 +81,10 @@ function attributes(array $attrs): string
  */
 function icon(string $tagName, string $iconName, array $attrs = []): string
 {
+	/*
+	 Inclus tout le contenu qui sera entre l'appel de la fonction ob_start() ET ob_get_clean()
+	 dans la variable `$svg`.
+	 */
 	ob_start();
 	include "./assets/svg/$iconName.svg";
 	$svg = ob_get_clean();

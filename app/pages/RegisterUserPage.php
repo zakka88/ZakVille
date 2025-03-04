@@ -41,17 +41,23 @@ class RegisterUserPage
 		$this->userCreateUseCase->store($_POST);
 	}
 
+	/**
+	 * Cette fonction inclue des choses que l'on n'a pas vu :
+	 *
+	 * - https://www.php.net/manual/en/functions.arrow.php
+	 * - https://www.php.net/manual/en/function.array-reduce.php
+	 * - https://www.php.net/manual/en/function.array-map.php
+	 * - https://www.php.net/manual/en/dateinterval.createfromdatestring.php
+	 */
 	public function data(): RegisterUserView
 	{
 		$cities = $this->citiesTable->all();
 
-		// Voir https://www.php.net/manual/en/function.array-reduce.php
-		//
 		// Le résultat final serait d'avoir un tableau du style :
 		//
-		// [
-		//    ID => "EMOJI Pays (Code ISO)",
-		// ];
+		// @out: [
+		//           ID => "EMOJI Pays (Code ISO)",
+		//       ]
 		$citiesOptions = array_reduce(
 			$cities,
 			function ($acc, $city) {
@@ -61,10 +67,9 @@ class RegisterUserPage
 			[]
 		);
 
-		// Voir https://www.php.net/manual/en/function.array-map.php
-		//
 		// Je veux récupérer que les codes ISO des pays des différentes villes récupérées.
-		// EX: ["be", "it", "us", ...];
+		//
+		// @out: ["be", "it", "us", ...]
 		$isoCodes = array_map(
 			fn ($item) => $item->getCountry()->getIsoCode(),
 			$cities,

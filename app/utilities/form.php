@@ -6,6 +6,12 @@ require_once __DIR__ . "/element.php";
  * Vérifie si les valeurs des champs de formulaires vides ou non. Dès qu'un
  * champ est vide, un retour true est renvoyé. Dans le cas où toutes les valeurs
  * ne sont pas vide, un retour false est renvoyé.
+ *
+ * Cette fonction inclue des choses que l'on n'a pas vu :
+ *
+ * - https://www.php.net/manual/en/function.in-array.php
+ * - https://www.php.net/manual/en/function.is-array.php
+ * - https://www.php.net/manual/en/function.trim.php
  */
 function isEmptyForm(array $fields, array $ignoreFields = []): bool
 {
@@ -93,6 +99,10 @@ function input(string $name, array $attrs = [], array $props = []): string
  *      <span> <svg ... /> </span>
  *   </div>
  * ``` en fonction des arguments passés.
+ *
+ * Cette fonction inclue des choses que l'on n'a pas vu :
+ *
+ * - https://www.php.net/manual/en/function.htmlspecialchars.php
  */
 function select(string $name, array $attrs = [], array $props = []): string
 {

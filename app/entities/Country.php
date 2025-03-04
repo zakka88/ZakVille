@@ -48,7 +48,16 @@ class Country
 	/**
 	 * Retourne l'emoji du pays en fonction du code ISO (flag, BE,FR,JP,...)
 	 *
-	 * J'ai trouvé ça sur internet.
+	 * NOTE: J'ai trouvé ça sur internet.
+	 *
+	 * Cette fonction inclue des choses que l'on n'a pas vu :
+	 *
+	 * - https://www.php.net/manual/en/functions.arrow.php
+	 * - https://www.php.net/manual/en/function.join.php
+	 * - https://www.php.net/manual/en/function.mb-chr.php
+	 * - https://www.php.net/manual/en/function.ord.php
+	 * - https://www.php.net/manual/en/function.array-map.php
+	 * - https://www.php.net/manual/en/function.str-split.php
 	 */
 	public function getFlag(): string
 	{

@@ -56,14 +56,16 @@ class Cities extends Database
 
 	/**
 	 * Récupère toutes les villes (ainsi que leur démonyme)
+	 *
+	 * Cette fonction inclue des choses que l'on n'a pas vu :
+	 *
+	 * - https://www.php.net/manual/en/functions.anonymous.php
+	 * - https://www.php.net/manual/en/function.array-map.php
 	 */
 	public function all(): array
 	{
 		$stmt = $this->getPdo()->query("SELECT * FROM {$this->tableName}");
 
-		// NOTE: `array_map` fonctionne de la même façon que le `Array.map` de
-		//       JavaScript.
-		//       https://php.net/manual/en/function.array-map.php
 		return array_map(
 			// Fonction anonyme
 			function (object $item): City {
@@ -119,6 +121,11 @@ class Cities extends Database
 
 	/**
 	 * Récupère tous les pays de la base de données.
+	 *
+	 * Cette fonction inclue des choses que l'on n'a pas vu :
+	 *
+	 * - https://www.php.net/manual/en/functions.anonymous.php
+	 * - https://php.net/manual/en/function.array-map.php
 	 */
 	public function findAllCountries(): array
 	{
@@ -126,9 +133,6 @@ class Cities extends Database
 			SELECT DISTINCT country,capital FROM {$this->tableName}
 		");
 
-		// NOTE: `array_map` fonctionne de la même façon que le `Array.map` de
-		//       JavaScript.
-		//       https://php.net/manual/en/function.array-map.php
 		return array_map(
 			// Fonction anonyme
 			function ($item) {

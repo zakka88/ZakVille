@@ -28,6 +28,11 @@ class HomePage
 	// Méthode // -> API Publique
 	// ------- //
 
+	/**
+	 * Cette fonction inclue des choses que l'on n'a pas vu :
+	 *
+	 * - https://php.net/manual/en/function.array-rand.php
+	 */
 	public function data(): HomeView
 	{
 		$youtubeVideoIDs = ["4piwwTCgpPA", "eLPVDaaQybY", "bHDmvm5nunk", "2vqvBzb0xJY", "mtCK_tHQ6U4"];

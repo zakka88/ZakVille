@@ -24,6 +24,10 @@ class Authentication
 
 	/**
 	 * Tentative de connexion à partir du pseudo et du mot de passe.
+	 *
+	 * Cette fonction inclue des choses que l'on n'a pas vu :
+	 *
+	 * - https://www.php.net/manual/en/function.password-verify.php
 	 */
 	public function attempt(string $username, string $password): User|bool
 	{
@@ -38,6 +42,10 @@ class Authentication
 	/**
 	 * Autorisation d'accès basé sur le rôle de l'utilisateur. Par défaut
 	 * l'autorisation est anonyme.
+	 *
+	 *  Cette fonction inclue des choses que l'on n'a pas vu :
+	 *
+	 * - https://www.php.net/manual/en/language.enumerations.php
 	 */
 	public function userAccess(): AuthorizationAccess
 	{
