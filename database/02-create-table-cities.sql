@@ -9,9 +9,9 @@ CREATE TABLE cities (
 	CONSTRAINT city_name_AK UNIQUE (name)
 ) ENGINE = InnoDB;
 
----------------
+-- --------- --
 -- INSERTION --
----------------
+-- --------- --
 
 INSERT INTO cities (
 	name,
@@ -30,9 +30,9 @@ INSERT INTO cities (
 	('Verona', 'Italie', 'Rome')
 ;
 
----------------
+-- --------- --
 -- PROCÉDURE --
----------------
+-- --------- --
 
 DROP PROCEDURE IF EXISTS GetCountryDemonym;
 DROP PROCEDURE IF EXISTS GetCountryISO;
