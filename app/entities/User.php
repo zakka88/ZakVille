@@ -11,7 +11,7 @@ class User
 	/**
 	 * ID de l'utilisateur.
 	 */
-	private int $id;
+	private ?int $id;
 
 	/**
 	 * ID de la ville de l'utilisateur. Cette information peut être NULL.
