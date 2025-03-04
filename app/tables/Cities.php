@@ -13,7 +13,7 @@ class Cities extends Database
 	/**
 	 * Nom de la table
 	 */
-	private string $tableName = "cities";
+	protected string $tableName = "cities";
 
 	/** Nom des sessions */
 

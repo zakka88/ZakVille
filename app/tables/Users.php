@@ -13,7 +13,7 @@ class Users extends Database
 	/**
 	 * Nom de la table
 	 */
-	private string $tableName = "users";
+	protected string $tableName = "users";
 
 	// ------- //
 	// Méthode // -> API Publique
