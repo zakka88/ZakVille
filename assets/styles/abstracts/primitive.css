@@ -1,0 +1,52 @@
+:root {
+	/* Couleurs */
+	--color-red-50: #ffebee;
+	--color-red-100: #ffcdd2;
+	--color-red-200: #ef9a9a;
+	--color-red-300: #e57373;
+	--color-red-400: #ef5350;
+	--color-red-500: #f44336;
+	--color-red-600: #e53935;
+	--color-red-700: #d32f2f;
+	--color-red-800: #c62828;
+	--color-red-900: #b71c1c;
+	--color-red-a100: #ff8a80;
+	--color-red-a200: #ff5252;
+	--color-red-a400: #ff1744;
+	--color-red-a700: #d50000;
+	--color-green-50: #e8f5e9;
+	--color-green-100: #c8e6c9;
+	--color-green-200: #a5d6a7;
+	--color-green-300: #81c784;
+	--color-green-400: #66bb6a;
+	--color-green-500: #4caf50;
+	--color-green-600: #43a047;
+	--color-green-700: #388e3c;
+	--color-green-800: #2e7d32;
+	--color-green-900: #1b5e20;
+	--color-green-a100: #b9f6ca;
+	--color-green-a200: #69f0ae;
+	--color-green-a400: #00e676;
+	--color-green-a700: #00c853;
+	--color-black: #212121;
+	--color-white: #eff5ff;
+
+	/* Espacements */
+	--spacing-1: 0.5rem; /* équivaut à 8px */
+	--spacing-2: 1rem; /* équivaut à 16px */
+	--spacing-3: 1.5rem; /* etc */
+	--spacing-4: 2rem;
+	--spacing-5: 2.5rem;
+	--spacing-6: 3rem;
+	--spacing-7: 3.5rem;
+	--spacing-8: 4rem;
+	--spacing-9: 4.5rem;
+	--spacing-10: 5rem;
+
+	/* Taille */
+
+	--size-text: 80ch;
+	--size-20: 20%;
+	--size-80: 80%;
+	--size-full: 100%;
+}

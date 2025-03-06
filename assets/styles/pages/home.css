@@ -1,0 +1,144 @@
+@import "../components/header.css" layer(components);
+
+:root {
+	color-scheme: dark light;
+}
+
+main[role="main"] {
+	width: var(--size-full);
+	height: var(--size-full);
+}
+
+header[role="banner"] {
+	z-index: 2;
+}
+
+.hero {
+	display: grid;
+	place-content: center;
+	place-items: center;
+	background-position: center;
+	background-size: cover;
+}
+
+.hero h1 {
+	margin-top: 30rem;
+	color: #fefdfe;
+	font-size: 52px;
+	text-shadow: 1px 4px 4px var(--color-black);
+	user-select: none;
+}
+
+.hero .launch-video-btn {
+	position: absolute;
+	top: 10%;
+	transition: all 250ms ease;
+	border: none;
+	border-radius: var(--border-radius-full);
+	background-color: rgb(255 255 255 / 85%);
+	box-shadow: 0 4px 1rem #7cabc9;
+	color: var(--color-white);
+	cursor: pointer;
+
+	&:hover {
+		background: rgb(19 87 119 / 85%);
+	}
+}
+
+.mask1 {
+	position: relative;
+}
+
+.mask1::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+}
+
+.mask2::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	right: 0;
+	left: 0;
+	height: 60px;
+	backdrop-filter: blur(20px);
+}
+
+.mask2::after {
+	content: "Zak Player";
+	display: grid;
+	place-content: center;
+	place-items: center;
+	position: absolute;
+	top: unset;
+	right: 0;
+	bottom: 0;
+	width: 130px;
+	height: 60px;
+	border-radius: var(--border-radius-full);
+	background-color: #000000;
+	color: #ffffff;
+	font-family: var(--font-roboto);
+}
+
+.table-wrap {
+	max-width: 80ch;
+	margin-top: 3rem;
+	margin-inline: auto;
+	overflow-x: scroll;
+}
+
+.table {
+	min-width: 800px;
+	padding: 1rem 0 2rem;
+    border-radius: var(--border-radius-m);
+	background: light-dark(#e8f4e2, #000000);
+}
+
+.table .country-flag {
+	width: 15%;
+	padding-left: 2rem;
+}
+
+.table .country-name {
+	width: 28%;
+}
+
+.table .country-capital {
+	width: 28%;
+}
+
+.table .visits {
+	width: 28%;
+}
+
+.table .table-head {
+	display: flex;
+}
+
+.table .table-head .country-flag,
+.table .table-head .country-name,
+.table .table-head .country-capital,
+.table .table-head .visits {
+	color: #879048;
+	font-weight: 500;
+	line-height: 40px;
+	text-transform: uppercase;
+}
+
+.table .table-row {
+	display: flex;
+	padding: 1rem 0;
+	border-top: 1px solid light-dark(#d0e6b8, #0f1508);
+}
+
+.table .table-row .country-flag,
+.table .table-row .country-name,
+.table .table-row .country-capital,
+.table .table-row .visits {
+	display: flex;
+	align-items: center;
+}
+
+::-webkit-scrollbar { display: none; }

@@ -1,0 +1,23 @@
+{
+    "workbench.colorCustomizations": {
+		"activityBar.background": "#4f5b93",
+		"activityBar.activeBackground": "#39426a",
+		"activityBar.foreground": "#ffffff",
+		"activityBar.inactiveForeground": "#ffffff5f",
+		"activityBar.activeBorder": "#ffffff",
+		"titleBar.activeBackground": "#4f5b93",
+		"titleBar.inactiveBackground": "#4f5b93",
+		"titleBar.activeForeground": "#ffffff",
+		"titleBar.inactiveForeground": "#ffffff",
+		"statusBar.background": "#4f5b93",
+		"statusBar.foreground": "#ffffff",
+    },
+    "window.title": "[CFITECH] ${separator} ${folderName}/${activeFolderMedium}",
+	"php.validate.enable": false,
+	"php.suggest.basic": false,
+	"intelephense.telemetry.enabled": false,
+	"intelephense.format.enable": true,
+	"intelephense.completion.fullyQualifyGlobalConstantsAndFunctions": true,
+	"intelephense.completion.triggerParameterHints": true,
+	"intelephense.trace.server": "off",
+}

@@ -37,7 +37,7 @@ if($erreur) : ?>
             <input type="password" name="password" placeholder="Votre mot de passe">
             <br><br>
             <button class="btn btn-primary" type="submit">Se connecter</button>
-       
+
     </div>
 
 
@@ -47,14 +47,3 @@ if($erreur) : ?>
 
 
 
-
-
-
-
-
-
-<?php
-
-require "footer.php"
-
-?>

@@ -1,2 +1,16 @@
 /** On peut s'inspirer de l'architecture 7:1 que nous propose Benoit dans le
  * cours de CSS */
+
+/** Variables */
+@import "abstracts/vars.css" layer(bases);
+
+/** Bases */
+@import "bases/reset.css" layer(bases);
+@import "bases/base.css" layer(bases);
+@import "bases/typography.css" layer(bases);
+
+/** Components */
+@import "components/alert.css" layer(components);
+@import "components/form.css" layer(components);
+
+@layer bases, components, pages;
