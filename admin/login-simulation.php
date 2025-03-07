@@ -34,11 +34,17 @@ if (isset($_GET["username"])) {
 		<li>
 			<a href="./">Retour à la page d'admin</a>
 		</li>
+
+		<?php if ($authentication->check()): ?>
+			<li>
+				<a href="logout.php">Se déconnecter</a>
+			</li>
+		<?php endif ?>
 	</ul>
 
 	<?php
 	if ($authentication->check()) {
-		echo "<h1>Connecté en tant que</h1>";
+		echo "<h1>Vous êtes connecté :</h1>";
 		var_dump($_SESSION["tp_zakville.user"]);
 	}
 	?>

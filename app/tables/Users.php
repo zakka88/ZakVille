@@ -68,6 +68,36 @@ class Users extends Database
 	}
 
 	/**
+	 * Récupère tous les utilisateurs
+	 *
+	 * Cette fonction inclue des choses que l'on n'a pas vu :
+	 *
+	 * - https://www.php.net/manual/en/functions.arrow.php
+	 * - https://www.php.net/manual/en/function.array-map.php
+	 */
+	public function findAll(): array
+	{
+		$req = $this->getPdo()->query("
+			SELECT * FROM {$this->tableName}
+		");
+		$rawUsers = $req->fetchAll();
+
+		return array_map(
+			// Fonction anonyme fléchée
+			fn($item) => new User(
+				id: $item->id,
+				username: $item->username,
+				password: $item->password,
+				firstname: $item->firstname,
+				date_of_birth: new DateTime($item->date_of_birth),
+				role: $item->role,
+				cityId: $item->city_id,
+			),
+			$rawUsers
+		);
+	}
+
+	/**
 	 * Récupère tous les utilisateurs sans villes
 	 *
 	 * Cette fonction inclue des choses que l'on n'a pas vu :
@@ -86,20 +116,57 @@ class Users extends Database
 
 		return array_map(
 			// Fonction anonyme fléchée
-			fn ($item) => new User(
-				id:            $item->id,
-				username:      $item->username,
-				password:      $item->password,
-				firstname:     $item->firstname,
+			fn($item) => new User(
+				id: $item->id,
+				username: $item->username,
+				password: $item->password,
+				firstname: $item->firstname,
 				date_of_birth: new DateTime($item->date_of_birth),
-				role:          $item->role,
+				role: $item->role,
 			),
 			$rawUsers
 		);
 	}
 
 	/**
-	 * Cherche un utilisateur dans la table des utilisateurs.
+	 * Cherche un utilisateur dans la table des utilisateurs en fonction d'un
+	 * ID.
+	 */
+	public function findById(int $id): ?User
+	{
+		try {
+			$req = $this->getPdo()->prepare("
+				SELECT *
+				FROM {$this->tableName} u
+				WHERE u.id = :id
+			");
+			$req->execute(["id" => $id]);
+
+			$res = $req->fetch();
+
+			if ($res === false) {
+				return null;
+			}
+
+			$user = new User(
+				id: $res->id,
+				username: $res->username,
+				password: $res->password,
+				firstname: $res->firstname,
+				date_of_birth: new DateTime($res->date_of_birth),
+				role: $res->role,
+				cityId: $res->city_id,
+			);
+
+			return $user;
+		} catch (PDOException $_) {
+			return null;
+		}
+	}
+
+	/**
+	 * Cherche un utilisateur dans la table des utilisateurs en fonction d'un
+	 * pseudo.
 	 */
 	public function findByUsername(string $username): ?User
 	{
@@ -132,23 +199,23 @@ class Users extends Database
 			}
 
 			$user = new User(
-				id:            $res->id_user,
-				username:      $res->username,
-				password:      $res->password,
-				firstname:     $res->firstname,
+				id: $res->id_user,
+				username: $res->username,
+				password: $res->password,
+				firstname: $res->firstname,
 				date_of_birth: new DateTime($res->date_of_birth),
-				role:          $res->role,
+				role: $res->role,
 			);
 
 			$user->setCity(new City(
-				id:      $res->id_city,
+				id: $res->id_city,
 				country: $res->country,
 				capital: $res->capital,
-				city:    $res->city
+				city: $res->city
 			));
 
 			return $user;
-		} catch (PDOException $e) {
+		} catch (PDOException $_) {
 			return null;
 		}
 	}
@@ -178,7 +245,7 @@ class Users extends Database
 		// @out: ?,?,?
 		$usersSqlPlaceholders = join(
 			',',
-			array_map(fn ($_) => '?', $users_id)
+			array_map(fn($_) => '?', $users_id)
 		);
 
 		$req = $this->getPdo()->prepare("

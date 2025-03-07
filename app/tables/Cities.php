@@ -106,7 +106,7 @@ class Cities extends Database
 			");
 
 			return $stmt->execute([
-				"city_name" => $city->getCity(),
+				"city_name" => $city->getCityName(),
 				"country"   => $city->getCountry()->getName(),
 				"capital"   => $city->getCountry()->getCapital(),
 			]);
