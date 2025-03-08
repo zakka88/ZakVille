@@ -61,22 +61,29 @@ if (isset($_POST["register-user"])) {
 
 			<form action="" method="POST" class="auth-form">
 				<div class="input-group">
-					<?=
-					input(
-						"firstname",
-						[
-							"aria-label" => "Prénom",
-							"autocomplete" => "given-name",
-							"minlength" => "3",
-							"placeholder" => "Écris ton prénom",
-							"required" => true,
-							"type" => "text",
-						],
-						[
-							"icon-left" => "name",
-						]
-					)
-					?>
+					<div class="input-container">
+						<label for="firstname">
+							<?php include "assets/svg/name.svg" ?>
+						</label>
+
+						<input 
+							aria-label="Prénom" 
+							autocomplete="given-name" 
+							minlength="3" 
+							placeholder="Écris ton prénom" 
+							required
+							type="text" 
+							id="firstname" 
+							name="firstname"
+							<?= inputValue("firstname") ?>
+						>
+					</div>
+					
+					<!--
+						NOTE: La fonction `input()` va créer le même élément
+						ci-haut (<div class="input-container">...</div>) mais
+						avec les valeurs différentes.
+					-->
 
 					<?=
 					input(
@@ -136,6 +143,7 @@ if (isset($_POST["register-user"])) {
 							"placeholder" => "Jour de naissance",
 							"required" => true,
 							"type" => "date",
+							"min" => $view->minBdayDate,
 							"max" => $view->maxBdayDate,
 						],
 						[
