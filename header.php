@@ -1,6 +1,6 @@
-
-
-
+<?php
+require "./assets/function/authentificatione.php"
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -40,11 +40,15 @@ endif;
                     <a href="index.php">HOME </a>
                 </li>
                              
-            
+                <?php if(!is_connected()): ?>
                 <li  <?php if ($nav = "login"): ?> active <?php endif ?>">
                     <a href="login.php">LOGIN </a>
                 </li>
-                
+                <?php else: ?>
+                <li  <?php if ($nav = "logout"): ?> active <?php endif ?>">
+                    <a href="logout.php">LOGOUT </a>
+                </li>
+                <?php endif; ?>
                 
                 
             </ul>
