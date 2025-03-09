@@ -96,6 +96,11 @@ class Country
 
 	public function getIsoCode(): string
 	{
+		if (empty($this->isoCode) && isset($_SESSION["tp_zakville.flags"]))
+		{
+			$this->isoCode = $_SESSION["tp_zakville.flags"][$this->name];
+		}
+
 		return $this->isoCode;
 	}
 

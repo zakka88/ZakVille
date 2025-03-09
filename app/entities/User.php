@@ -108,6 +108,19 @@ class User
 		$this->city = $city;
 	}
 
+	public function getCountry(): ?Country
+	{
+		return $this->city->getCountry();
+	}
+
+	public function getNationality(): string
+	{
+		if (session_status() === PHP_SESSION_NONE) {
+			session_start();
+		}
+		return $_SESSION["tp_zakville.demonyms"][$this->getCountry()->getName()];
+	}
+
 	public function getDateOfBirth(): DateTime
 	{
 		return $this->date_of_birth;
