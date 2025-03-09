@@ -17,6 +17,16 @@ class RegisterUserPage
 
 	private Cities $citiesTable;
 
+	/**
+	 * Âge minimal qu'un utilisateur puisse avoir
+	 */
+	private int $userMinAge = 16;
+	
+	/**
+	 * Âge maximal qu'un utilisateur puisse avoir
+	 */
+	private int $userMaxAge = 70;
+
 	// ----------- //
 	// Constructor //
 	// ----------- //
@@ -76,14 +86,16 @@ class RegisterUserPage
 		);
 
 		// Je veux que chaque utilisateur qui s'inscrit sur le site ait au moins
-		// 16 ans.
-		$minAge       = "16 years";
-		$dateInterval = DateInterval::createFromDateString($minAge);
+		// 16 ans et moins de 70 ans.
+		$dateInterval = DateInterval::createFromDateString("{$this->userMinAge} years");
 		$maxBdayDate  = (new DateTime())->sub($dateInterval)->format("Y-m-d");
+		$dateInterval = DateInterval::createFromDateString("{$this->userMaxAge} years");
+		$minBdayDate  = (new DateTime())->sub($dateInterval)->format("Y-m-d");
 
 		return new RegisterUserView(
 			cities:      $citiesOptions,
 			isoCodes:    $isoCodes,
+			minBdayDate: $minBdayDate,
 			maxBdayDate: $maxBdayDate,
 		);
 	}
@@ -109,6 +121,7 @@ class RegisterUserView
 	public function __construct(
 		public array $cities,
 		public array $isoCodes,
+		public string $minBdayDate,
 		public string $maxBdayDate,
 	) {}
 }

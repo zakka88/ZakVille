@@ -17,6 +17,7 @@ class Database
 	private string $pass = "";
 
 	protected string $tableName;
+	protected array $fields = [];
 
 	// ----------- //
 	// Constructor //
@@ -28,6 +29,7 @@ class Database
 	 *
 	 * Cette fonction inclue des choses que l'on n'a pas vu :
 	 *
+	 * - https://www.php.net/manual/en/function.array-map.php
 	 * - https://www.php.net/manual/en/function.str-contains.php
 	 * - https://www.php.net/manual/en/function.http-build-query.php
 	 */
@@ -43,7 +45,8 @@ class Database
 			$this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 			$this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
 
-			$this->pdo->query("DESCRIBE {$this->tableName}");
+			$req = $this->pdo->query("DESCRIBE {$this->tableName}");
+			$this->fields = array_map(fn ($item) => $item->Field, $req->fetchAll());
 		} catch (PDOException $e) {
 			$dbinfo = [
 				"cause" => "db",
@@ -103,5 +106,10 @@ class Database
 	public function setPassword(string $pass): void
 	{
 		$this->pass = $pass;
+	}
+
+	public function getFields(): array
+	{
+		return $this->fields;
 	}
 }

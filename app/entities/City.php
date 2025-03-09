@@ -13,7 +13,7 @@ class City
 	/**
 	 * Nom de la ville.
 	 */
-	private string $city;
+	private string $cityName;
 
 	/**
 	 * Pays dans lequel est situé la ville.
@@ -35,7 +35,7 @@ class City
 		?int $id = null
 	) {
 		$this->country = new Country($country, $capital);
-		$this->city = $city;
+		$this->cityName = $city;
 		$this->id = $id;
 	}
 
@@ -48,7 +48,7 @@ class City
 	 */
 	public function toOptionText(): string
 	{
-		$str = $this->getCountry()->getFlag() . ' ' . $this->getCity();
+		$str = $this->getCountry()->getFlag() . ' ' . $this->getCityName();
 
 		if ($this->getCountry()->getIsoCode()) {
 			$str .= " (" . $this->getCountry()->getIsoCode() . ")";
@@ -71,14 +71,14 @@ class City
 		$this->id = $id;
 	}
 
-	public function getCity(): string
+	public function getCityName(): string
 	{
-		return $this->city;
+		return $this->cityName;
 	}
 
-	public function setCity(string $city): void
+	public function setCityName(string $city): void
 	{
-		$this->city = $city;
+		$this->cityName = $city;
 	}
 
 	public function getCountry(): Country
