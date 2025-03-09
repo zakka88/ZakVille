@@ -23,10 +23,29 @@ endif;
 
 <body>
 
+
+   <style>
+    a {
+        color: white;
+        font-size: 45px;
+        text-shadow:  2px 2px 1px black;
+        
+        
+        &:hover{
+            color: orangered;
+        }
+    }
+    
+    li{
+        list-style: none;
+
+    }
+   </style>
+
     <header>
         <nav>
 
-            <h1>ville</h1>
+            
 
 
             <ul>
