@@ -11,6 +11,18 @@ créer un site avec 4 pages.
 Il nous faut réaliser cet exercice en utilisant du code PHP, avec un maximum de
 **P**rogrammation **O**rienté **O**bjet (**POO**).
 
+> [!WARNING]
+>
+> Pour éviter tout conflit avec les sessions des autres projets PHP, nous avons
+> décidé de préfixer chaque clé de session avec `tp_zakville.`.
+>
+> Par exemple, lorsque l'utilisateur se connecte, nous le mettons dans la
+> session `tp_zakville.user` :
+>
+> ```php
+> $_SESSION["tp_zakville.user"] = new User(...$user_data_database);
+> ```
+
 ## Mike
 
 Ses tâches sont de :
@@ -31,9 +43,10 @@ Ses tâches sont de :
    | `string` | pays     |
    | `string` | capitale |
 
-   > Voir [database/02-create-table-villes.sql](database/02-create-table-villes.sql)
+   > Cependant, nous avons opté de nommer tous les noms des tables et tous les
+   > champs en anglais.
    >
-   > Voir [database/03-insert-villes.sql](database/03-insert-villes.sql)
+   > Voir [database/02-create-table-cities.sql](database/02-create-table-cities.sql)
 
 3. Créer une page d'index, n'importe quel sujet ou thème.
 
@@ -59,9 +72,14 @@ Ses tâches sont de :
    **Mike** exige que le nom faisant relation à la table `villes` se nomme
    `ville_id`.
 
-   > Voir [database/02-create-table-utilisateurs.sql](database/02-create-table-utilisateurs.sql)
+   > Cependant, nous avons opté de nommer tous les noms des tables et tous les
+   > champs en anglais.
+   >
+   > Voir [database/02-create-table-users.sql](database/02-create-table-users.sql)
 
-2. Créer la page de profil
+2. Créer la page de connexion d'un utilisateur
+
+3. Créer la page de profil
 
    - La page DOIT être accessible uniquement lorsqu'un utilisateur est connecté.
 
