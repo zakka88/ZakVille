@@ -73,6 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 		margin: 20px;
 		border-radius: 10px;
 		font-size: 25px;
+		width: 100%;
 	}
 
 	button {

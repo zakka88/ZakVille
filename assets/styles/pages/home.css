@@ -1,7 +1,7 @@
 @import "../components/header.css" layer(components);
 
 :root {
-	color-scheme: dark light;
+	color-scheme: dark;
 }
 
 main[role="main"] {
@@ -32,6 +32,12 @@ header[role="banner"] {
 .hero .launch-video-btn {
 	position: absolute;
 	top: 10%;
+	left: 30%;
+
+	@media screen and (width >= 768px) {
+		left: 50%;
+	}
+
 	transition: all 250ms ease;
 	border: none;
 	border-radius: var(--border-radius-full);

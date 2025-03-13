@@ -2,7 +2,7 @@
 
 :root {
 	--auth-register-surface: var(--color-black);
-	--auth-register-on-surface:	var(--color-white);
+	--auth-register-on-surface: var(--color-white);
 	--auth-register-account-on-surface: #d4d4d4;
 	--auth-register-account-note-on-surface: #999fd1;
 	--auth-register-link: #e25e5e;
@@ -14,7 +14,9 @@ body:has(#page-auth-register) {
 	font-size: 14px;
 }
 
-body:has(#page-auth-register > section[aria-roledescription="carousel"][hidden]) {
+body:has(
+		#page-auth-register > section[aria-roledescription="carousel"][hidden]
+	) {
 	background: var(--auth-register-surface);
 	color: var(--auth-register-on-surface);
 
@@ -25,18 +27,30 @@ body:has(#page-auth-register > section[aria-roledescription="carousel"][hidden])
 
 	.auth-account {
 		max-width: 390px;
+		padding: 0;
+		transition: all 250ms ease-in-out;
+	}
+}
+
+@media screen and (width >= 768px) {
+	body:has(
+			#page-auth-register
+				> section[aria-roledescription="carousel"][hidden]
+		)
+		.auth-account {
 		padding: var(--spacing-8) var(--spacing-2);
 	}
 }
 
 #page-auth-register {
 	display: flex;
+	flex-direction: column;
 	height: var(--size-full);
 }
 
 .auth-account {
-	max-width: 45vw;
-	padding: var(--spacing-8) var(--spacing-10);
+	padding: var(--spacing-1);
+	padding-top: var(--spacing-10) !important;
 	background: var(--auth-register-surface);
 	color: var(--auth-register-on-surface);
 
@@ -224,4 +238,24 @@ section[aria-roledescription="carousel"]:not([hidden]) {
 	}
 }
 
-::-webkit-scrollbar { display: none; }
+::-webkit-scrollbar {
+	display: none;
+}
+
+@media screen and (width >= 850px) {
+	#page-auth-register {
+		flex-direction: row;
+	}
+}
+
+@media screen and (width >= 850px) and (width <= 1200px) {
+	.auth-account {
+		max-width: 45vw;
+	}
+}
+
+@media screen and (width >= 1200px) {
+	.auth-account {
+		padding: var(--spacing-8) var(--spacing-10);
+	}
+}

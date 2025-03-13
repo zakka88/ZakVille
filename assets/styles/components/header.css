@@ -9,11 +9,14 @@ header[role="banner"] {
 
 header[role="banner"] nav[role="navigation"] {
 	display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-inline: var(--spacing-10);
+	align-items: center;
+	justify-content: space-between;
 	font-size: 14px;
 	font-weight: 700;
+
+	@media screen and (width >= 768px) {
+		margin-inline: var(--spacing-10);
+	}
 
 	& > ul {
 		display: flex;
