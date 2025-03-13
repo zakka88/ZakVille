@@ -10,13 +10,12 @@ if (!isset($_SESSION["tp_zakville.user"])) {
 	exit();
 }
 $session = $_SESSION["tp_zakville.user"];
+
+$iso = strtolower($session->getCountry()->getIsoCode());
+$rnd = rand(1, 3);
 ?>
 <style>
 	body {
-		<?php
-			$iso = strtolower($session->getCountry()->getIsoCode());
-			$rnd = rand(1, 3);
-		?>
 		background-image: url(./assets/img/<?= $iso ?>_<?= $rnd ?>.jpg);
 		background-size: cover;
 		background-position: center;

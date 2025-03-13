@@ -3,6 +3,7 @@
 $nav = "login";
 $title = "login";
 require "./app/entities/User.php";
+require "./app/utilities/session.php";
 require "header.php";
 require "baseDeDonnees.php";
 
@@ -79,6 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 	}
 </style>
 
+<?= displaySessionsMessages() ?>
 
 <form method="POST">
 	<input type="text" name="username" placeholder="Nome utente" required>

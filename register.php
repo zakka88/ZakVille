@@ -66,19 +66,19 @@ if (isset($_POST["register-user"])) {
 							<?php include "assets/svg/name.svg" ?>
 						</label>
 
-						<input 
-							aria-label="Prénom" 
-							autocomplete="given-name" 
-							minlength="3" 
-							placeholder="Écris ton prénom" 
+						<input
+							aria-label="Prénom"
+							autocomplete="given-name"
+							minlength="3"
+							placeholder="Écris ton prénom"
 							required
-							type="text" 
-							id="firstname" 
+							type="text"
+							id="firstname"
 							name="firstname"
 							<?= inputValue("firstname") ?>
 						>
 					</div>
-					
+
 					<!--
 						NOTE: La fonction `input()` va créer le même élément
 						ci-haut (<div class="input-container">...</div>) mais
